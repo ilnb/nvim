@@ -50,7 +50,7 @@ return {
   -- material
   {
     "marko-cerovac/material.nvim",
-    lazy = true,
+    event = "VeryLazy",
     config = function()
       require("material").setup({
         contrast = {
