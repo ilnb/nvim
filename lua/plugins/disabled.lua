@@ -10,12 +10,17 @@ return {
   },
 
   {
-    "nvim-lua/plenary.nvim",
+    "folke/ts-comments.nvim",
     enabled = false,
   },
 
   {
-    "folke/ts-comments.nvim",
+    "stevearc/conform.nvim",
     enabled = false,
   },
+
+  {
+    "folke/lazydev.nvim",
+    enabled = false,
+  }
 }
