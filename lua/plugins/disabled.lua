@@ -18,9 +18,4 @@ return {
     "stevearc/conform.nvim",
     enabled = false,
   },
-
-  {
-    "folke/lazydev.nvim",
-    enabled = false,
-  }
 }
