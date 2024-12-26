@@ -3,8 +3,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa",
-    },
+      colorscheme = 'material',
+    }
   },
 
   -- catppuccin
@@ -23,8 +23,7 @@ return {
   -- kanagawa
   {
     "rebelot/kanagawa.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     config = function()
       require("kanagawa").setup({
         compile = true,   -- enable compiling the colorscheme
@@ -51,9 +50,9 @@ return {
         overrides = function(colors) -- add/modify highlights
           return {}
         end,
-        theme = "wave",  -- Load "wave" theme when 'background' option is not set
-        background = {   -- map the value of 'background' option to a theme
-          dark = "wave", -- try "dragon" !
+        theme = "wave", -- Load "wave" theme when 'background' option is not set
+        background = {  -- map the value of 'background' option to a theme
+          dark = "wave",
           light = "lotus",
         },
       })
@@ -63,8 +62,10 @@ return {
   -- material
   {
     "marko-cerovac/material.nvim",
-    event = "VeryLazy",
+    lazy = false,
+    priority = 1000,
     config = function()
+      vim.g.material_style = "deep ocean"
       require("material").setup({
         contrast = {
           terminal = false,            -- Enable contrast for the built-in terminal
@@ -98,7 +99,7 @@ return {
           "dashboard",
           -- "eyeliner",
           -- "fidget",
-          "flash",
+          -- "flash",
           "gitsigns",
           -- "harpoon",
           -- "hop",
@@ -109,12 +110,12 @@ return {
           -- "neogit",
           -- "neotest",
           "neo-tree",
-          "neorg",
+          -- "neorg",
           "noice",
           "nvim-cmp",
           -- "nvim-navic",
           "nvim-tree",
-          -- "nvim-web-devicons",
+          "nvim-web-devicons",
           -- "rainbow-delimiters",
           -- "sneak",
           "telescope",
@@ -124,27 +125,35 @@ return {
         },
 
         disable = {
-          colored_cursor = false, -- Disable the colored cursor
-          borders = false,        -- Disable borders between vertically split windows
-          background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-          term_colors = false,    -- Prevent the theme from setting terminal colors
-          eob_lines = false,      -- Hide the end-of-buffer lines
+          colored_cursor = true, -- Disable the colored cursor
+          background = true,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+          borders = false,       -- Disable borders between vertically split windows
+          term_colors = false,   -- Prevent the theme from setting terminal colors
+          eob_lines = false,     -- Hide the end-of-buffer lines
         },
 
         high_visibility = {
-          lighter = false, -- Enable higher contrast text for lighter style
-          darker = false,  -- Enable higher contrast text for darker style
+          lighter = true, -- Enable higher contrast text for lighter style
+          darker = true,  -- Enable higher contrast text for darker style
         },
 
         lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
 
         async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
 
-        custom_colors = nil,       -- If you want to override the default colors, set this to a function
+        custom_colors = function(colors)
+          colors.syntax.comments     = "#707070"
+          colors.editor.border       = "#7D7D7D"
+          colors.editor.line_numbers = "#555555"
+          colors.git.added           = "#00A000"
+          colors.git.removed         = "#BA0000"
+          colors.git.modified        = "#0000FF"
+        end,
 
-        custom_highlights = {},    -- Overwrite highlights with your own
+        custom_highlights = {
+          Pmenu = { bg = 'NONE' },
+        },
       })
-      vim.g.material_style = "deep ocean"
     end,
   },
 }
