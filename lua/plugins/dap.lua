@@ -7,10 +7,9 @@ return {
     {
       "rcarriga/nvim-dap-ui",
       dependencies = { "nvim-neotest/nvim-nio" },
-      -- stylua: ignore
       keys = {
-        { "<leader>du", function() require("dapui").toggle({}) end,  desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end,      desc = "Eval",  mode = { "n", "v" } },
+        { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
+        { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
       },
       opts = {},
       config = function(_, opts)
@@ -28,14 +27,12 @@ return {
         end
       end,
     },
-    -- virtual text for the debugger
     {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
     },
   },
 
-  -- stylua: ignore
   keys = {
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
     { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
