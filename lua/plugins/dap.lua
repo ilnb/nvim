@@ -8,8 +8,9 @@ return {
       "rcarriga/nvim-dap-ui",
       dependencies = { "nvim-neotest/nvim-nio" },
       keys = {
-        { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
+        { "<leader>du", function() require("dapui").toggle({}) end,                                     desc = "Dap UI" },
+        { "<leader>de", function() require('dapui').elements.watches.add(vim.fn.expand('<cword>')) end, desc = "Watch variable" },
+        { "<leader>dE", function() require('dapui').elements.watches.remove() end,                      desc = "Delete watch variable" },
       },
       opts = {},
       config = function(_, opts)
