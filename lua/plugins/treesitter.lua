@@ -1,4 +1,4 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = { ensure_installed = { "c", "cpp", "lua", "vim" } },
+  opts = { highlight = { enabled = false }, ensure_installed = { "c", "cpp", "lua", "vim" } },
 }
