@@ -26,7 +26,7 @@ return {
     lazy = true,
     config = function()
       require("kanagawa").setup({
-        compile = true,   -- enable compiling the colorscheme
+        compile = false,
         undercurl = true, -- enable undercurls
         commentStyle = { italic = true },
         functionStyle = {},
@@ -78,11 +78,13 @@ return {
         },
 
         styles = { -- Give comments style such as bold, italic, underline etc.
-          comments = { --[[ italic = true ]]
+          comments = {
+            italic = true,
           },
           strings = { --[[ bold = true ]]
           },
-          keywords = { --[[ underline = true ]]
+          keywords = {
+            italic = true,
           },
           functions = { --[[ bold = true, undercurl = true ]]
           },
@@ -137,7 +139,7 @@ return {
           darker = true,  -- Enable higher contrast text for darker style
         },
 
-        lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+        lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
 
         async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
 
@@ -151,7 +153,14 @@ return {
         end,
 
         custom_highlights = {
-          Pmenu = { bg = 'NONE' },
+          Pmenu = {
+            bg = 'NONE',
+          },
+          TabLineSel = function(colors, _)
+            return {
+              bold = true,
+            }
+          end
         },
       })
     end,
