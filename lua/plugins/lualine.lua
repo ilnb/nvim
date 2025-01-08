@@ -38,13 +38,13 @@ return {
       handle:close()
       distro = distro:gsub('^NAME="?(.-)"?$', '%1')
       if distro:match("Ubuntu") then
-        icon = " "
+        icon = " "
       elseif distro:match("Arch") then
         icon = " "
       elseif distro:match("Debian") then
         icon = " "
       elseif distro:match("Mint") then
-        icon = " "
+        icon = "󰣭 "
       end
       return icon
     end
