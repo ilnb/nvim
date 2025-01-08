@@ -62,8 +62,7 @@ return {
   -- material
   {
     "marko-cerovac/material.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     config = function()
       vim.g.material_style = "deep ocean"
       require("material").setup({
