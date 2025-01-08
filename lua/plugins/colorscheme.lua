@@ -9,7 +9,7 @@ return {
 
   -- catppuccin
   {
-    "catppuccin/nvim",
+    "nvim/catppuccin",
     enabled = false,
   },
 
