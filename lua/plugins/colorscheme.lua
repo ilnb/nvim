@@ -33,10 +33,10 @@ return {
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
-        transparent = false,   -- do not set background color
+        transparent = false,
         dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
         terminalColors = true, -- define vim.g.terminal_color_{0,17}
-        colors = {             -- add/modify theme and palette colors
+        colors = {
           palette = {},
           theme = {
             wave = {
@@ -77,27 +77,25 @@ return {
           filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
         },
 
-        styles = { -- Give comments style such as bold, italic, underline etc.
+        styles = {
           comments = {
             italic = true,
           },
-          strings = { --[[ bold = true ]]
-          },
+          strings = {},
           keywords = {
             italic = true,
           },
-          functions = { --[[ bold = true, undercurl = true ]]
-          },
+          functions = {},
           variables = {},
           operators = {},
           types = {},
         },
 
-        plugins = { -- Uncomment the plugins that you use to highlight them
+        plugins = {
           -- Available plugins:
           -- "coc",
           -- "colorful-winsep",
-          -- "dap",
+          "dap",
           "dashboard",
           -- "eyeliner",
           -- "fidget",
@@ -127,21 +125,21 @@ return {
         },
 
         disable = {
-          colored_cursor = true, -- Disable the colored cursor
-          background = true,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-          borders = false,       -- Disable borders between vertically split windows
-          term_colors = false,   -- Prevent the theme from setting terminal colors
-          eob_lines = false,     -- Hide the end-of-buffer lines
+          colored_cursor = true,
+          background = true,
+          borders = false,     -- Disable borders between vertically split windows
+          term_colors = false, -- Prevent the theme from setting terminal colors
+          eob_lines = false,   -- Hide the end-of-buffer lines
         },
 
         high_visibility = {
-          lighter = true, -- Enable higher contrast text for lighter style
-          darker = true,  -- Enable higher contrast text for darker style
+          lighter = true,
+          darker = true,
         },
 
-        lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
+        lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
 
-        async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
+        async_loading = true,
 
         custom_colors = function(colors)
           colors.syntax.comments     = "#707070"
