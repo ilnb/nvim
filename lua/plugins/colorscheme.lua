@@ -1,9 +1,17 @@
+local function colorscheme_by_terminal()
+  local terminal = os.getenv("TERM_PROGRAM")
+  if terminal == "WezTerm" then
+    return "material"
+  else
+    return "kanagawa"
+  end
+end
 return {
   -- default colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = 'material',
+      colorscheme = colorscheme_by_terminal(),
     }
   },
 
