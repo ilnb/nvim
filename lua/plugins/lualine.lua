@@ -29,24 +29,25 @@ return {
     custom.visual.c.bg = 'NONE'
 
     local function get_icon()
-      local icon = " "
+      local distro = "Arch"
       local handle = io.popen("cat /etc/*release 2>/dev/null | grep ^NAME=")
       if not handle then
-        return " Error: Unable to fetch distro"
+        return "Arch"
+      else
+        distro = handle:read("*a")
+        distro = distro:gsub('^NAME="?(.-)"?$', '%1')
+        handle:close()
       end
-      local distro = handle:read("*a")
-      handle:close()
-      distro = distro:gsub('^NAME="?(.-)"?$', '%1')
       if distro:match("Ubuntu") then
-        icon = " "
+        return " "
       elseif distro:match("Arch") then
-        icon = " "
+        return ""
       elseif distro:match("Debian") then
-        icon = " "
+        return " "
       elseif distro:match("Mint") then
-        icon = "󰣭 "
+        return "󰣭 "
       end
-      return icon
+      return " "
     end
 
     local opts = {
@@ -131,7 +132,7 @@ return {
         },
         lualine_z = {
           function()
-            return "  " .. os.date("%R")
+            return " " .. os.date("%R")
           end,
         },
       },
