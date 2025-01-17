@@ -2,8 +2,6 @@ local function term_colorscheme()
   local terminal = os.getenv("TERM_PROGRAM")
   if terminal == "WezTerm" then
     return "material"
-  elseif terminal == "kitty" then
-    return "material"
   else
     return "kanagawa"
   end
