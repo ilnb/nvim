@@ -21,6 +21,11 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    disabled = true,
+    enabled = false,
   },
+
+  {
+    "mfussenegger/nvim-dap",
+    enabled = false,
+  }
 }
