@@ -18,4 +18,9 @@ return {
     "stevearc/conform.nvim",
     enabled = false,
   },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    disabled = true,
+  },
 }
