@@ -1,7 +1,8 @@
 local function term_colorscheme()
   local terminal = os.getenv("TERM_PROGRAM")
   if terminal == "WezTerm" then
-    return "material"
+    --return "material"
+    return "kanagawa"
   else
     return "kanagawa"
   end
@@ -20,7 +21,8 @@ end
 local function wm_colorscheme()
   local wm = get_wm()
   if wm == "Hyprland" then
-    return "material"
+    --return "material"
+    return "kanagawa"
   else
     return term_colorscheme()
   end
@@ -68,7 +70,7 @@ return {
           palette = {},
           theme = {
             wave = {
-              ui = { bg_gutter = "#1F1F28" },
+              ui = { bg_gutter = "#191724" },
             },
             dragon = {
               ui = { bg_gutter = "#181616" },
@@ -76,7 +78,10 @@ return {
           },
         },
         overrides = function(colors) -- add/modify highlights
-          return {}
+          return {
+            Pmenu = { bg = 'NONE' },
+            CursorLine = { bg = 'NONE' },
+          }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
         background = {  -- map the value of 'background' option to a theme
