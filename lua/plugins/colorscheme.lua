@@ -70,10 +70,15 @@ return {
           palette = {},
           theme = {
             wave = {
-              ui = { bg_gutter = "#191724" },
+              ui = {
+                bg_gutter = 'NONE',
+                float = {
+                  bg_border = 'NONE',
+                },
+              },
             },
             dragon = {
-              ui = { bg_gutter = "#181616" },
+              bg_gutter = 'NONE',
             },
           },
         },
