@@ -79,8 +79,13 @@ return {
         },
         overrides = function(colors) -- add/modify highlights
           return {
+            GitSignsAdd = { fg = '#00A000' },
+            GitSignsChange = { fg = '#0000FF' },
+            GitSignsDelete = { fg = '#BA0000' },
             Pmenu = { bg = 'NONE' },
             CursorLine = { bg = 'NONE' },
+            NormalFloat = { bg = 'NONE' },
+            FloatBorder = { bg = 'NONE' },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
@@ -88,6 +93,9 @@ return {
           dark = "wave",
           light = "lotus",
         },
+      })
+      require('mini.indentscope').setup({
+        char = '┊',
       })
     end,
   },
@@ -144,7 +152,7 @@ return {
           "neo-tree",
           -- "neorg",
           "noice",
-          "nvim-cmp",
+          -- "nvim-cmp",
           -- "nvim-navic",
           "nvim-tree",
           "nvim-web-devicons",
@@ -183,15 +191,16 @@ return {
         end,
 
         custom_highlights = {
-          Pmenu = {
-            bg = 'NONE',
-          },
+          Pmenu = { bg = 'NONE' },
           TabLineSel = function(colors, _)
             return {
               bold = true,
             }
           end
         },
+      })
+      require('mini.indentscope').setup({
+        char = '┊',
       })
     end,
   },
