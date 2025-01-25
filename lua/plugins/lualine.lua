@@ -39,15 +39,15 @@ return {
         handle:close()
       end
       if distro:match("Ubuntu") then
-        return " "
+        return ""
       elseif distro:match("Arch") then
         return ""
       elseif distro:match("Debian") then
-        return " "
+        return ""
       elseif distro:match("Mint") then
-        return "󰣭 "
+        return "󰣭"
       end
-      return " "
+      return ""
     end
 
     local opts = {
