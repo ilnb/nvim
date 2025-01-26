@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  dependencies = { "SmiteshP/nvim-navic" },
   init = function()
     vim.g.lualine_laststatus = vim.o.laststatus
     if vim.fn.argc(-1) > 0 then
@@ -11,6 +12,7 @@ return {
       vim.o.laststatus = 0
     end
   end,
+  optional = true,
   opts = function()
     -- PERF: we don't need this lualine require madness 🤷
     local lualine_require = require("lualine_require")
@@ -138,6 +140,10 @@ return {
       },
       extensions = { "neo-tree", "lazy", "fzf" },
     }
+
+    if not vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
+      table.insert(opts.sections.lualine_c, { "navic", color_correction = "dynamic" })
+    end
 
     -- do not add trouble symbols if aerial is enabled
     -- And allow it to be overriden for some buffer types (see autocmds)
