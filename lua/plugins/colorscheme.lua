@@ -99,9 +99,6 @@ return {
           light = "lotus",
         },
       })
-      require('mini.indentscope').setup({
-        char = '┊',
-      })
     end,
   },
 
@@ -203,9 +200,6 @@ return {
             }
           end
         },
-      })
-      require('mini.indentscope').setup({
-        char = '┊',
       })
     end,
   },

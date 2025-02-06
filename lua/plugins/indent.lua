@@ -11,11 +11,15 @@ return {
   {
     "echasnovski/mini.indentscope",
     version = false,
-    lazy = true,
     event = "LazyFile",
     opts = {
       symbol = "│",
       options = { try_as_border = true },
     },
+    config = function()
+      require('mini.indentscope').setup({
+        char = '┊',
+      })
+    end
   },
 }
