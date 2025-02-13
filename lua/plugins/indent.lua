@@ -10,6 +10,7 @@ return {
 
   {
     "echasnovski/mini.indentscope",
+    lazy = true,
     version = false,
     opts = {
       symbol = "│",
