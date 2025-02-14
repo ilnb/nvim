@@ -2,9 +2,10 @@ return {
   "folke/snacks.nvim",
   opts = {
     dashboard = {
-      preset = {
-        header =
-        --[[
+      sections = {
+        {
+          header =
+          --[[
 
        ⢀⣴⡾⠃⠄⠄⠄⠄⠄⠈⠺⠟⠛⠛⠛⠛⠻⢿⣿⣿⣿⣿⣶⣤⡀
      ⢀⣴⣿⡿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣷
@@ -22,7 +23,7 @@ return {
  ⣰⡗⠹⣿⣄⠄⠄⠄⢀⣿⣿⣿⣿⣿⣿⠟⣅⣥⣿⣿⣿⣿⠿⠋  ⣾⡌⢠⣿⡿⠃
 ⠜⠋⢠⣷⢻⣿⣿⣶⣾⣿⣿⣿⣿⠿⣛⣥⣾⣿⠿⠟⠛⠉
 ]]
-        [[
+          [[
 
 ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣿
 ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇
@@ -39,7 +40,7 @@ return {
 ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙
 ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣
 ]]
-        --[[
+          --[[
 
 ⣿⣿⣷⡁⢆⠈⠕⢕⢂⢕⢂⢕⢂⢔⢂⢕⢄⠂⣂⠂⠆⢂⢕⢂⢕⢂⢕⢂⢕⢂
 ⣿⣿⣿⡷⠊⡢⡹⣦⡑⢂⢕⢂⢕⢂⢕⢂⠕⠔⠌⠝⠛⠶⠶⢶⣦⣄⢂⢕⢂⢕
@@ -56,7 +57,7 @@ return {
 ⠨⡂⡀⢑⢕⡅⠂⠄⠉⠛⠻⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢋⢔⢕⢕⣿⣿⠠⠈
 ⠄⠪⣂⠁⢕⠆⠄⠂⠄⠁⡀⠂⡀⠄⢈⠉⢍⢛⢛⢛⢋⢔⢕⢕⢕⣽⣿⣿⠠⠈
 ]]
-        --[[
+          --[[
 
 ⣿⡇⣿⣿⣿⠛⠁⣴⣿⡿⠿⠧⠹⠿⠘⣿⣿⣿⡇⢸⡻⣿⣿⣿⣿⣿⣿⣿
 ⢹⡇⣿⣿⣿⠄⣞⣯⣷⣾⣿⣿⣧⡹⡆⡀⠉⢹⡌⠐⢿⣿⣿⣿⡞⣿⣿⣿
@@ -72,7 +73,7 @@ return {
    ⣿⡇⢬⡻⡇⡄⠄⠄⠄⡰⢖⠔⠉⠄⠄⠄⠄⣼⠏  ⢸⣿⣿⣿
    ⣿⡇⠄⠙⢌⢷⣆⡀⡾⡣⠃⠄⠄⠄⠄⠄⣼⡟    ⢿⣿⣿
 ]]
-        --[[
+          --[[
 
 ⡿⠋⠄⣀⣀⣤⣴⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣌⠻⣿⣿
 ⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠹⣿
@@ -90,7 +91,7 @@ return {
 ⣿⣷⡘⣿⡀⢻⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣿⣿⣿⣿⣷⡿⠟⠉⠄⠄⠄⠄⡄⢀
 ⣿⣿⣷⡈⢷⡀⠙⠛⠻⠿⠿⠿⠿⠿⠷⠾⠿⠟⣛⣋⣥⣶⣄⠄⢀⣄⠹⣦⢹⣿
 ]]
-        --[[
+          --[[
 
 ⣾⣿⡇⢸⣿⣿⣿⠄⠈⣿⣿⣿⣿⠈⣿⡇⢹⣿⣿⣿⡇⡇⢸⣿⣿⡇⣿⣿⣿
 ⣿⣿⡇⢸⣿⣿⣿⡇⠄⢹⣿⣿⣿⡀⣿⣧⢸⣿⣿⣿⠁⡇⢸⣿⣿⠁⣿⣿⣿
@@ -109,7 +110,7 @@ return {
 ⣿⣿⣿⡄⢢⠨⠄⣯⠄⠄⣌⣉⠛⠻⠟⠛⢋⣉⣤⠄⢸⡇⣨⣤⠄⢸⣿⣿⣿
 ]]
 
-        --[[
+          --[[
        ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
        ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z
        ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z
@@ -117,7 +118,41 @@ return {
        ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
        ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
 ]]
-      }
-    }
-  }
+        },
+        {
+          icon = "󱌣 ",
+          title = "Actions",
+          indent = 2,
+          padding = 1,
+          --{ icon = " ", desc = "Config files", key = "c", action = ":lua LazyVim.pick.config_files()()" },
+          { icon = " ", desc = "Grep", key = "g", action = ":lua require'fzf-lua'.live_grep()" },
+          --action = ":lua LazyVim.pick('live_grep')()" }, --action = "<leader>/",
+          --{ icon = " ", desc = "Find file", key = "f", action = ":lua LazyVim.pick()()" }, --action = "<leader><Space>"
+          { icon = "󰒲 ", desc = "Lazy", key = "l", action = ":Lazy" },
+          { icon = " ", desc = "Lazy Extras", key = "x", action = ":LazyExtras" },
+          { icon = " ", desc = "Exit", key = "q", action = ":q" },
+        },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        {
+          icon = " ",
+          title = "Projects",
+          indent = 2,
+          padding = 1,
+          { icon = "󰉋 ", desc = "Data Structure", key = "d", action = ":lua require('fzf-lua').files({ cwd = '~/data structure/'})" },
+          { icon = "󰉋 ", desc = "Codes", key = "c", action = ":lua require('fzf-lua').files({ cwd = '~/code/'})" },
+        },
+        { section = "startup" },
+      },
+    },
+  },
+
+  keys = {
+    {
+      "<leader>dd",
+      function()
+        Snacks.dashboard()
+      end,
+      desc = "Dashboard",
+    },
+  },
 }
