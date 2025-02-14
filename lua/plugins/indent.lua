@@ -10,12 +10,8 @@ return {
 
   {
     "echasnovski/mini.indentscope",
-    lazy = true,
+    event = "VeryLazy",
     version = false,
-    opts = {
-      symbol = "│",
-      options = { try_as_border = true },
-    },
     config = function()
       require('mini.indentscope').setup({
         char = '┊',
