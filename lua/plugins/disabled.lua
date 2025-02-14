@@ -22,5 +22,10 @@ return {
   {
     "mfussenegger/nvim-dap",
     enabled = false,
+  },
+
+  {
+    "folke/persistence.nvim",
+    enabled = false,
   }
 }
