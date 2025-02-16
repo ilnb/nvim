@@ -61,7 +61,6 @@ return {
       -- with blink.compat
       compat = {},
       default = { "lsp", "lazydev", "path", "snippets", "buffer" },
-      cmdline = {},
       providers = {
         lazydev = {
           name = "LazyDev",
