@@ -22,7 +22,7 @@ return {
  ⣰⡗⠹⣿⣄⠄⠄⠄⢀⣿⣿⣿⣿⣿⣿⠟⣅⣥⣿⣿⣿⣿⠿⠋  ⣾⡌⢠⣿⡿⠃
 ⠜⠋⢠⣷⢻⣿⣿⣶⣾⣿⣿⣿⣿⠿⣛⣥⣾⣿⠿⠟⠛⠉
 ]]
-          [[
+          --[[
 ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣿
 ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇
 ⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽
@@ -38,7 +38,7 @@ return {
 ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙
 ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣
 ]]
-          --[[
+          [[
 ⣿⣿⣷⡁⢆⠈⠕⢕⢂⢕⢂⢕⢂⢔⢂⢕⢄⠂⣂⠂⠆⢂⢕⢂⢕⢂⢕⢂⢕⢂
 ⣿⣿⣿⡷⠊⡢⡹⣦⡑⢂⢕⢂⢕⢂⢕⢂⠕⠔⠌⠝⠛⠶⠶⢶⣦⣄⢂⢕⢂⢕
 ⣿⣿⠏⣠⣾⣦⡐⢌⢿⣷⣦⣅⡑⠕⠡⠐⢿⠿⣛⠟⠛⠛⠛⠛⠡⢷⡈⢂⢕⢂
@@ -126,13 +126,13 @@ return {
           { icon = " ", desc = "Lazy Extras", key = "x", action = ":LazyExtras" },
           { icon = " ", desc = "Exit", key = "q", action = ":q" },
         },
-        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        { icon = " ", title = "Recent Files", section = "recent_files", limit = 3, indent = 2, padding = 1 },
         {
           icon = " ",
           title = "Projects",
           indent = 2,
           padding = 1,
-          { icon = "󰉋 ", desc = "Data Structure", key = "d", action = ":lua require('fzf-lua').files({ cwd = '~/data structure/'})" },
+          { icon = "󰉋 ", desc = "Data Structure", key = "d", action = ":lua vim.cmd('tcd ~/data structure/'); require('fzf-lua').files({ cwd = '~/data structure/'})" },
           { icon = "󰉋 ", desc = "Codes", key = "c", action = ":lua require('fzf-lua').files({ cwd = '~/code/'})" },
         },
         { section = "startup" },
