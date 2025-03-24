@@ -118,22 +118,54 @@ return {
           title = "Actions",
           indent = 2,
           padding = 1,
-          --{ icon = " ", desc = "Config files", key = "c", action = ":lua LazyVim.pick.config_files()()" },
-          { icon = " ", desc = "Find file", key = "f", action = ":lua require'fzf-lua'.files()" }, --action = "<leader><Space>"
-          { icon = " ", desc = "Grep", key = "g", action = ":lua require'fzf-lua'.live_grep()" },
-          --action = ":lua LazyVim.pick('live_grep')()" }, --action = "<leader>/",
+          { icon = " ", desc = "Find file", key = "f", action = ":lua require('fzf-lua').files()" }, --action = "<leader><Space>"
           { icon = "󰒲 ", desc = "Lazy", key = "l", action = ":Lazy" },
           { icon = " ", desc = "Lazy Extras", key = "x", action = ":LazyExtras" },
           { icon = " ", desc = "Exit", key = "q", action = ":q" },
         },
-        { icon = " ", title = "Recent Files", section = "recent_files", limit = 3, indent = 2, padding = 1 },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
         {
           icon = " ",
           title = "Projects",
           indent = 2,
           padding = 1,
-          { icon = "󰉋 ", desc = "Data Structure", key = "d", action = ":lua vim.cmd('tcd ~/data structure/'); require('fzf-lua').files({ cwd = '~/data structure/'})" },
-          { icon = "󰉋 ", desc = "Codes", key = "c", action = ":lua require('fzf-lua').files({ cwd = '~/code/'})" },
+          {
+            icon = "󰉋 ",
+            desc = "Data Structure",
+            key = "d",
+            action = function()
+              require("fzf-lua").files({
+                cwd = "~/data structure/",
+                actions = {
+                  ["default"] = function(selected, opts)
+                    if selected and #selected > 0 then
+                      vim.cmd("tcd ~/data structure/")
+                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                    end
+                  end
+                }
+              })
+            end
+          },
+          { icon = "󰙱 ", desc = "C Codes", key = "c", action = ":lua require('fzf-lua').files({ cwd = '~/code/'})" },
+          {
+            icon = "󰙲 ",
+            desc = "C++ Codes",
+            key = "p",
+            action = function()
+              require("fzf-lua").files({
+                cwd = "~/code cpp/",
+                actions = {
+                  ["default"] = function(selected, opts)
+                    if selected and #selected > 0 then
+                      vim.cmd("tcd ~/code cpp/")
+                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                    end
+                  end
+                }
+              })
+            end
+          },
         },
         { section = "startup" },
       },
