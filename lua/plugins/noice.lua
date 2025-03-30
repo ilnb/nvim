@@ -22,10 +22,10 @@ return {
         view = "mini",
       },
     },
+    cmdline = { view = "cmdline" }, -- for default cmdline
     presets = {
       lsp_doc_border = true,
-      bottom_search = false,
-      command_palette = true,
+      bottom_search = true, -- false to sync it to cmdline
       long_message_to_split = true,
     },
   },
