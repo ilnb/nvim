@@ -38,15 +38,15 @@ return {
       },
       menu = {
         border = "rounded",
+        auto_show = true,
         winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
       },
       documentation = {
         window = {
           border = "rounded",
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
         },
         auto_show = true,
-        auto_show_delay_ms = 200,
       },
       ghost_text = {
         enabled = vim.g.ai_cmp,
