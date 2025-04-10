@@ -15,20 +15,54 @@ return {
   optional = true,
   opts = function()
     -- PERF: we don't need this lualine require madness 🤷
-    local lualine_require = require("lualine_require")
-    lualine_require.require = require
-
+    require('lualine_require').require = require
     local icons = LazyVim.config.icons
-
     vim.o.laststatus = vim.g.lualine_laststatus
 
-    local custom = require('lualine.themes.material')
-    custom.normal.c = custom.normal.c or {}
-    custom.normal.c.bg = 'NONE'
-    custom.insert.c = custom.insert.c or {}
-    custom.insert.c.bg = 'NONE'
-    custom.visual.c = custom.visual.c or {}
-    custom.visual.c.bg = 'NONE'
+    local function custom_theme()
+      local theme = {}
+      if vim.g.colors_name and string.find(vim.g.colors_name, "material") then
+        theme = require('lualine.themes.palenight')
+        local overrides = {
+          normal = {
+            a = { bg = '#82B1FF' }, -- blue
+            b = { fg = '#82B1FF' },
+          },
+          insert = {
+            a = { bg = '#C3E88D' }, -- green
+            b = { fg = '#C3E88D' },
+          },
+          visual = {
+            a = { bg = '#C792EA' }, -- purple
+            b = { fg = '#C792EA' },
+          },
+          inactive = {
+            a = { bg = '#82B1FF' },
+            b = { fg = '#82B1FF' },
+            c = { fg = '#697098', bg = '#292D3E' },
+          },
+        }
+        for mode, sections in pairs(overrides) do
+          theme[mode] = vim.tbl_deep_extend("force", theme[mode] or {}, sections)
+        end
+      else
+        theme = require('lualine.themes.kanagawa')
+      end
+      for _, mode in pairs({ "normal", "insert", "visual", "inactive" }) do
+        theme[mode] = theme[mode] or {}
+        theme[mode].c = theme[mode].c or {}
+        theme[mode].c.bg = 'NONE'
+      end
+      return theme
+    end
+
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = function()
+        require('lualine').setup({
+          options = { theme = custom_theme() },
+        })
+      end
+    })
 
     local function get_icon()
       local distro = "Arch"
@@ -54,7 +88,7 @@ return {
 
     local opts = {
       options = {
-        theme = custom,
+        theme = custom_theme(),
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
       },
@@ -129,8 +163,15 @@ return {
           }
         },
         lualine_y = {
-          { "progress", separator = " ",                  padding = { left = 1, right = 0 } },
-          { "location", padding = { left = 0, right = 1 } },
+          {
+            "progress",
+            separator = " ",
+            padding = { left = 1, right = 0 },
+          },
+          {
+            "location",
+            padding = { left = 0, right = 1 },
+          },
         },
         lualine_z = {
           function()

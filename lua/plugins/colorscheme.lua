@@ -72,6 +72,7 @@ return {
             wave = {
               ui = {
                 bg_gutter = 'NONE',
+                -- bg_m3 = 'NONE', -- messes with mutliple things, along with stl
                 float = {
                   bg_border = 'NONE',
                 },
@@ -91,6 +92,8 @@ return {
             CursorLine = { bg = 'NONE' },
             NormalFloat = { bg = 'NONE' },
             FloatBorder = { bg = 'NONE' },
+            MiniFilesCursorLine = { link = 'BlinkCmpMenuSelection' },
+            StatusLine = { bg = 'NONE' },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
@@ -137,8 +140,8 @@ return {
           -- Available plugins:
           -- "coc",
           -- "colorful-winsep",
-          "dap",
-          "dashboard",
+          -- "dap",
+          -- "dashboard",
           -- "eyeliner",
           -- "fidget",
           -- "flash",
@@ -151,11 +154,11 @@ return {
           "mini",
           -- "neogit",
           -- "neotest",
-          "neo-tree",
+          -- "neo-tree",
           -- "neorg",
           "noice",
           -- "nvim-cmp",
-          -- "nvim-navic",
+          "nvim-navic",
           "nvim-tree",
           "nvim-web-devicons",
           -- "rainbow-delimiters",
@@ -194,6 +197,7 @@ return {
 
         custom_highlights = {
           Pmenu = { bg = 'NONE' },
+          StatusLine = { bg = 'NONE' },
           TabLineSel = function(colors, _)
             return {
               bold = true,
