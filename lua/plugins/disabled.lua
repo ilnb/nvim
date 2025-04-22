@@ -30,7 +30,7 @@ return {
   },
 
   {
-    "folke/flash.nvim",
+    "rafamadriz/friendly-snippets",
     enabled = false,
   },
 }

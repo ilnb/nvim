@@ -56,6 +56,10 @@ return {
     -- experimental signature help support
     -- signature = { enabled = true },
 
+    snippets = {
+      preset = "luasnip",
+    },
+
     sources = {
       -- adding any nvim-cmp sources here will enable them
       -- with blink.compat
@@ -65,7 +69,11 @@ return {
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
-          score_offset = 100, -- show at a higher priority than lsp
+          score_offset = 80, -- show at a higher priority than lsp
+        },
+        snippets = {
+          name = "LuaSnip",
+          score_offset = 100,
         },
       },
     },
@@ -77,6 +85,11 @@ return {
   },
   ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
   config = function(_, opts)
+    -- snippets
+    local luasnip = require('luasnip')
+    luasnip.add_snippets("c", require("snippets.c"))
+    luasnip.add_snippets("cpp", require("snippets.cpp"))
+
     -- setup compat sources
     local enabled = opts.sources.default
     for _, source in ipairs(opts.sources.compat or {}) do
