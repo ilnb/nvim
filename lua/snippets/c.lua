@@ -1,6 +1,6 @@
 local ls = require("luasnip")
-local s = ls.snippet
-local i = ls.insert_node
+local s = ls.snippet     -- or ls.s
+local i = ls.insert_node -- or ls.i
 local fmt = require("luasnip.extras.fmt").fmt
 
 return {
@@ -12,7 +12,6 @@ return {
 
     int main() {{
       {}
-
       return 0;
     }}
     ]],
@@ -30,7 +29,7 @@ return {
     }} {};
     ]],
       {
-        i(1), i(2), i(3)
+        i(1, "name"), i(2, "def"), i(3, "name")
       }
     )
   ),
@@ -89,4 +88,17 @@ return {
       }
     )
   ),
+
+  -- else
+  s("el",
+    fmt([[
+    else {{
+      {}
+    }}
+    ]],
+      {
+        i(1),
+      }
+    )
+  )
 }
