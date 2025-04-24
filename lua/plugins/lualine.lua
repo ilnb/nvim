@@ -45,7 +45,7 @@ return {
         for mode, sections in pairs(overrides) do
           theme[mode] = vim.tbl_deep_extend("force", theme[mode] or {}, sections)
         end
-      else
+      elseif vim.g.colors_name and string.find(vim.g.colors_name, "kanagawa") then
         theme = require('lualine.themes.kanagawa')
       end
       for _, mode in pairs({ "normal", "insert", "visual", "inactive" }) do
@@ -94,8 +94,9 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch" },
-
+        lualine_b = {
+          "branch",
+        },
         lualine_c = {
           {
             "diagnostics",
@@ -112,7 +113,8 @@ return {
             separator = "",
             padding = { left = 1, right = 0 }
           },
-          LazyVim.lualine.pretty_path(),
+          "filename",
+          -- LazyVim.lualine.pretty_path(),
         },
         lualine_x = {
           Snacks.profiler.status(),
@@ -143,10 +145,14 @@ return {
           {
             "diff",
             symbols = {
-              added = icons.git.added,
-              modified = icons.git.modified,
-              removed = icons.git.removed,
+              -- added = icons.git.added,
+              -- modified = icons.git.modified,
+              -- removed = icons.git.removed,
+              added = '+',
+              modified = '~',
+              removed = '-',
             },
+            -- separator = "",
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
               if gitsigns then
