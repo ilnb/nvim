@@ -33,4 +33,9 @@ return {
     "rafamadriz/friendly-snippets",
     enabled = false,
   },
+
+  {
+    "echasnovski/mini.files",
+    enabled = false,
+  },
 }
