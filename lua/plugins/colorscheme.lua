@@ -46,6 +46,7 @@ return {
   -- tokyonight
   {
     "folke/tokyonight.nvim",
+    enabled = false,
     lazy = true,
     opts = { style = "night" },
   },
@@ -69,17 +70,11 @@ return {
         colors = {
           palette = {},
           theme = {
-            wave = {
+            all = {
               ui = {
                 bg_gutter = 'NONE',
-                -- bg_m3 = 'NONE', -- messes with mutliple things, along with stl
-                float = {
-                  bg_border = 'NONE',
-                },
+                float = { bg_border = 'NONE', },
               },
-            },
-            dragon = {
-              bg_gutter = 'NONE',
             },
           },
         },

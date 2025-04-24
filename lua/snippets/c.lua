@@ -42,10 +42,7 @@ return {
     }}
     ]],
       {
-        i(1, "init"),
-        i(2, "cond"),
-        i(3, "incr"),
-        i(4)
+        i(1, "init"), i(2, "cond"), i(3, "incr"), i(4)
       }
     )
   ),
