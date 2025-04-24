@@ -89,6 +89,7 @@ return {
             FloatBorder = { bg = 'NONE' },
             MiniFilesCursorLine = { link = 'BlinkCmpMenuSelection' },
             StatusLine = { bg = 'NONE' },
+            TabLineFill = { bg = 'NONE' },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
