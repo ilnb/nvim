@@ -178,7 +178,8 @@ return {
             action = function()
               require("fzf-lua").files({
                 cwd = "~/raylib/",
-                fd_opts = "--no-ignore --type f --exclude .git",
+                -- fd_opts = "--no-ignore --type f --exclude .git",
+                fd_opts = "-I -t f -E .git -H",
                 actions = {
                   ["default"] = function(selected, opts)
                     if selected and #selected > 0 then
