@@ -71,10 +71,10 @@ return {
           module = "lazydev.integrations.blink",
           score_offset = 80, -- show at a higher priority than lsp
         },
-        snippets = {
-          name = "LuaSnip",
-          score_offset = 100,
-        },
+        -- snippets = {
+        --   name = "LuaSnip",
+        --   score_offset = 100,
+        -- },
       },
     },
 
