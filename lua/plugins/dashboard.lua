@@ -171,6 +171,24 @@ return {
               })
             end
           },
+          {
+            icon = "󰙱 ",
+            desc = "Raylib",
+            key = "r",
+            action = function()
+              require("fzf-lua").files({
+                cwd = "~/raylib/",
+                actions = {
+                  ["default"] = function(selected, opts)
+                    if selected and #selected > 0 then
+                      vim.cmd("tcd ~/raylib/")
+                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                    end
+                  end
+                }
+              })
+            end
+          },
         },
         { section = "startup" },
       },
