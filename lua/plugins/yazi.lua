@@ -28,7 +28,8 @@ return {
   ---@type YaziConfig | {}
   opts = {
     -- if you want to open yazi instead of netrw, see below for more info
-    open_for_directories = false,
+    open_for_directories = true,
+    multiple_open = true,
     keymaps = {
       show_help = "<f1>",
     },

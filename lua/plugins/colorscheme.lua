@@ -54,7 +54,7 @@ return {
   -- kanagawa
   {
     "rebelot/kanagawa.nvim",
-    lazy = true,
+    -- lazy = true,
     config = function()
       require("kanagawa").setup({
         compile = false,
@@ -104,7 +104,7 @@ return {
   -- material
   {
     "marko-cerovac/material.nvim",
-    lazy = true,
+    -- lazy = true,
     config = function()
       vim.g.material_style = "deep ocean"
       require("material").setup({

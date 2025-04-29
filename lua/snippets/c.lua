@@ -29,7 +29,7 @@ return {
     }} {};
     ]],
       {
-        i(1, "name"), i(2, "def"), i(3, "name")
+        i(1), i(2, "def"), i(3, "name")
       }
     )
   ),

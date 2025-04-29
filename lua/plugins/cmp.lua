@@ -71,6 +71,9 @@ return {
           module = "lazydev.integrations.blink",
           score_offset = 80, -- show at a higher priority than lsp
         },
+        path = {
+          opts = { show_hidden_files_by_default = true },
+        },
         -- snippets = {
         --   name = "LuaSnip",
         --   score_offset = 100,

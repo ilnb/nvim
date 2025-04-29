@@ -5,7 +5,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 return {
   -- base init
-  s("nc",
+  s("z",
     fmt([[
     #include <iostream>
 
