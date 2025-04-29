@@ -123,7 +123,7 @@ return {
           title = "Actions",
           indent = 2,
           padding = 1,
-          { icon = " ", desc = "Find file", key = "f", action = ":lua require('fzf-lua').files()" }, --action = "<leader><Space>"
+          { icon = " ", desc = "Find file", key = "f", action = ":lua require('fzf-lua').files({fd_opts = '-I -t f -E .git -H'})" }, --action = "<leader><Space>"
           { icon = "󰒲 ", desc = "Lazy", key = "l", action = ":Lazy" },
           { icon = " ", desc = "Lazy Extras", key = "x", action = ":LazyExtras" },
           { icon = " ", desc = "Exit", key = "q", action = ":q" },
