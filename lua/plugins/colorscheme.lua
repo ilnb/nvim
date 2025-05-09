@@ -32,9 +32,7 @@ return {
   -- default colorscheme
   {
     "LazyVim/LazyVim",
-    opts = {
-      colorscheme = wm_colorscheme(),
-    }
+    opts = { colorscheme = wm_colorscheme() }
   },
 
   -- catppuccin
@@ -104,7 +102,7 @@ return {
   -- material
   {
     "marko-cerovac/material.nvim",
-    -- lazy = true,
+    lazy = true,
     config = function()
       vim.g.material_style = "deep ocean"
       require("material").setup({
@@ -119,13 +117,9 @@ return {
         },
 
         styles = {
-          comments = {
-            italic = true,
-          },
+          comments = { italic = true, },
           strings = {},
-          keywords = {
-            italic = true,
-          },
+          keywords = { italic = true, },
           functions = {},
           variables = {},
           operators = {},
@@ -195,9 +189,7 @@ return {
           Pmenu = { bg = 'NONE' },
           StatusLine = { bg = 'NONE' },
           TabLineSel = function(colors, _)
-            return {
-              bold = true,
-            }
+            return { bold = true, }
           end
         },
       })
