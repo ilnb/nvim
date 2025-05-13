@@ -178,7 +178,7 @@ return {
             action = function()
               require("fzf-lua").files({
                 cwd = "~/raylib/",
-                -- fd_opts = "--no-ignore --type f --exclude .git --hidden",
+                -- fd_opts = "--no-ignore --type file --exclude .git --hidden",
                 fd_opts = "-I -t f -E .git -H",
                 actions = {
                   ["default"] = function(selected, opts)
