@@ -20,6 +20,14 @@ return {
       mode = { "n", "v" },
     },
     {
+      "<leader>fs",
+      function()
+        vim.cmd [[e ~/.zshrc]]
+      end,
+      desc = "Zsh config",
+      mode = { "n", "v" },
+    },
+    {
       "<leader><leader>",
       function()
         local file_dir = vim.fn.expand("%:p:h") -- directory of current buffer
