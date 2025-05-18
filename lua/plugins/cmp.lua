@@ -89,11 +89,17 @@ return {
   ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
   config = function(_, opts)
     -- snippets
-    if vim.bo.filetype == 'c' then
-      require('luasnip').add_snippets("c", require("snippets.c"))
-    elseif vim.bo.filetype == 'cpp' then
-      require('luasnip').add_snippets("cpp", require("snippets.cpp"))
-    end
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "c", "cpp" },
+      callback = function(args)
+        local luasnip = require("luasnip")
+        if args.match == "c" then
+          luasnip.add_snippets("c", require("snippets.c"))
+        elseif args.match == "cpp" then
+          luasnip.add_snippets("cpp", require("snippets.cpp"))
+        end
+      end,
+    })
 
     -- setup compat sources
     local enabled = opts.sources.default
