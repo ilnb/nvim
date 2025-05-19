@@ -32,6 +32,7 @@ M.opts = {
       window = {
         border = "rounded",
         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+        scrollbar = false,
       },
       auto_show = true,
     },

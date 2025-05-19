@@ -28,9 +28,9 @@ return {
       {
         "rcarriga/nvim-dap-ui",
         dependencies = { "nvim-neotest/nvim-nio" },
-    keys = require('plugin-cfg.dap_ui').keys,
-    opts = require('plugin-cfg.dap_ui').opts,
-    config = require('plugin-cfg.dap_ui').config
+        keys = require('plugin-cfg.dap_ui').keys,
+        opts = require('plugin-cfg.dap_ui').opts,
+        config = require('plugin-cfg.dap_ui').config
       },
       {
         "theHamsta/nvim-dap-virtual-text",
