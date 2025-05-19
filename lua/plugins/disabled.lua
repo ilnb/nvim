@@ -16,7 +16,7 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
+    -- enabled = false,
   },
 
   {
@@ -38,4 +38,14 @@ return {
     "echasnovski/mini.files",
     enabled = false,
   },
+
+  {
+    "nvim/catppuccin",
+    enabled = false,
+  },
+
+  {
+    "folke/tokyonight.nvim",
+    enabled = false,
+  }
 }
