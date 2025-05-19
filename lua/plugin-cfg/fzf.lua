@@ -30,7 +30,7 @@ M.keys = {
   {
     "<leader><leader>",
     function()
-      local file_dir = vim.fn.expand("%:p:h")   -- directory of current buffer
+      local file_dir = vim.fn.expand("%:p:h") -- directory of current buffer
       local git_root = vim.fn.systemlist("git -C " .. vim.fn.fnameescape(file_dir) .. " rev-parse --show-toplevel")[1]
 
       if git_root == nil or git_root == "" or git_root:match("^fatal") then
@@ -42,7 +42,7 @@ M.keys = {
         fd_opts = "-I -t f -E .git -H",
       })
     end,
-    desc = "Find Files (git-files or cwd)",
+    desc = "Find Files (git-files)",
   },
   { "<leader>fF", false },
 }

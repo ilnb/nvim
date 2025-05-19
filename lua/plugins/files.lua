@@ -1,41 +1,47 @@
 return {
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    config = require('plugin-cfg.bufferline').config,
-    keys = require('plugin-cfg.bufferline').keys,
-    opts = require('plugin-cfg.bufferline').opts
+    -- event = "VeryLazy",
+    keys = function() return require('plugin-cfg.bufferline').keys end,
+    opts = function() return require('plugin-cfg.bufferline').opts end,
+    config = function(_, opts)
+      require('plugin-cfg.bufferline').config(_, opts)
+    end,
   },
 
   {
     "ibhagwan/fzf-lua",
-    keys = require('plugin-cfg.fzf').keys
+    keys = require('plugin-cfg.fzf').keys,
   },
 
   {
     "echasnovski/mini.files",
-    config = require('plugin-cfg.mini_files').config,
     keys = require('plugin-cfg.mini_files').keys,
-    opts = require('plugin-cfg.mini_files').opts
+    opts = function() return require('plugin-cfg.mini_files').opts end,
+    config = function(_, opts)
+      require('plugin-cfg.mini_files').config(_, opts)
+    end,
   },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+      { "nvim-lua/plenary.nvim", },
+      -- {"nvim-tree/nvim-web-devicons",},
+      { "MunifTanjim/nui.nvim", },
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window
     },
-    opts = require('plugin-cfg.neo_tree').opts
+    -- opts = function ()
+    --   require('plugin-cfg.neo_tree').opts
+    -- end,
   },
 
   {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     dependencies = { "folke/snacks.nvim" },
-    init = require('plugin-cfg.yazi').init,
-    keys = require('plugin-cfg.yazi').keys,
-    opts = require('plugin-cfg.yazi').opts
+    -- keys = require('plugin-cfg.yazi').keys,
+    init = function() require('plugin-cfg.yazi').init() end,
+    opts = function() return require('plugin-cfg.yazi').opts end,
   },
 }

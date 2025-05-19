@@ -20,4 +20,10 @@ M.opts = function()
   }
 end
 
+M.setup = function()
+  M.init()
+  local opts = M.opts()
+  require('nvim-navic').setup(opts)
+end
+
 return M

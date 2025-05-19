@@ -1,51 +1,56 @@
 return {
   {
     "MagicDuck/grug-far.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
     "folke/ts-comments.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
     "stevearc/conform.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
     "mfussenegger/nvim-dap",
-    enabled = false,
+    enabled = false
   },
 
   {
     "folke/persistence.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
     "rafamadriz/friendly-snippets",
-    enabled = false,
+    enabled = false
   },
 
   {
     "echasnovski/mini.files",
-    enabled = false,
+    -- enabled = false
   },
 
   {
     "nvim/catppuccin",
-    enabled = false,
+    enabled = false
   },
 
   {
     "folke/tokyonight.nvim",
+    enabled = false
+  },
+
+  {
+    "mikalvipas/yazi.nvim",
     enabled = false,
-  }
+  },
 }

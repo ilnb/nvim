@@ -2,6 +2,7 @@ local M = {}
 
 -- If you use `open_for_directories=true`, this is recommended
 M.init = function()
+  print("hello")
   -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
   -- vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1

@@ -3,7 +3,7 @@ return {
     "saghen/blink.cmp",
     version = not vim.g.lazyvim_blink_main and "*",
     build = vim.g.lazyvim_blink_main and "cargo build --release",
-    opts_extend = require('plugin-cfg.blink').opts_extend,
+    opts_extend = function() return require('plugin-cfg.blink').opts_extend end,
     dependencies = {
       {
         "saghen/blink.compat",
@@ -11,15 +11,16 @@ return {
         opts = {},
         version = not vim.g.lazyvim_blink_main and "*",
       },
+      {
+        "L3MON4D3/LuaSnip",
+        filetype = { 'c', 'cpp' },
+      },
     },
     event = "InsertEnter",
-    config = require('plugin-cfg.blink').config,
-    opts = require('plugin-cfg.blink').opts
-  },
-
-  {
-    "L3MON4D3/LuaSnip",
-    filetype = { 'c', 'cpp' },
+    opts = function() return require('plugin-cfg.blink').opts end,
+    config = function(_, opts)
+      require('plugin-cfg.blink').config(_, opts)
+    end,
   },
 
   {
@@ -28,16 +29,18 @@ return {
       {
         "rcarriga/nvim-dap-ui",
         dependencies = { "nvim-neotest/nvim-nio" },
-        keys = require('plugin-cfg.dap_ui').keys,
-        opts = require('plugin-cfg.dap_ui').opts,
-        config = require('plugin-cfg.dap_ui').config
+        keys = function() return require('plugin-cfg.dap_ui').keys end,
+        opts = function() return require('plugin-cfg.dap_ui').opts end,
+        config = function(_, opts)
+          require('plugin-cfg.dap_ui').config(_, opts)
+        end
       },
       {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },
     },
-    config = require('plugin-cfg.dap').config,
-    keys = require('plugin-cfg.dap').keys
+    keys = function() return require('plugin-cfg.dap').keys end,
+    config = function() require('plugin-cfg.dap').config() end
   }
 }

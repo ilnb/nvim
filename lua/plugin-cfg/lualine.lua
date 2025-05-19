@@ -213,4 +213,10 @@ M.opts = function()
   return opts
 end
 
+M.setup = function()
+  M.init()
+  local opts = M.opts()
+  require('lualine').setup(opts)
+end
+
 return M

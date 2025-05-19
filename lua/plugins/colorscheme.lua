@@ -7,6 +7,7 @@ local function term_colorscheme()
     return "kanagawa"
   end
 end
+
 local function get_wm()
   local handle = io.popen("echo $XDG_SESSION_DESKTOP")
   if not handle then
@@ -30,7 +31,10 @@ end
 return {
   {
     "LazyVim/LazyVim",
-    opts = { colorscheme = wm_colorscheme() }
+    opts = {
+      -- colorscheme = wm_colorscheme()
+      colorscheme = "kanagawa",
+    },
   },
 
   {
@@ -39,14 +43,14 @@ return {
 
   {
     "rebelot/kanagawa.nvim",
-    config = require('plugin-cfg.kanagawa').config
+    config = function() require('plugin-cfg.kanagawa').config() end
   },
 
   {
     "marko-cerovac/material.nvim",
-    config = require('plugin-cfg.material').config
-    -- init = require('plugin-cfg.material').init,
-    -- opts = require('plugin-cfg.material').opts
+    config = function() require('plugin-cfg.material').config() end
+    -- init = function() require('plugin-cfg.material').init() end,
+    -- opts = function() return require('plugin-cfg.material').opts end
   },
 
   {
