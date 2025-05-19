@@ -53,4 +53,9 @@ return {
     "mikalvipas/yazi.nvim",
     enabled = false,
   },
+
+  {
+    "echasnovski/mini.ai",
+    enabled = false,
+  },
 }
