@@ -16,6 +16,7 @@ return {
 
   {
     "echasnovski/mini.files",
+    lazy = false,
     keys = require('plugin-cfg.mini_files').keys,
     opts = function() return require('plugin-cfg.mini_files').opts end,
     config = function(_, opts)
