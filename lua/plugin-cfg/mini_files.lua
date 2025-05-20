@@ -17,7 +17,6 @@ M.keys   = {
   },
 }
 
--- stylua: ignore
 M.opts   = {
   windows = {
     preview = true,
