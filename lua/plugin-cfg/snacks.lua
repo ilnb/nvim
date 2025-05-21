@@ -185,11 +185,11 @@ M.opts = {
           key = "p",
           action = function()
             require("fzf-lua").files({
-              cwd = "~/code cpp/",
+              cwd = "~/code/cpp/",
               actions = {
                 ["default"] = function(selected, opts)
                   if selected and #selected > 0 then
-                    vim.cmd("tcd ~/code cpp/")
+                    vim.cmd("tcd ~/code/cpp/")
                     require("fzf-lua").actions.file_edit_or_qf(selected, opts)
                   end
                 end
@@ -210,6 +210,24 @@ M.opts = {
                 ["default"] = function(selected, opts)
                   if selected and #selected > 0 then
                     vim.cmd("tcd ~/raylib/")
+                    require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                  end
+                end
+              }
+            })
+          end
+        },
+        {
+          icon = "",
+          desc = "Lua Codes",
+          key = "L",
+          action = function()
+            require("fzf-lua").files({
+              cwd = "~/code/lua/",
+              actions = {
+                ["default"] = function(selected, opts)
+                  if selected and #selected > 0 then
+                    vim.cmd("tcd ~/code/lua/")
                     require("fzf-lua").actions.file_edit_or_qf(selected, opts)
                   end
                 end
