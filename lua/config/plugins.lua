@@ -102,7 +102,7 @@ local plugins = {
 
   {
     "echasnovski/mini.files",
-    lazy = false,
+    -- lazy = false,
     keys = require('plugin-cfg.mini_files').keys,
     opts = require('plugin-cfg.mini_files').opts,
     config = function(_, opts)

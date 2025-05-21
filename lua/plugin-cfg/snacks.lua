@@ -217,6 +217,24 @@ M.opts = {
             })
           end
         },
+        {
+          icon = "",
+          desc = "Lua Codes",
+          key = "L",
+          action = function()
+            require("fzf-lua").files({
+              cwd = "~/code/lua/",
+              actions = {
+                ["default"] = function(selected, opts)
+                  if selected and #selected > 0 then
+                    vim.cmd("tcd ~/code/lua/")
+                    require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                  end
+                end
+              }
+            })
+          end
+        },
       },
       { section = "startup" },
     },
