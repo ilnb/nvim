@@ -28,10 +28,9 @@ require("lazy").setup({
     lazy = true,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  install = { colorscheme = { "kanagawa" } },
   checker = {
-    enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
+    enabled = true,
   },
   performance = {
     rtp = {
