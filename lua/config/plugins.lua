@@ -23,23 +23,19 @@ local plugins = {
       colorscheme = require('config.utils').wm_colorscheme(),
     },
   },
-
   {
     "nvim/catppuccin",
   },
-
   {
     "rebelot/kanagawa.nvim",
     config = function() require('plugin-cfg.kanagawa').config() end
   },
-
   {
     "marko-cerovac/material.nvim",
     config = function() require('plugin-cfg.material').config() end
     -- init = function() require('plugin-cfg.material').init() end,
     -- opts = function() return require('plugin-cfg.material').opts end
   },
-
   {
     "folke/tokyonight.nvim",
     opts = { style = "night" },
@@ -57,7 +53,6 @@ local plugins = {
     },
     config = function() require('plugin-cfg.lualine').setup() end,
   },
-
   {
     "echasnovski/mini.indentscope",
     event = "BufReadPost",
@@ -67,7 +62,6 @@ local plugins = {
       }
     end,
   },
-
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -77,7 +71,6 @@ local plugins = {
       require('plugin-cfg.noice').config(_, opts)
     end,
   },
-
   {
     "folke/snacks.nvim",
     keys = require('plugin-cfg.snacks').keys,
@@ -94,12 +87,10 @@ local plugins = {
       require('plugin-cfg.bufferline').config(_, opts)
     end,
   },
-
   {
     "ibhagwan/fzf-lua",
     keys = require('plugin-cfg.fzf').keys,
   },
-
   {
     "echasnovski/mini.files",
     -- lazy = false,
@@ -109,7 +100,6 @@ local plugins = {
       require('plugin-cfg.mini_files').config(_, opts)
     end,
   },
-
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
@@ -120,7 +110,6 @@ local plugins = {
     },
     -- opts = require('plugin-cfg.neo_tree').opts
   },
-
   {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
@@ -154,7 +143,6 @@ local plugins = {
       require('plugin-cfg.blink').config(_, opts)
     end,
   },
-
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -181,57 +169,46 @@ local plugins = {
     "MagicDuck/grug-far.nvim",
     enabled = false
   },
-
   {
     "folke/ts-comments.nvim",
     enabled = false
   },
-
   {
     "stevearc/conform.nvim",
     enabled = false
   },
-
   {
     "nvim-neo-tree/neo-tree.nvim",
     enabled = false
   },
-
   {
     "mfussenegger/nvim-dap",
     enabled = false
   },
-
   {
     "folke/persistence.nvim",
     enabled = false
   },
-
   {
     "rafamadriz/friendly-snippets",
     enabled = false
   },
-
   {
     "echasnovski/mini.files",
     -- enabled = false
   },
-
   {
     "nvim/catppuccin",
     enabled = false
   },
-
   {
     "folke/tokyonight.nvim",
     enabled = false
   },
-
   {
     "mikalvipas/yazi.nvim",
     enabled = false,
   },
-
   {
     "echasnovski/mini.ai",
     enabled = false,
@@ -257,7 +234,7 @@ require("lazy").setup({
       disabled_plugins = {
         "gzip",
         "matchit",
-        "matchparen",
+        -- "matchparen",
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
