@@ -42,7 +42,7 @@ M.keys = {
         fd_opts = "-I -t f -E .git -H",
       })
     end,
-    desc = "Find Files (git-files)",
+    desc = "Find Files (git-files or cwd)",
   },
   { "<leader>fF", false },
 }

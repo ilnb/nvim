@@ -19,8 +19,10 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+    -- slightly faster
     require("plugins")
+    -- if you want entries in profile
+    -- { import = "plugins" },
   },
   defaults = {
     lazy = true,
@@ -35,12 +37,14 @@ require("lazy").setup({
     rtp = {
       disabled_plugins = {
         "gzip",
-        -- "matchit",
+        "matchit",
+        -- if disabled, causes the cursor
+        -- to be out of focus on dashboard
         -- "matchparen",
-        -- "netrwPlugin",
+        "netrwPlugin",
         "tarPlugin",
         "tohtml",
-        -- "tutor",
+        "tutor",
         "zipPlugin",
       },
     },
