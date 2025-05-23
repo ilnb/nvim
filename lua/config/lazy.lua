@@ -17,12 +17,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   ui = { border = "rounded" },
   spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- slightly faster
-    require("plugins")
     -- if you want entries in profile
     -- { import = "plugins" },
+    -- slightly faster
+    require("plugins"),
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" }
   },
   defaults = {
     lazy = true,
