@@ -42,5 +42,11 @@ return {
     },
     keys = function() return require('plugin-cfg.dap').keys end,
     config = function() require('plugin-cfg.dap').config() end
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    -- dependencies = { "nvim-treesitter/playground" },
+    config = function() require('plugin-cfg.treesitter').config() end,
   }
 }
