@@ -28,7 +28,8 @@ end
 
 M.custom_theme = function()
   local theme = {}
-  if vim.g.colors_name and string.find(vim.g.colors_name, "material") then
+  local color = vim.g.colors_name
+  if color and color:find("material") then
     theme = require('lualine.themes.palenight')
     local overrides = {
       normal = {
@@ -52,7 +53,7 @@ M.custom_theme = function()
     for mode, sections in pairs(overrides) do
       theme[mode] = vim.tbl_deep_extend("force", theme[mode] or {}, sections)
     end
-  elseif vim.g.colors_name and string.find(vim.g.colors_name, "kanagawa") then
+  elseif color and (color:find("kanagawa") or color:find("catppuccin")) then
     theme = require('lualine.themes.kanagawa')
   end
   for _, mode in pairs({ "normal", "insert", "visual", "inactive" }) do

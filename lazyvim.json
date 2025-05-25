@@ -2,8 +2,10 @@
   "extras": [
     "lazyvim.plugins.extras.coding.luasnip",
     "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.editor.mini-files",
     "lazyvim.plugins.extras.lang.clangd",
-    "lazyvim.plugins.extras.lang.markdown"
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.ui.mini-indentscope"
   ],
   "install_version": 7,
   "news": {

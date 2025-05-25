@@ -36,7 +36,7 @@ require("lazy").setup({
     rtp = {
       disabled_plugins = {
         "gzip",
-        "matchit",
+        -- "matchit",
         -- if disabled, causes the cursor
         -- to be out of focus on dashboard
         -- "matchparen",

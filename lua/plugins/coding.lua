@@ -16,8 +16,10 @@ return {
         filetype = { 'c', 'cpp' },
       },
     },
-    event = "InsertEnter",
-    opts = function() return require('plugin-cfg.blink').opts end,
+    event = "VeryLazy",
+    opts = function(_, opts)
+      return require('plugin-cfg.blink').opts(_, opts)
+    end,
     config = function(_, opts)
       require('plugin-cfg.blink').config(_, opts)
     end,
@@ -30,7 +32,6 @@ return {
         "rcarriga/nvim-dap-ui",
         dependencies = { "nvim-neotest/nvim-nio" },
         keys = function() return require('plugin-cfg.dap_ui').keys end,
-        opts = function() return require('plugin-cfg.dap_ui').opts end,
         config = function(_, opts)
           require('plugin-cfg.dap_ui').config(_, opts)
         end,
@@ -40,7 +41,7 @@ return {
         opts = {},
       },
     },
-    keys = function() return require('plugin-cfg.dap').keys end,
+    keys = function(_, keys) return require('plugin-cfg.dap').keys(_, keys) end,
     config = function() require('plugin-cfg.dap').config() end,
   },
 
@@ -50,5 +51,8 @@ return {
       -- "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
+    opts = function(_, opts)
+      return require('plugin-cfg.treesitter').opts(_, opts)
+    end
   },
 }

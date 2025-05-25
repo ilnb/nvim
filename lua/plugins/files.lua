@@ -2,8 +2,12 @@ return {
   {
     "akinsho/bufferline.nvim",
     -- event = "VeryLazy",
-    keys = function() return require('plugin-cfg.bufferline').keys end,
-    opts = function() return require('plugin-cfg.bufferline').opts end,
+    keys = function(_, keys)
+      return require('plugin-cfg.bufferline').keys(_, keys)
+    end,
+    opts = function(_, opts)
+      return require('plugin-cfg.bufferline').opts(_, opts)
+    end,
     config = function(_, opts)
       require('plugin-cfg.bufferline').config(_, opts)
     end,
@@ -17,8 +21,12 @@ return {
   {
     "echasnovski/mini.files",
     -- lazy = false,
-    keys = require('plugin-cfg.mini_files').keys,
-    opts = function() return require('plugin-cfg.mini_files').opts end,
+    keys = function(_, keys)
+      return require('plugin-cfg.mini_files').keys(_, keys)
+    end,
+    opts = function(_, opts)
+      return require('plugin-cfg.mini_files').opts(_, opts)
+    end,
     config = function(_, opts)
       require('plugin-cfg.mini_files').config(_, opts)
     end,
@@ -32,9 +40,9 @@ return {
       { "MunifTanjim/nui.nvim", },
       -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window
     },
-    -- opts = function ()
-    --   require('plugin-cfg.neo_tree').opts
-    -- end,
+    opts = function()
+      return require('plugin-cfg.neo_tree').opts
+    end,
   },
 
   {

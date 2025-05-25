@@ -8,13 +8,13 @@ end
 
 M.opts = {
   contrast = {
-    terminal = false,              -- Enable contrast for the built-in terminal
-    sidebars = false,              -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-    floating_windows = false,      -- Enable contrast for floating windows
-    cursor_line = false,           -- Enable darker background for the cursor line
-    lsp_virtual_text = false,      -- Enable contrasted background for lsp virtual text
-    non_current_windows = false,   -- Enable contrasted background for non-current windows
-    filetypes = {},                -- Specify which filetypes get the contrasted (darker) background
+    terminal = false,            -- Enable contrast for the built-in terminal
+    sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+    floating_windows = false,    -- Enable contrast for floating windows
+    cursor_line = false,         -- Enable darker background for the cursor line
+    lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
+    non_current_windows = false, -- Enable contrasted background for non-current windows
+    filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
   },
 
   styles = {
@@ -31,11 +31,11 @@ M.opts = {
     -- Available plugins:
     -- "coc",
     -- "colorful-winsep",
-    -- "dap",
+    "dap",
     -- "dashboard",
     -- "eyeliner",
     -- "fidget",
-    -- "flash",
+    "flash",
     "gitsigns",
     -- "harpoon",
     -- "hop",
@@ -45,7 +45,7 @@ M.opts = {
     "mini",
     -- "neogit",
     -- "neotest",
-    -- "neo-tree",
+    "neo-tree",
     -- "neorg",
     "noice",
     -- "nvim-cmp",
@@ -63,9 +63,9 @@ M.opts = {
   disable = {
     colored_cursor = true,
     background = true,
-    borders = false,       -- Disable borders between vertically split windows
-    term_colors = false,   -- Prevent the theme from setting terminal colors
-    eob_lines = false,     -- Hide the end-of-buffer lines
+    borders = false,     -- Disable borders between vertically split windows
+    term_colors = false, -- Prevent the theme from setting terminal colors
+    eob_lines = false,   -- Hide the end-of-buffer lines
   },
 
   high_visibility = {
@@ -73,7 +73,7 @@ M.opts = {
     darker = true,
   },
 
-  lualine_style = "default",   -- Lualine style ( can be 'stealth' or 'default' )
+  lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
 
   async_loading = true,
 

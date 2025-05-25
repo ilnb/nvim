@@ -8,7 +8,10 @@ return {
   },
 
   {
-    "nvim/catppuccin",
+    "catppuccin/nvim",
+    name = "catppuccin",
+    opts = function() return require('plugin-cfg.catppuccin').options end,
+    spec = function() return require('plugin-cfg.catppuccin').spec end,
   },
 
   {

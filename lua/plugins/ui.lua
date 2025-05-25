@@ -24,8 +24,12 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    keys = require('plugin-cfg.noice').keys,
-    opts = require('plugin-cfg.noice').opts,
+    keys = function(_, keys)
+      return require('plugin-cfg.noice').keys(_, keys)
+    end,
+    opts = function(_, opts)
+      return require('plugin-cfg.noice').opts(_, opts)
+    end,
     config = function(_, opts)
       require('plugin-cfg.noice').config(_, opts)
     end,

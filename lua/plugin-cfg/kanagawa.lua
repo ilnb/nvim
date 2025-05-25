@@ -35,7 +35,8 @@ M.config = function()
         CursorLine = { bg = 'NONE' },
         NormalFloat = { bg = 'NONE' },
         FloatBorder = { bg = 'NONE' },
-        MiniFilesCursorLine = { link = 'BlinkCmpMenuSelection' },
+        MiniFilesCursorLine = { link = 'PmenuSel' },
+        MiniFilesTitleFocused = { fg = '#F9E2AF' },
         StatusLine = { bg = 'NONE' },
         TabLineFill = { bg = 'NONE' },
       }
