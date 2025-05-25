@@ -35,11 +35,6 @@ return {
   },
 
   {
-    "echasnovski/mini.files",
-    -- enabled = false
-  },
-
-  {
     "nvim/catppuccin",
     enabled = false
   },
@@ -50,12 +45,12 @@ return {
   },
 
   {
-    "mikalvipas/yazi.nvim",
-    enabled = false,
+    "echasnovski/mini.files",
+    -- enabled = false
   },
 
   {
-    "echasnovski/mini.ai",
+    "mikalvipas/yazi.nvim",
     enabled = false,
   },
 }

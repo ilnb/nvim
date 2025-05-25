@@ -50,7 +50,5 @@ return {
       -- "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    -- config = function() require('plugin-cfg.treesitter').config() end,
-    opts = function(_, opts) return require('plugin-cfg.treesitter').opts(_, opts) end,
   },
 }
