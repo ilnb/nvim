@@ -33,7 +33,7 @@ return {
         opts = function() return require('plugin-cfg.dap_ui').opts end,
         config = function(_, opts)
           require('plugin-cfg.dap_ui').config(_, opts)
-        end
+        end,
       },
       {
         "theHamsta/nvim-dap-virtual-text",
@@ -41,12 +41,16 @@ return {
       },
     },
     keys = function() return require('plugin-cfg.dap').keys end,
-    config = function() require('plugin-cfg.dap').config() end
+    config = function() require('plugin-cfg.dap').config() end,
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
-    -- dependencies = { "nvim-treesitter/playground" },
-    config = function() require('plugin-cfg.treesitter').config() end,
-  }
+    dependencies = {
+      -- "nvim-treesitter/playground",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    -- config = function() require('plugin-cfg.treesitter').config() end,
+    opts = function(_, opts) return require('plugin-cfg.treesitter').opts(_, opts) end,
+  },
 }
