@@ -30,15 +30,19 @@ M.keys = {
   {
     "<leader><leader>",
     function()
-      local file_dir = vim.fn.expand("%:p:h") -- directory of current buffer
-      local git_root = vim.fn.systemlist("git -C " .. vim.fn.fnameescape(file_dir) .. " rev-parse --show-toplevel")[1]
+      local buf_path = vim.api.nvim_buf_get_name(0)
+      local file_dir = buf_path ~= "" and vim.fn.fnamemodify(buf_path, ":h") or nil
 
-      if git_root == nil or git_root == "" or git_root:match("^fatal") then
-        git_root = vim.fn.getcwd()
+      local base_dir = file_dir or vim.fn.getcwd()
+      local git_cmd = "git -C '" .. base_dir .. "' rev-parse --show-toplevel"
+
+      local git_root = vim.fn.systemlist(git_cmd)[1]
+      if not git_root or git_root == "" or git_root:match("^fatal") then
+        git_root = base_dir
       end
 
       require("fzf-lua").files({
-        cwd = git_root,
+        cwd = vim.fn.fnamemodify(git_root, ":p"),
         fd_opts = "-I -t f -E .git -H",
       })
     end,
