@@ -50,6 +50,7 @@ return {
     dependencies = {
       -- "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "echasnovski/mini.ai",
     },
     opts = function(_, opts)
       return require('plugin-cfg.treesitter').opts(_, opts)
