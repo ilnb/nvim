@@ -46,6 +46,11 @@ return {
   },
 
   {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts) require('plugin-cfg.lspconfig').opts(_, opts) end
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       -- "nvim-treesitter/playground",
