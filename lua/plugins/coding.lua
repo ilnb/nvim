@@ -11,10 +11,6 @@ return {
         opts = {},
         version = not vim.g.lazyvim_blink_main and "*",
       },
-      {
-        "L3MON4D3/LuaSnip",
-        filetype = { 'c', 'cpp' },
-      },
     },
     event = "VeryLazy",
     opts = function(_, opts)
@@ -23,6 +19,11 @@ return {
     config = function(_, opts)
       require('plugin-cfg.blink').config(_, opts)
     end,
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    filetype = { 'c', 'cpp' },
   },
 
   {

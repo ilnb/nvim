@@ -28,6 +28,14 @@ M.keys = {
     mode = { "n", "v" },
   },
   { "<leader>fF", false },
+  {
+    "<leader>F",
+    function()
+      vim.cmd [[FzfLua]]
+    end,
+    desc = "FzfLua",
+    mode = { "n", "v" },
+  }
 }
 
 return M
