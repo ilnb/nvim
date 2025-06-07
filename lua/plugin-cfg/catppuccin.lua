@@ -3,7 +3,7 @@ local M = {}
 ---@diagnostic disable: missing-fields
 ---@type CatppuccinOptions
 M.options = {
-  flavour = "mocha",
+  flavour = "frappe",
   styles = {
     comments = { "italic" },
     keywords = { "italic" },
