@@ -8,7 +8,6 @@ return {
   s("z",
     fmt([[
     #include <stdio.h>
-    #include <stdlib.h>
 
     int main() {{
       {}
@@ -29,7 +28,7 @@ return {
     }} {};
     ]],
       {
-        i(1), i(2, "def"), i(3, "name")
+        i(1), i(2), i(3)
       }
     )
   ),
@@ -42,7 +41,7 @@ return {
     }}
     ]],
       {
-        i(1, "init"), i(2, "cond"), i(3, "incr"), i(4)
+        i(1), i(2), i(3), i(4)
       }
     )
   ),
@@ -55,7 +54,7 @@ return {
     }}
     ]],
       {
-        i(1, "cond"), i(2)
+        i(1), i(2)
       }
     )
   ),
@@ -68,7 +67,7 @@ return {
     }}
     ]],
       {
-        i(1, "cond"), i(2)
+        i(1), i(2)
       }
     )
   ),
@@ -81,7 +80,7 @@ return {
     }}
     ]],
       {
-        i(1, "cond"), i(2)
+        i(1), i(2)
       }
     )
   ),
