@@ -4,7 +4,7 @@ M.init = function()
   vim.g.navic_silence = true
   LazyVim.lsp.on_attach(function(client, buffer)
     -- no doc window _after_ typing function
-    client.server_capabilities.signatureHelpProvider = nil
+    -- client.server_capabilities.signatureHelpProvider = nil
     if client:supports_method("textDocument/documentSymbol") then
       require("nvim-navic").attach(client, buffer)
     end
