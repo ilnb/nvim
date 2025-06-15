@@ -18,7 +18,9 @@ M.bufdelete = function(bufnr)
 end
 
 M.keys = {
-  { "<leader>dd", function() Snacks.dashboard() end, desc = "Dashboard", },
+  { "<leader>dd", function() Snacks.dashboard() end,             desc = "Dashboard" },
+  { "<leader>n",  function() Snacks.picker.notifications() end,  desc = "Notifications" },
+  { "<leader>N",  function() Snacks.notifier.show_history() end, desc = "Notification history" },
   -- { "<leader>bd", function() M.bufdelete() end,      desc = "Delete buffer", }
 }
 
