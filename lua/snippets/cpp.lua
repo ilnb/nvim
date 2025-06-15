@@ -23,9 +23,8 @@ return {
   -- for
   s("fr",
     fmt([[
-    for ({}; {}; {}) {{
+    for ({}; {}; {})
       {}
-    }}
     ]],
       {
         i(1), i(2), i(3), i(4)
@@ -36,9 +35,8 @@ return {
   -- while
   s("wh",
     fmt([[
-    while ({}) {{
+    while ({})
       {}
-    }}
     ]],
       {
         i(1), i(2)
@@ -49,9 +47,8 @@ return {
   -- if
   s("if",
     fmt([[
-    if ({}) {{
+    if ({})
       {}
-    }}
     ]],
       {
         i(1), i(2)
@@ -62,9 +59,8 @@ return {
   -- else if
   s("ef",
     fmt([[
-    else if ({}) {{
+    else if ({})
       {}
-    }}
     ]],
       {
         i(1), i(2)
@@ -75,9 +71,8 @@ return {
   -- else
   s("el",
     fmt([[
-    else {{
+    else
       {}
-    }}
     ]],
       {
         i(1),
