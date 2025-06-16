@@ -1,26 +1,24 @@
 local M = {}
 
-M.bufdelete = function(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-  local buffers = vim.t.bufs or vim.api.nvim_list_bufs()
-  local idx
-  for i, buf in ipairs(buffers) do
-    if buf == bufnr then
-      idx = i
-      break
-    end
-  end
-  local target_buf = (idx and buffers[idx + 1]) or buffers[idx - 1]
-  if target_buf and vim.api.nvim_buf_is_loaded(target_buf) then
-    vim.api.nvim_set_current_buf(target_buf)
-  end
-  vim.api.nvim_buf_delete(bufnr, { force = false })
-end
-
 M.keys = {
-  { "<leader>dd", function() Snacks.dashboard() end,             desc = "Dashboard" },
-  { "<leader>n",  function() Snacks.picker.notifications() end,  desc = "Notifications" },
-  { "<leader>N",  function() Snacks.notifier.show_history() end, desc = "Notification history" },
+  {
+    "<leader>dd",
+    function()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].ft == "snacks_dashboard" then
+          if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+            vim.api.nvim_buf_delete(buf, { force = true })
+          end
+          return
+        end
+      end
+      require("snacks").dashboard()
+    end,
+    desc = "Dashboard",
+  },
+  { "<leader>n", function() Snacks.picker.notifications() end,  desc = "Notifications" },
+  { "<leader>N", function() Snacks.notifier.show_history() end, desc = "Notification history" },
   -- { "<leader>bd", function() M.bufdelete() end,      desc = "Delete buffer", }
 }
 
@@ -28,6 +26,11 @@ M.keys = {
 M.opts = {
   indent = {
     scope = { enabled = false }
+  },
+  statuscolumn = {
+    left = { "fold", "mark" },
+    right = { "sign", "git" },
+    folds = { open = true },
   },
   dashboard = {
     sections = {
