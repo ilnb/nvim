@@ -1,6 +1,6 @@
 local M = {}
 
-local capabilities = require('blink.cmp').get_lsp_capabilities({
+local nosnippets = require('blink.cmp').get_lsp_capabilities({
   textDocument = {
     completion = {
       completionItem =
@@ -19,7 +19,7 @@ M.opts = function(_, opts)
     root_dir = function() return vim.fn.expand("~") end,
   }
   opts.servers["asm_lsp"] = asm_lsp
-  opts.servers["clangd"].capabilities = vim.tbl_deep_extend("force", opts.servers["clangd"].capabilities, capabilities)
+  opts.servers["clangd"].capabilities = vim.tbl_deep_extend("force", opts.servers["clangd"].capabilities, nosnippets)
 
   -- local servers = { "asm_lsp", "clangd", "lua_ls", "pyright", "zls" }
   -- for _, lsp in ipairs(servers) do
