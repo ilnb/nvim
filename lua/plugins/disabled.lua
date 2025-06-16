@@ -41,7 +41,7 @@ return {
 
   {
     "mikalvipas/yazi.nvim",
-    enabled = false,
+    enabled = false
   },
 
   {
