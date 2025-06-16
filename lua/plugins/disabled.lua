@@ -36,6 +36,7 @@ return {
 
   {
     "echasnovski/mini.files",
+    name = "mini-files",
     -- enabled = false
   },
 
@@ -46,6 +47,7 @@ return {
 
   {
     "catppuccin/nvim",
+    name = "catppuccin",
     -- enabled = false
   },
 

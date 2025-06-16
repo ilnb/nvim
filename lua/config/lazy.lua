@@ -18,12 +18,14 @@ require("lazy").setup({
   ui = { border = "rounded" },
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    {
+      "LazyVim/LazyVim",
+      import = "lazyvim.plugins",
+      opts = { colorscheme = "kanagawa" }
+    },
     -- { "AstroNvim/AstroNvim", import = "astronvim.plugins" },
-    -- if you want entries in profile
-    -- { import = "plugins" },
-    -- slightly faster
-    require("plugins"),
+    { import = "plugins" },
+    -- require("plugins"),  -- lualine loads earlier than LazyVim
   },
   defaults = {
     lazy = true,

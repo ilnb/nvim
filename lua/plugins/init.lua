@@ -1,27 +1,32 @@
 local M = {}
 
--- NOTE: everything other than init.lua
+local disabled = require('plugins.disabled')
+vim.list_extend(M, disabled)
 
--- local plugin_dir = vim.fn.stdpath("config") .. "/lua/plugins"
--- local plugin_files = vim.fn.globpath(plugin_dir, "*.lua", false, true)
---
--- for _, file in ipairs(plugin_files) do
---   local name = vim.fn.fnamemodify(file, ":t:r") -- extract filename without extension
---   if name ~= "init" then
---     local ok, plugin = pcall(require, "plugins." .. name)
---     if ok then
---       vim.list_extend(M, plugin)
---     else
---       vim.notify("Error loading plugins." .. name .. ": " .. plugin, vim.log.levels.ERROR)
---     end
---   end
--- end
+---@return boolean
+---@param mod string
+local function in_disabled(mod)
+  for _, spec in ipairs(disabled) do
+    local plugin = spec.name or vim.fn.fnamemodify(spec[1], ':t'):gsub('%.nvim$', '')
+    if plugin == mod then
+      return spec.enabled == false
+    end
+  end
+  return false
+end
 
--- PERF: this gives more control
-vim.list_extend(M, require('plugins.colorscheme'))
-vim.list_extend(M, require('plugins.ui'))
-vim.list_extend(M, require('plugins.coding'))
-vim.list_extend(M, require('plugins.disabled'))
-vim.list_extend(M, require('plugins.files'))
+local plugin_dir = vim.fn.stdpath('config') .. '/lua/plugins'
+local plugin_files = vim.fn.globpath(plugin_dir, '*.lua', false, true)
+for _, file in ipairs(plugin_files) do
+  local name = vim.fn.fnamemodify(file, ':t:r')
+  if name ~= 'init' and name ~= 'disabled' and not in_disabled(name) then
+    local ok, plugin = pcall(require, 'plugins.' .. name)
+    if ok then
+      vim.list_extend(M, type(plugin[1]) == "table" and plugin or { plugin })
+    else
+      vim.notify('Error loading plugins.' .. name .. ': ' .. plugin, vim.log.levels.ERROR)
+    end
+  end
+end
 
 return M
