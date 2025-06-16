@@ -13,7 +13,7 @@ return {
 
   {
     "echasnovski/mini.indentscope",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     opts = function()
       return {
         char = '┊',
@@ -39,5 +39,13 @@ return {
     "folke/snacks.nvim",
     keys = require('plugin-cfg.snacks').keys,
     opts = require('plugin-cfg.snacks').opts,
+  },
+
+  {
+    "kevinhwang91/nvim-ufo",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "kevinhwang91/promise-async" },
+    keys = function() return require('plugin-cfg.nvim-ufo').keys end,
+    opts = function() return require('plugin-cfg.nvim-ufo').opts end,
   },
 }
