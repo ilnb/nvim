@@ -19,6 +19,7 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- { "AstroNvim/AstroNvim", import = "astronvim.plugins" },
     -- if you want entries in profile
     -- { import = "plugins" },
     -- slightly faster
@@ -31,6 +32,7 @@ require("lazy").setup({
   install = { colorscheme = { "kanagawa" } },
   checker = {
     enabled = true,
+    notify = false,
   },
   performance = {
     rtp = {

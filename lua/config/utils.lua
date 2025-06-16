@@ -87,4 +87,11 @@ M.get_icon = function()
   return ""
 end
 
+M.custom_foldtext = function()
+  local line = vim.fn.getline(vim.v.foldstart)
+  -- return vim.trim(line) .. " "
+  local count = vim.v.foldend - vim.v.foldstart + 1
+  return vim.trim(line) .. "  " .. count .. " lines "
+end
+
 return M
