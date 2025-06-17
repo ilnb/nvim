@@ -64,7 +64,6 @@ M.custom_theme = function()
   return theme
 end
 
-
 M.get_icon = function()
   local distro = "Arch"
   local handle = io.popen("cat /etc/*release 2>/dev/null | grep ^NAME=")
