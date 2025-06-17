@@ -25,7 +25,7 @@ require("lazy").setup({
     },
     -- { "AstroNvim/AstroNvim", import = "astronvim.plugins" },
     { import = "plugins" },
-    -- require("plugins"),  -- lualine loads earlier than LazyVim
+    -- require("plugins"), -- very slightly slower
   },
   defaults = {
     lazy = true,
