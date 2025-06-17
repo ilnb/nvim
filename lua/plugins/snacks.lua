@@ -201,26 +201,6 @@ return {
             end
           },
           {
-            icon = "󰙱 ",
-            desc = "Raylib",
-            key = "r",
-            action = function()
-              require("fzf-lua").files({
-                cwd = "~/raylib/",
-                -- fd_opts = "--no-ignore --type file --exclude .git --hidden",
-                fd_opts = "-I -t f -E .git -H",
-                actions = {
-                  ["default"] = function(selected, opts)
-                    if selected and #selected > 0 then
-                      vim.cmd("tcd ~/raylib/")
-                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
-                    end
-                  end
-                }
-              })
-            end
-          },
-          {
             icon = "",
             desc = "Lua Codes",
             key = "L",
