@@ -35,6 +35,22 @@ return {
       end,
       desc = "FzfLua",
       mode = { "n", "v" },
-    }
+    },
+    {
+      "<leader>sB",
+      function()
+        require('fzf-lua').blines()
+      end,
+      desc = "Buffer lines",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>sb",
+      function()
+        require('fzf-lua').lgrep_curbuf()
+      end,
+      desc = "Buffer grep",
+      mode = { "n", "v" },
+    },
   }
 }
