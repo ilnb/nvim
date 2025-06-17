@@ -1,5 +1,9 @@
 local M = {}
 
+-- NOTE: uncomment before using `require('plugins')`
+
+-- local disabled = require('plugins.disabled')
+-- vim.list_extend(M, disabled)
 -- ---@type fun(mod: string): boolean
 -- local function in_disabled(mod)
 --   for _, spec in ipairs(disabled) do
@@ -10,10 +14,6 @@ local M = {}
 --   end
 --   return false
 -- end
---
--- local disabled = require('plugins.disabled')
--- vim.list_extend(M, disabled)
---
 -- local plugin_dir = vim.fn.stdpath('config') .. '/lua/plugins'
 -- local plugin_files = vim.fn.globpath(plugin_dir, '*.lua', false, true)
 -- for _, file in ipairs(plugin_files) do
@@ -22,7 +22,6 @@ local M = {}
 --     local ok, plugin = pcall(require, 'plugins.' .. name)
 --     if ok then
 --       table.insert(M, plugin)
---       -- vim.list_extend(M, type(plugin[1]) == "table" and plugin or { plugin })
 --     else
 --       vim.notify('Error loading plugins.' .. name .. ': ' .. plugin, vim.log.levels.ERROR)
 --     end
