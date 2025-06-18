@@ -21,6 +21,11 @@ return {
       bottom_search = true,
       long_message_to_split = true,
     },
+    lsp = {
+      signature = {
+        enabled = false,
+      },
+    },
   },
   config = function(_, opts)
     if vim.o.filetype == "lazy" then
