@@ -168,17 +168,18 @@ return {
             desc = "Data Structure",
             key = "d",
             action = function()
-              require("fzf-lua").files({
-                cwd = "~/data structure/",
+              local dir = '~/data structure/'
+              require 'fzf-lua'.files {
+                cwd = dir,
                 actions = {
-                  ["default"] = function(selected, opts)
+                  default = function(selected, opts)
                     if selected and #selected > 0 then
-                      vim.cmd("tcd ~/data structure/")
-                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                      vim.cmd('tcd' .. dir)
+                      require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
                     end
                   end
                 }
-              })
+              }
             end
           },
           { icon = "󰙱 ", desc = "C Codes", key = "c", action = ":lua require('fzf-lua').files({ cwd = '~/code/'})" },
@@ -187,17 +188,18 @@ return {
             desc = "C++ Codes",
             key = "p",
             action = function()
-              require("fzf-lua").files({
-                cwd = "~/code/cpp/",
+              local dir = '~/code/cpp'
+              require 'fzf-lua'.files {
+                cwd = dir,
                 actions = {
-                  ["default"] = function(selected, opts)
+                  default = function(selected, opts)
                     if selected and #selected > 0 then
-                      vim.cmd("tcd ~/code/cpp/")
-                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                      vim.cmd('tcd' .. dir)
+                      require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
                     end
                   end
                 }
-              })
+              }
             end
           },
           {
@@ -205,17 +207,18 @@ return {
             desc = "Lua Codes",
             key = "L",
             action = function()
-              require("fzf-lua").files({
-                cwd = "~/code/lua/",
+              local dir = '~/code/lua'
+              require 'fzf-lua'.files {
+                cwd = dir,
                 actions = {
-                  ["default"] = function(selected, opts)
+                  default = function(selected, opts)
                     if selected and #selected > 0 then
-                      vim.cmd("tcd ~/code/lua/")
-                      require("fzf-lua").actions.file_edit_or_qf(selected, opts)
+                      vim.cmd('tcd' .. dir)
+                      require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
                     end
                   end
                 }
-              })
+              }
             end
           },
         },
