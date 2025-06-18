@@ -1,13 +1,13 @@
 return {
-  "catppuccin/nvim",
+  'catppuccin/nvim',
   ---@diagnostic disable: missing-fields
   ---@type CatppuccinOptions
-  options = {
-    flavour = "frappe",
+  opts = {
+    flavour = 'frappe',
     styles = {
-      comments = { "italic" },
-      keywords = { "italic" },
-      conditionals = { "italic" },
+      comments = { 'italic' },
+      keywords = { 'italic' },
+      conditionals = { 'italic' },
       loops = {},
       functions = {},
       strings = {},
@@ -18,6 +18,7 @@ return {
       types = {},
       operators = {},
     },
+
     integrations = {
       blink_cmp = true,
       flash = true,
@@ -26,16 +27,18 @@ return {
       mason = true,
       markdown = true,
       mini = true,
+
       native_lsp = {
         enabled = true,
         underlines = {
-          errors = { "undercurl" },
-          hints = { "undercurl" },
-          warnings = { "undercurl" },
-          information = { "undercurl" },
+          errors = { 'undercurl' },
+          hints = { 'undercurl' },
+          warnings = { 'undercurl' },
+          information = { 'undercurl' },
         },
       },
-      navic = { enabled = true, custom_bg = "lualine" },
+
+      navic = { enabled = true, custom_bg = 'NONE' },
       neotree = true,
       noice = true,
       snacks = true,
@@ -43,6 +46,7 @@ return {
       treesitter_context = true,
       which_key = true,
     },
+
     custom_highlights = function()
       return {
         GitSignsAdd = { fg = '#00A000' },
@@ -60,17 +64,19 @@ return {
         TabLineFill = { bg = 'NONE' },
       }
     end,
+
     transparent_background = true,
     term_colors = true,
     dim_inactive = { enabled = false },
   },
+
   spec = {
     {
-      "akinsho/bufferline.nvim",
+      'akinsho/bufferline.nvim',
       optional = true,
       opts = function(_, opts)
-        if (vim.g.colors_name or ""):find("catppuccin") then
-          opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
+        if (vim.g.colors_name or ''):find 'catppuccin' then
+          opts.highlights = require 'catppuccin.groups.integrations.bufferline'.get()
         end
       end,
     },

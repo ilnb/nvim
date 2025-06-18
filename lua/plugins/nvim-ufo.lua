@@ -1,62 +1,66 @@
 return {
-  "kevinhwang91/nvim-ufo",
-  event = { "BufReadPost", "BufNewFile" },
-  dependencies = { "kevinhwang91/promise-async" },
+  'kevinhwang91/nvim-ufo',
+  event = { 'BufReadPost', 'BufNewFile' },
+  dependencies = { 'kevinhwang91/promise-async' },
+
   keys = {
     {
-      "zR",
+      'zR',
       function()
-        require("ufo").openAllFolds()
+        require 'ufo'.openAllFolds()
       end,
-      desc = "Open all folds",
+      desc = 'Open all folds',
     },
+
     {
-      "zM",
+      'zM',
       function()
-        require("ufo").closeAllFolds()
+        require 'ufo'.closeAllFolds()
       end,
-      desc = "Close all folds",
+      desc = 'Close all folds',
     },
+
     {
-      "zp",
+      'zp',
       function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        local winid = require 'ufo'.peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
         end
       end,
-      desc = "Peek fold or LSP hover",
+      desc = 'Peek fold or LSP hover',
     },
   },
+
   opts = {
     preview = {
       win_config = {
-        border = "rounded",
-        winhighlight = "Normal:NormalFloat",
+        border = 'rounded',
+        winhighlight = 'Normal:NormalFloat',
         winblend = 10,
       },
       mappings = {
-        scrollU = "<C-u>",
-        scrollD = "<C-d>",
+        scrollU = '<C-u>',
+        scrollD = '<C-d>',
       },
     },
     provider_selector = function(_, filetype, buftype)
       local function handleFallbackException(bufnr, err, providerName)
-        if type(err) == "string" and err:match("UfoFallbackException") then
-          return require("ufo").getFolds(bufnr, providerName)
+        if type(err) == 'string' and err:match 'UfoFallbackException' then
+          return require 'ufo'.getFolds(bufnr, providerName)
         else
-          return require("promise").reject(err)
+          return require 'promise'.reject(err)
         end
       end
-      return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
+      return (filetype == '' or buftype == 'nofile') and 'indent' -- only use indent until a file is opened
           or function(bufnr)
-            return require("ufo")
-                .getFolds(bufnr, "lsp")
+            return require 'ufo'
+                .getFolds(bufnr, 'lsp')
                 :catch(function(err)
-                  return handleFallbackException(bufnr, err, "treesitter")
+                  return handleFallbackException(bufnr, err, 'treesitter')
                 end)
                 :catch(function(err)
-                  return handleFallbackException(bufnr, err, "indent")
+                  return handleFallbackException(bufnr, err, 'indent')
                 end)
           end
     end,

@@ -1,8 +1,8 @@
 return {
-  "marko-cerovac/material.nvim",
+  'marko-cerovac/material.nvim',
   config = function()
-    vim.g.material_style = "deep ocean"
-    require('material').setup({
+    vim.g.material_style = 'deep ocean'
+    require 'material'.setup {
       contrast = {
         terminal = false,            -- Enable contrast for the built-in terminal
         sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -25,35 +25,35 @@ return {
 
       plugins = {
         -- Available plugins:
-        -- "coc",
-        -- "colorful-winsep",
-        "dap",
-        -- "dashboard",
-        -- "eyeliner",
-        -- "fidget",
-        "flash",
-        "gitsigns",
-        -- "harpoon",
-        -- "hop",
-        -- "illuminate",
-        -- "indent-blankline",
-        -- "lspsaga",
-        "mini",
-        -- "neogit",
-        -- "neotest",
-        "neo-tree",
-        -- "neorg",
-        "noice",
-        -- "nvim-cmp",
-        "nvim-navic",
-        "nvim-tree",
-        "nvim-web-devicons",
-        -- "rainbow-delimiters",
-        -- "sneak",
-        "telescope",
-        "trouble",
-        "which-key",
-        -- "nvim-notify",
+        -- 'coc',
+        -- 'colorful-winsep',
+        'dap',
+        -- 'dashboard',
+        -- 'eyeliner',
+        -- 'fidget',
+        'flash',
+        'gitsigns',
+        -- 'harpoon',
+        -- 'hop',
+        -- 'illuminate',
+        -- 'indent-blankline',
+        -- 'lspsaga',
+        'mini',
+        -- 'neogit',
+        -- 'neotest',
+        'neo-tree',
+        -- 'neorg',
+        'noice',
+        -- 'nvim-cmp',
+        'nvim-navic',
+        'nvim-tree',
+        'nvim-web-devicons',
+        -- 'rainbow-delimiters',
+        -- 'sneak',
+        'telescope',
+        'trouble',
+        'which-key',
+        -- 'nvim-notify',
       },
 
       disable = {
@@ -69,17 +69,17 @@ return {
         darker = true,
       },
 
-      lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+      lualine_style = 'default', -- Lualine style ( can be 'stealth' or 'default' )
 
       async_loading = true,
 
       custom_colors = function(colors)
-        colors.syntax.comments     = "#707070"
-        colors.editor.border       = "#7D7D7D"
-        colors.editor.line_numbers = "#555555"
-        colors.git.added           = "#00A000"
-        colors.git.removed         = "#BA0000"
-        colors.git.modified        = "#0000FF"
+        colors.syntax.comments     = '#707070'
+        colors.editor.border       = '#7D7D7D'
+        colors.editor.line_numbers = '#555555'
+        colors.git.added           = '#00A000'
+        colors.git.removed         = '#BA0000'
+        colors.git.modified        = '#0000FF'
       end,
 
       custom_highlights = {
@@ -89,6 +89,6 @@ return {
           return { bold = true, }
         end
       },
-    })
+    }
   end
 }

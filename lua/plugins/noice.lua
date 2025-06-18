@@ -1,10 +1,11 @@
 return {
-  "folke/noice.nvim",
-  event = "VeryLazy",
+  'folke/noice.nvim',
+  event = 'VeryLazy',
   keys = {
-    { "<leader>snh", false },
-    { "<leader>snl", false },
+    { '<leader>snh', false },
+    { '<leader>snl', false },
   },
+
   ---@diagnostic disable: missing-fields
   ---@type NoiceConfig
   opts = {
@@ -14,7 +15,7 @@ return {
       },
     },
     cmdline = {
-      view = "cmdline", -- for default cmdline
+      view = 'cmdline', -- for default cmdline
     },
     presets = {
       lsp_doc_border = true,
@@ -27,10 +28,11 @@ return {
       },
     },
   },
+
   config = function(_, opts)
-    if vim.o.filetype == "lazy" then
-      vim.cmd([[messages clear]])
+    if vim.o.filetype == 'lazy' then
+      vim.cmd [[messages clear]]
     end
-    require("noice").setup(opts)
+    require 'noice'.setup(opts)
   end
 }

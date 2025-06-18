@@ -1,8 +1,8 @@
 return {
-  "rebelot/kanagawa.nvim",
+  'rebelot/kanagawa.nvim',
   priority = 1000,
   config = function()
-    require('kanagawa').setup({
+    require 'kanagawa'.setup {
       compile = false,
       undercurl = true, -- enable undercurls
       commentStyle = { italic = true },
@@ -13,6 +13,7 @@ return {
       transparent = true,
       dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
       terminalColors = true, -- define vim.g.terminal_color_{0,17}
+
       colors = {
         palette = {},
         theme = {
@@ -24,6 +25,7 @@ return {
           },
         },
       },
+
       ---@type fun(colors: KanagawaColorsSpec): table<string, table>
       overrides = function(colors)
         return {
@@ -42,8 +44,9 @@ return {
           UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
         }
       end,
-      theme = "wave",
-      background = { dark = "wave", light = "lotus" },
-    })
+
+      theme = 'wave',
+      background = { dark = 'wave', light = 'lotus' },
+    }
   end
 }

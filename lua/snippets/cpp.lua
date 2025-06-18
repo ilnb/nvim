@@ -1,11 +1,11 @@
-local ls = require("luasnip")
+local ls = require 'luasnip'
 local s = ls.snippet
 local i = ls.insert_node
-local fmt = require("luasnip.extras.fmt").fmt
+local fmt = require 'luasnip.extras.fmt'.fmt
 
 return {
   -- base init
-  s("z",
+  s('z',
     fmt([[
     #include <iostream>
 
@@ -21,7 +21,7 @@ return {
   ),
 
   -- for
-  s("fr",
+  s('fr',
     fmt([[
     for ({}; {}; {})
       {}
@@ -33,7 +33,7 @@ return {
   ),
 
   -- while
-  s("wh",
+  s('wh',
     fmt([[
     while ({})
       {}
@@ -45,7 +45,7 @@ return {
   ),
 
   -- if
-  s("if",
+  s('if',
     fmt([[
     if ({})
       {}
@@ -57,7 +57,7 @@ return {
   ),
 
   -- else if
-  s("ef",
+  s('ef',
     fmt([[
     else if ({})
       {}
@@ -69,7 +69,7 @@ return {
   ),
 
   -- else
-  s("el",
+  s('el',
     fmt([[
     else
       {}

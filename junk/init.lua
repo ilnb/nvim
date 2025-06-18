@@ -1,8 +1,8 @@
 local M = {}
 
--- NOTE: uncomment before using `require('plugins')`
+-- NOTE: uncomment before using `require 'plugins'`
 
--- local disabled = require('plugins.disabled')
+-- local disabled = require 'plugins.disabled'
 -- vim.list_extend(M, disabled)
 -- ---@type fun(mod: string): boolean
 -- local function in_disabled(mod)
@@ -14,7 +14,7 @@ local M = {}
 --   end
 --   return false
 -- end
--- local plugin_dir = vim.fn.stdpath('config') .. '/lua/plugins'
+-- local plugin_dir = vim.fn.stdpath 'config' .. '/lua/plugins'
 -- local plugin_files = vim.fn.globpath(plugin_dir, '*.lua', false, true)
 -- for _, file in ipairs(plugin_files) do
 --   local name = vim.fn.fnamemodify(file, ':t:r')

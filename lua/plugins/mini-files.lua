@@ -1,5 +1,5 @@
 return {
-  "echasnovski/mini.files",
+  'echasnovski/mini.files',
   -- lazy = false,
   keys = {},
   opts = {

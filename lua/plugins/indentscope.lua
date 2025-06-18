@@ -1,6 +1,6 @@
 return {
-  "echasnovski/mini.indentscope",
-  event = { "BufReadPost", "BufNewFile" },
+  'echasnovski/mini.indentscope',
+  event = { 'BufReadPost', 'BufNewFile' },
   opts = function()
     return {
       char = '┊',

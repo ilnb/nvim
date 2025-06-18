@@ -1,52 +1,59 @@
 return {
-  "ibhagwan/fzf-lua",
+  'ibhagwan/fzf-lua',
+
   keys = {
     {
-      "<leader>ff",
+      '<leader>ff',
       function()
         require 'fzf-lua'.files {
           fd_opts = '-I -t f -E .git -H',
         }
       end,
-      desc = "Find Files (Root dir)",
+      desc = 'Find Files (Root dir)',
       mode = { 'n', 'v' },
     },
+
     {
-      "<leader>fh",
+      '<leader>fh',
       function()
         vim.cmd [[e ~/.zsh_history]]
       end,
-      desc = "Terminal history",
+      desc = 'Terminal history',
       mode = { 'n', 'v' },
     },
+
     {
-      "<leader>fs",
+      '<leader>fs',
       function()
         vim.cmd [[e ~/.zshrc]]
       end,
-      desc = "Zsh config",
+      desc = 'Zsh config',
       mode = { 'n', 'v' },
     },
-    { "<leader>fF", false },
+
+    { '<leader>fF', false },
+
     {
-      "<leader>F",
+      '<leader>F',
       function()
         vim.cmd [[FzfLua]]
       end,
-      desc = "FzfLua",
+      desc = 'FzfLua',
       mode = { 'n', 'v' },
     },
+
     {
-      "<leader>sB",
+      '<leader>sB',
       function()
         local root = LazyVim.root.get()
         require 'fzf-lua'.blines { cwd = root }
       end,
-      desc = "Buffer lines",
+      desc = 'Buffer lines',
       mode = 'n',
     },
+
     {
-      "<leader>sb",
+      '<leader>sb',
       function()
         local root = LazyVim.root.get()
         local mode = vim.api.nvim_get_mode().mode
@@ -56,11 +63,12 @@ return {
           require 'fzf-lua'.lgrep_curbuf { cwd = root }
         end
       end,
-      desc = "Buffer grep",
+      desc = 'Buffer grep',
       mode = { 'n', 'v' },
     },
+
     {
-      "<leader>fc",
+      '<leader>fc',
       function()
         require 'fzf-lua'.files {
           cwd = vim.fn.stdpath 'config',
@@ -74,7 +82,7 @@ return {
           }
         }
       end,
-      desc = "Find config file",
+      desc = 'Find config file',
       mode = { 'n', 'v' },
     },
   }
