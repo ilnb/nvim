@@ -14,7 +14,9 @@ return {
       version = not vim.g.lazyvim_blink_main and "*",
     },
   },
-  event = "VeryLazy",
+  event = function()
+    return { "BufNewFile", "BufReadPost", "CmdLineEnter" }
+  end,
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
