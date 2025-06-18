@@ -24,7 +24,10 @@ return {
     },
     lsp = {
       signature = {
-        enabled = false,
+        enabled = true,
+        auto_open = {
+          enabled = false, -- <C-k> to make to appear
+        },
       },
     },
   },
