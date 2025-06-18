@@ -23,8 +23,23 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    cmdline = { enabled = true },
+    cmdline = {
+      enabled = true,
+      completion = {
+        menu = { auto_show = true },
+        list = { selection = { preselect = false, auto_insert = true } },
+      },
+      keymap = {
+        ["<CR>"] = { "accept", "fallback" },
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<C-e>"] = { "cancel", "fallback" },
+        ["<C-y>"] = { "select_and_accept" },
+      }
+    },
+
     completion = {
+      list = { selection = { preselect = true, auto_insert = false } },
       menu = {
         border = 'rounded',
         auto_show = true,
@@ -43,6 +58,23 @@ return {
         }
       },
     },
+
+    keymap = {
+      ["<CR>"] = { "accept", "fallback" },
+      ["<Esc>"] = { "hide", "fallback" },
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-e>"] = { "cancel", "show", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "select_next", "fallback" },
+      ["<C-y>"] = { "select_and_accept" },
+      ["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+      ["<S-up>"] = { "scroll_documentation_up", "fallback" },
+      ["<S-down>"] = { "scroll_documentation_down", "fallback" },
+    },
+
     snippets = { preset = 'luasnip' },
     sources = {
       default = { 'lsp', 'lazydev', 'path', 'snippets', 'buffer' },
