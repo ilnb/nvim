@@ -46,8 +46,8 @@ return {
         }
       end,
 
-      theme = 'zen',
-      background = { dark = 'zen', light = 'mist' },
+      theme = 'mist',
+      background = { dark = 'mist', light = 'pearl' },
     }
   end
 
