@@ -87,7 +87,9 @@ return {
         local t = {}
         for group, cfg in pairs(groups) do
           t[group] = cfg
-          t[group].bg = 'NONE'
+          if t[group].bg then
+            t[group].bg = 'NONE'
+          end
         end
         return vim.tbl_deep_extend('force', t, {
           Pmenu = { bg = 'NONE' },
