@@ -1,5 +1,6 @@
 return {
   'webhooked/kanso.nvim',
+  priority = 1000,
   config = function()
     require 'kanso'.setup {
       compile = false,
@@ -27,7 +28,7 @@ return {
         },
       },
 
-      ---@type fun(colors: KanagawaColorsSpec): table<string, table>
+      ---@type fun(colors: KansoColorsSpec): table<string, table>
       overrides = function(colors)
         return {
           GitSignsAdd = { fg = '#00A000' },
@@ -50,5 +51,4 @@ return {
       background = { dark = 'mist', light = 'pearl' },
     }
   end
-
 }
