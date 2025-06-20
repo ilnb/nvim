@@ -21,7 +21,7 @@ require 'lazy'.setup {
     {
       'LazyVim/LazyVim',
       import = 'lazyvim.plugins',
-      opts = { colorscheme = 'kanagawa' }
+      opts = { colorscheme = 'kanso' }
     },
     -- { 'AstroNvim/AstroNvim', import = 'astronvim.plugins' },
     { import = 'plugins' },
@@ -31,7 +31,7 @@ require 'lazy'.setup {
     lazy = true,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { 'kanagawa' } },
+  install = { colorscheme = { 'kanso' } },
   checker = {
     enabled = true,
     notify = false,
