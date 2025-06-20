@@ -29,9 +29,6 @@ return {
       ---@type fun(colors: KanagawaColorsSpec): table<string, table>
       overrides = function(colors)
         return {
-          GitSignsAdd = { fg = '#00A000' },
-          GitSignsChange = { fg = '#0000FF' },
-          GitSignsDelete = { fg = '#BA0000' },
           Pmenu = { bg = 'NONE' },
           CursorLine = { bg = 'NONE' },
           NormalFloat = { bg = 'NONE' },

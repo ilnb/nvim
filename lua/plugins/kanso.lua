@@ -31,15 +31,11 @@ return {
       ---@type fun(colors: KansoColorsSpec): table<string, table>
       overrides = function(colors)
         return {
-          GitSignsAdd = { fg = '#00A000' },
-          GitSignsChange = { fg = '#0000FF' },
-          GitSignsDelete = { fg = '#BA0000' },
           Pmenu = { bg = 'NONE' },
           CursorLine = { bg = 'NONE' },
           NormalFloat = { bg = 'NONE' },
           FloatBorder = { bg = 'NONE' },
           MiniFilesCursorLine = { link = 'PmenuSel' },
-          MiniFilesTitleFocused = { fg = '#F9E2AF' },
           StatusLine = { bg = 'NONE' },
           TabLineFill = { bg = 'NONE' },
           UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
