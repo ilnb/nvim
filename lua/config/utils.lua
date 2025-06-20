@@ -70,6 +70,10 @@ M.lualine_theme = function()
         a = { bg = '#C792EA' }, -- purple
         b = { fg = '#C792EA' },
       },
+      replace = {
+        a = { bg = '#FFA066' },
+        b = { fg = '#FFA066' },
+      },
       inactive = {
         a = { bg = '#82B1FF' },
         b = { fg = '#82B1FF' },
@@ -80,7 +84,7 @@ M.lualine_theme = function()
       theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
     end
   end
-  for _, mode in ipairs { 'normal', 'insert', 'visual', 'inactive' } do
+  for _, mode in ipairs { 'normal', 'insert', 'visual', 'replace', 'inactive' } do
     theme[mode] = theme[mode] or {}
     theme[mode].c = theme[mode].c or {}
     theme[mode].c.bg = 'NONE'
