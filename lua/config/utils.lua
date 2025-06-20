@@ -33,6 +33,28 @@ M.lualine_theme = function()
     theme = require 'lualine.themes.kanagawa'
   elseif color:find 'catppuccin' then
     theme = require 'lualine.themes.catppuccin-mocha'
+  elseif color:find 'kanso' then
+    theme = require 'lualine.themes.kanso'
+    local overrides = {
+      normal = {
+        b = { bg = '#23292C' } -- 75 % black of inkBlue2
+      },
+      insert = {
+        b = { bg = '#262F1B' } -- 75 % black of springGreen
+      },
+      command = {
+        b = { bg = '#242426' } -- 75 % black of inkGray2
+      },
+      visual = {
+        b = { bg = '#22242A' } -- 75 % of inkViolet
+      },
+      replace = {
+        b = { bg = '#2D241E' } -- 75 % of inkOrange
+      },
+    }
+    for mode, sections in pairs(overrides) do
+      theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
+    end
   else
     theme = require 'lualine.themes.palenight'
     local overrides = {
