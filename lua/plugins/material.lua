@@ -82,13 +82,21 @@ return {
         colors.git.modified        = '#0000FF'
       end,
 
-      custom_highlights = {
-        Pmenu = { bg = 'NONE' },
-        StatusLine = { bg = 'NONE' },
-        TabLineSel = function(colors, _)
-          return { bold = true, }
+      custom_highlights = function()
+        local groups = require 'material.highlights.plugins.nvim-navic'.load()
+        local t = {}
+        for group, cfg in pairs(groups) do
+          t[group] = cfg
+          t[group].bg = 'NONE'
         end
-      },
+        return vim.tbl_deep_extend('force', t, {
+          Pmenu = { bg = 'NONE' },
+          StatusLine = { bg = 'NONE' },
+          TabLineSel = function(colors, _)
+            return { bold = true, }
+          end
+        })
+      end,
     }
   end
 }
