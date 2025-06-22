@@ -17,13 +17,23 @@ vim.opt.rtp:prepend(lazypath)
 require 'lazy'.setup {
   ui = { border = 'rounded' },
   spec = {
-    -- add LazyVim and import its plugins
     {
       'LazyVim/LazyVim',
-      import = 'lazyvim.plugins',
       opts = { colorscheme = 'kanso' }
     },
     -- { 'AstroNvim/AstroNvim', import = 'astronvim.plugins' },
+    -- lazyvim plugins
+    { import = 'lazyvim.plugins.init' },
+    { import = 'lazyvim.plugins.coding' },
+    { import = 'lazyvim.plugins.editor' },
+    { import = 'lazyvim.plugins.linting' },
+    { import = 'lazyvim.plugins.lsp.init' },
+    { import = 'lazyvim.plugins.treesitter' },
+    { import = 'lazyvim.plugins.util' },
+    { import = 'lazyvim.plugins.extras.coding.mini-surround' },
+    { import = 'lazyvim.plugins.extras.editor.fzf' },
+    { import = 'lazyvim.plugins.extras.lang.clangd' },
+    { import = 'lazyvim.plugins.extras.lang.markdown' },
     { import = 'plugins' },
     -- require 'plugins', -- very slightly slower
   },

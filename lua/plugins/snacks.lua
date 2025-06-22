@@ -25,8 +25,15 @@ return {
   ---@type snacks.Config
   opts = {
     indent = {
+      enabled = true,
       scope = { enabled = false },
     },
+    input = { enabled = true },
+    notifier = { enabled = true },
+    scope = { enabled = true },
+    scroll = { enabled = true },
+    toggle = { map = LazyVim.safe_keymap_set },
+    words = { enabled = true },
 
     statuscolumn = {
       left = { 'fold', 'mark' },

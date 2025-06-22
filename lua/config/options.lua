@@ -11,3 +11,5 @@ vim.opt.fillchars = {
 }
 
 -- vim.opt.foldtext = "v:lua.require'config.utils'.custom_foldtext()"
+
+vim.g.lazyvim_check_order = false

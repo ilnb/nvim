@@ -3,17 +3,7 @@ return {
   version = not vim.g.lazyvim_blink_main and '*',
   build = vim.g.lazyvim_blink_main and 'cargo build --release',
   opts_extend = {
-    'sources.compat',
     'sources.default',
-  },
-
-  dependencies = {
-    {
-      'saghen/blink.compat',
-      optional = true, -- make optional so it's only enabled if any extras need it
-      opts = {},
-      version = not vim.g.lazyvim_blink_main and '*',
-    },
   },
 
   event = function()
@@ -39,10 +29,18 @@ return {
     },
 
     completion = {
+      accept = {
+        auto_brackets = {
+          enabled = true,
+        },
+      },
       list = { selection = { preselect = true, auto_insert = false } },
       menu = {
-        border = 'rounded',
         auto_show = true,
+        border = 'rounded',
+        draw = {
+          treesitter = { 'lsp' }
+        },
         winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
         scrollbar = false,
       },
@@ -57,6 +55,10 @@ return {
           scrollbar = false,
         }
       },
+      ghost_text = {
+        enabled = true,
+        -- enabled = vim.g.ai_cmp,
+      }
     },
 
     keymap = {
@@ -75,10 +77,14 @@ return {
       ['<S-down>'] = { 'scroll_documentation_down', 'fallback' },
     },
 
-    snippets = { preset = 'luasnip' },
+    snippets = {
+      preset = 'luasnip',
+      expand = function(snippet)
+        return LazyVim.cmp.expand(snippet)
+      end,
+    },
     sources = {
       default = { 'lsp', 'lazydev', 'path', 'snippets', 'buffer' },
-
       providers = {
         lazydev = {
           name = 'LazyDev',
@@ -112,7 +118,13 @@ return {
         end
       end,
     })
-    -- use lazyvim's config
-    require 'lazyvim.plugins.extras.coding.blink'[2].config(_, opts)
+
+    -- use lazyvim's config for setting up compat sources
+    -- require 'lazyvim.plugins.extras.coding.blink'[2].config(_, opts)
+    -- otherwise
+    opts.appearance = opts.appearance or {}
+    opts.appearance.kind_icons = vim.tbl_extend('force', opts.appearance.kind_icons or {}, LazyVim.config.icons.kinds)
+    opts.sources.compat = nil
+    require 'blink.cmp'.setup(opts)
   end
 }
