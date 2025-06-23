@@ -22,14 +22,14 @@ return {
     vim.api.nvim_create_autocmd('ColorScheme', {
       callback = function()
         require 'lualine'.setup {
-          options = { theme = require 'config.utils'.lualine_theme() },
+          options = { theme = require 'utils'.lualine_theme() },
         }
       end
     })
 
     local opts = {
       options = {
-        theme = require 'config.utils'.lualine_theme(),
+        theme = require 'utils'.lualine_theme(),
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
       },
@@ -122,7 +122,7 @@ return {
           },
 
           {
-            function() return require 'config.utils'.os_icon() end
+            function() return require 'utils'.os_icon() end
           }
         },
 

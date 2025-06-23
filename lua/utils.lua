@@ -35,21 +35,36 @@ M.lualine_theme = function()
     theme = require 'lualine.themes.catppuccin-mocha'
   elseif color:find 'kanso' then
     theme = require 'lualine.themes.kanso'
+    local palette = require 'kanso.colors'.setup().palette
+
+    ---@type fun(s:string, p:number):string
+    local function darker(s, p)
+      local r = tonumber(s:sub(2, 3), 16)
+      local g = tonumber(s:sub(4, 5), 16)
+      local b = tonumber(s:sub(6, 8), 16)
+      p = 1 - p -- p% black
+      local f = math.floor
+      r = f(r * p + 0.5)
+      g = f(g * p + 0.5)
+      b = f(b * p + 0.5)
+      return string.format('#%02X%02X%02X', r, g, b)
+    end
+
     local overrides = {
       normal = {
-        b = { bg = '#23292C' } -- 75 % black of inkBlue2
+        b = { bg = darker(palette.inkBlue2, 0.75) }
       },
       insert = {
-        b = { bg = '#262F1B' } -- 75 % black of springGreen
+        b = { bg = darker(palette.springGreen, 0.75) }
       },
       command = {
-        b = { bg = '#242426' } -- 75 % black of inkGray2
+        b = { bg = darker(palette.inkGray2, 0.75) }
       },
       visual = {
-        b = { bg = '#22242A' } -- 75 % of inkViolet
+        b = { bg = darker(palette.inkViolet, 0.75) }
       },
       replace = {
-        b = { bg = '#2D241E' } -- 75 % of inkOrange
+        b = { bg = darker(palette.inkOrange, 0.75) }
       },
     }
     for mode, sections in pairs(overrides) do
@@ -71,7 +86,7 @@ M.lualine_theme = function()
         b = { fg = '#C792EA' },
       },
       replace = {
-        a = { bg = '#FFA066' },
+        a = { bg = '#FFA066' }, -- orange
         b = { fg = '#FFA066' },
       },
       inactive = {
