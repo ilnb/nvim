@@ -51,6 +51,8 @@ return {
       desc = 'Buffer lines',
       mode = 'n',
     },
+    { '<leader>sw', false },
+    { '<leader>sW', false },
 
     {
       '<leader>sb',
