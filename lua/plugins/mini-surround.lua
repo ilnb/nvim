@@ -19,9 +19,6 @@ local keys = {
   { opts.mappings.replace,        desc = 'Replace Surrounding' },
   { opts.mappings.update_n_lines, desc = 'Update `MiniSurround.config.n_lines`' },
 }
-keys = vim.tbl_filter(function(m)
-  return m[1] and #m[1] > 0
-end, keys)
 
 return {
   'echasnovski/mini.surround',
