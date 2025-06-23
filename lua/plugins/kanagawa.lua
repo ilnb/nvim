@@ -29,6 +29,7 @@ return {
       ---@type fun(colors: KanagawaColorsSpec): table<string, table>
       overrides = function(colors)
         return {
+          NavicText = { fg = colors.palette.fujiWhite },
           Pmenu = { bg = 'NONE' },
           CursorLine = { bg = 'NONE' },
           NormalFloat = { bg = 'NONE' },
@@ -43,7 +44,7 @@ return {
       end,
 
       theme = 'wave',
-      background = { dark = 'wave', light = 'lotus' },
+      background = { dark = 'wave', light = 'wave' },
     }
   end
 }
