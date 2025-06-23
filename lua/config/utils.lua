@@ -84,10 +84,9 @@ M.lualine_theme = function()
       theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
     end
   end
-  for _, mode in ipairs { 'normal', 'insert', 'visual', 'replace', 'inactive' } do
-    theme[mode] = theme[mode] or {}
-    theme[mode].c = theme[mode].c or {}
-    theme[mode].c.bg = 'NONE'
+  for _, sections in pairs(theme) do
+    sections.c = sections.c or {}
+    sections.c.bg = 'NONE'
   end
   return theme
 end
@@ -106,6 +105,8 @@ M.os_icon = function()
     return ''
   elseif distro:match 'Arch' then
     return ''
+  elseif distro:match 'Fedora' then
+    return ''
   elseif distro:match 'Debian' then
     return ''
   elseif distro:match 'Mint' then
