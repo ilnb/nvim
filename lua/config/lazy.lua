@@ -30,7 +30,6 @@ require 'lazy'.setup {
     { import = 'lazyvim.plugins.lsp.init' },
     { import = 'lazyvim.plugins.treesitter' },
     { import = 'lazyvim.plugins.util' },
-    { import = 'lazyvim.plugins.extras.coding.mini-surround' },
     { import = 'lazyvim.plugins.extras.editor.fzf' },
     { import = 'lazyvim.plugins.extras.lang.clangd' },
     { import = 'lazyvim.plugins.extras.lang.markdown' },
