@@ -1,2 +1,4 @@
 (function_definition) @function.outer
-(function_definition body: (compound_statement) @function.inner)
+(function_definition
+  (compound_statement) @function.inner)
+(parameter_declaration) @parameter.inner

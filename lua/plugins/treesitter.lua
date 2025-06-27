@@ -14,5 +14,13 @@ return {
     ensure_installed = { 'asm', 'css', 'gitignore', 'zig' },
     auto_install = true,
     indent = { enable = true },
+    textobjects = {
+      swap = {
+        enable = true,
+        swap_next = { ['<A-l>'] = '@parameter.inner' },
+        swap_previous = { ['<A-h>'] = '@parameter.inner' }
+      }
+    },
+    highlight = { enable = true }
   }
 }

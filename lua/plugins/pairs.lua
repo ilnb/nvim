@@ -1,6 +1,6 @@
 return {
   'echasnovski/mini.pairs',
   event = function()
-    return { 'InsertEnter' }
+    return { 'InsertEnter', 'CmdLineEnter' }
   end
 }
