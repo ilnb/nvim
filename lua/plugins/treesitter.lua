@@ -32,6 +32,7 @@ return {
         'cpp',
         'diff',
         'html',
+        'hyprlang',
         'javascript',
         'jsdoc',
         'json',
