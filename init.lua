@@ -1,4 +1,6 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
+require 'config.options'
 require 'config.lazy'
-vim.o.title = true
-vim.o.titlestring = "nvim %{expand('%:t')}"
+require 'config.keymaps'
+require 'config.autocmds'
+
+vim.cmd [[colo kanagawa]]

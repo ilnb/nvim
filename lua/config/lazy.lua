@@ -17,31 +17,14 @@ vim.opt.rtp:prepend(lazypath)
 require 'lazy'.setup {
   ui = { border = 'rounded' },
   spec = {
-    {
-      'LazyVim/LazyVim',
-      opts = { colorscheme = 'kanso' }
-    },
-    -- { 'AstroNvim/AstroNvim', import = 'astronvim.plugins' },
-    -- lazyvim plugins
-    { import = 'lazyvim.plugins.init' },
-    { import = 'lazyvim.plugins.coding' },
-    { import = 'lazyvim.plugins.editor' },
-    { import = 'lazyvim.plugins.linting' },
-    { import = 'lazyvim.plugins.lsp.init' },
-    { import = 'lazyvim.plugins.treesitter' },
-    { import = 'lazyvim.plugins.util' },
-    { import = 'lazyvim.plugins.extras.editor.fzf' },
-    { import = 'lazyvim.plugins.extras.lang.clangd' },
-    { import = 'lazyvim.plugins.extras.lang.markdown' },
-    { import = 'lazyvim.plugins.extras.editor.mini-files' },
+    -- { 'folke/lazy.nvim', version = '*' },
     { import = 'plugins' },
-    -- require 'plugins', -- very slightly slower
   },
   defaults = {
     lazy = true,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { 'kanso' } },
+  install = { colorscheme = { 'catppuccin', 'kanagawa' } },
   checker = {
     enabled = true,
     notify = false,
@@ -62,4 +45,5 @@ require 'lazy'.setup {
       },
     },
   },
+  profiling = { require = true }
 }

@@ -1,0 +1,223 @@
+local M = {}
+
+function M.lualine_theme()
+  local theme = {}
+  local color = vim.g.colors_name or ''
+  if color:find 'kanagawa' then
+    theme = require 'lualine.themes.kanagawa'
+  elseif color:find 'catppuccin' then
+    theme = require 'lualine.themes.catppuccin-mocha'
+  elseif color:find 'kanso' then
+    theme = require 'lualine.themes.kanso'
+    local palette = require 'kanso.colors'.setup().palette
+
+    ---@type fun(s:string, p:number):string
+    local function darker(s, p)
+      local r = tonumber(s:sub(2, 3), 16)
+      local g = tonumber(s:sub(4, 5), 16)
+      local b = tonumber(s:sub(6, 8), 16)
+      p = 1 - p -- p% black
+      local f = math.floor
+      r = f(r * p + 0.5)
+      g = f(g * p + 0.5)
+      b = f(b * p + 0.5)
+      return string.format('#%02X%02X%02X', r, g, b)
+    end
+
+    local overrides = {
+      normal = {
+        b = { bg = darker(palette.inkBlue2, 0.75) }
+      },
+      insert = {
+        b = { bg = darker(palette.springGreen, 0.75) }
+      },
+      command = {
+        b = { bg = darker(palette.inkGray2, 0.75) }
+      },
+      visual = {
+        b = { bg = darker(palette.inkViolet, 0.75) }
+      },
+      replace = {
+        b = { bg = darker(palette.inkOrange, 0.75) }
+      },
+    }
+    for mode, sections in pairs(overrides) do
+      theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
+    end
+  else
+    theme = require 'lualine.themes.palenight'
+    local overrides = {
+      normal = {
+        a = { bg = '#82B1FF' }, -- blue
+        b = { fg = '#82B1FF' },
+      },
+      insert = {
+        a = { bg = '#C3E88D' }, -- green
+        b = { fg = '#C3E88D' },
+      },
+      visual = {
+        a = { bg = '#C792EA' }, -- purple
+        b = { fg = '#C792EA' },
+      },
+      replace = {
+        a = { bg = '#FFA066' }, -- orange
+        b = { fg = '#FFA066' },
+      },
+      inactive = {
+        a = { bg = '#82B1FF' },
+        b = { fg = '#82B1FF' },
+        c = { fg = '#697098' },
+      },
+    }
+    for mode, sections in pairs(overrides) do
+      theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
+    end
+  end
+  for _, sections in pairs(theme) do
+    sections.c = sections.c or {}
+    sections.c.bg = 'NONE'
+  end
+  return theme
+end
+
+function M.os_icon()
+  local distro = 'Arch'
+  local handle = io.popen 'cat /etc/*release 2>/dev/null | grep ^NAME='
+  if not handle then
+    return 'Arch'
+  else
+    distro = handle:read '*a'
+    distro = distro:gsub('^NAME="?(.-)"?$', '%1')
+    handle:close()
+  end
+  if distro:match 'Ubuntu' then
+    return ''
+  elseif distro:match 'Arch' then
+    return ''
+  elseif distro:match 'Fedora' then
+    return ''
+  elseif distro:match 'Debian' then
+    return ''
+  elseif distro:match 'Mint' then
+    return '󰣭'
+  end
+  return ''
+end
+
+function M.ai_buffer(ai_type)
+  local start_line, end_line = 1, vim.fn.line("$")
+  if ai_type == "i" then
+    -- Skip first and last blank lines for `i` textobject
+    local first_nonblank, last_nonblank = vim.fn.nextnonblank(start_line), vim.fn.prevnonblank(end_line)
+    -- Do nothing for buffer with all blanks
+    if first_nonblank == 0 or last_nonblank == 0 then
+      return { from = { line = start_line, col = 1 } }
+    end
+    start_line, end_line = first_nonblank, last_nonblank
+  end
+
+  local to_col = math.max(vim.fn.getline(end_line):len(), 1)
+  return { from = { line = start_line, col = 1 }, to = { line = end_line, col = to_col } }
+end
+
+function M.get_kind_filter(buf)
+  local kind_filter = {
+    default = {
+      "Class",
+      "Constructor",
+      "Enum",
+      "Field",
+      "Function",
+      "Interface",
+      "Method",
+      "Module",
+      "Namespace",
+      "Package",
+      "Property",
+      "Struct",
+      "Trait",
+    },
+    markdown = false,
+    help = false,
+    -- you can specify a different filter for each filetype
+    lua = {
+      "Class",
+      "Constructor",
+      "Enum",
+      "Field",
+      "Function",
+      "Interface",
+      "Method",
+      "Module",
+      "Namespace",
+      -- "Package", -- remove package since luals uses it for control flow structures
+      "Property",
+      "Struct",
+      "Trait",
+    },
+  }
+  buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+  local ft = vim.bo[buf].filetype
+  if kind_filter == false then
+    return
+  end
+  if kind_filter[ft] == false then
+    return
+  end
+  if type(kind_filter[ft]) == "table" then
+    return kind_filter[ft]
+  end
+  ---@diagnostic disable-next-line: return-type-mismatch
+  return type(kind_filter) == "table" and type(kind_filter.default) == "table" and kind_filter.default or
+      nil
+end
+
+function M.symbols_filter(entry, ctx)
+  if ctx.symbols_filter == nil then
+    ctx.symbols_filter = M.get_kind_filter(ctx.bufnr) or false
+  end
+  if ctx.symbols_filter == false then
+    return true
+  end
+  return vim.tbl_contains(ctx.symbols_filter, entry.kind)
+end
+
+---@param name string
+function M.get_opts(name)
+  local plugin = require("lazy.core.config").spec.plugins[name]
+  if not plugin then
+    return {}
+  end
+  local Plugin = require("lazy.core.plugin")
+  return Plugin.values(plugin, 'opts', false)
+end
+
+function M.get_root()
+  local util = require 'lspconfig.util'
+  local pattern = util.root_pattern('Makefile', '.git', 'lua', 'package.json')
+  return pattern(vim.api.nvim_buf_get_name(0))
+end
+
+function M.safe_keymap_set(mode, lhs, rhs, opts)
+  local keys = require 'lazy.core.handler'.handlers.keys
+  ---@cast keys LazyKeysHandler
+  local modes = type(mode) == "string" and { mode } or mode
+
+  ---@param m string
+  modes = vim.tbl_filter(function(m)
+    return not (keys.have and keys:have(lhs, m))
+  end, modes)
+
+  -- do not create the keymap if a lazy keys handler exists
+  if #modes > 0 then
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
+    if opts.remap and not vim.g.vscode then
+      ---@diagnostic disable-next-line: no-unknown
+      opts.remap = nil
+    end
+    vim.keymap.set(modes, lhs, rhs, opts)
+  end
+end
+
+return M

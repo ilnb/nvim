@@ -1,5 +1,6 @@
 return {
   'catppuccin/nvim',
+  name = 'catppuccin',
   ---@diagnostic disable: missing-fields
   ---@type CatppuccinOptions
   opts = {

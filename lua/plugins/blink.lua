@@ -5,15 +5,59 @@ return {
   opts_extend = {
     'sources.default',
   },
-  -- dependencies = { "archie-judd/blink-cmp-words" },
+  dependencies = {
+    -- {
+    --   "archie-judd/blink-cmp-words",
+    --   event = 'InsertEnter',
+    -- }
+  },
 
-  event = function()
-    return { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' }
-  end,
+  event = { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' },
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    appearance = {
+      kind_icons = {
+        Array         = ' ',
+        Boolean       = '󰨙 ',
+        Class         = ' ',
+        Color         = ' ',
+        Control       = ' ',
+        Collapsed     = ' ',
+        Constant      = '󰏿 ',
+        Constructor   = ' ',
+        Enum          = ' ',
+        EnumMember    = ' ',
+        Event         = ' ',
+        Field         = ' ',
+        File          = ' ',
+        Folder        = ' ',
+        Function      = '󰊕 ',
+        Interface     = ' ',
+        Key           = ' ',
+        Keyword       = ' ',
+        Method        = '󰊕 ',
+        Module        = ' ',
+        Namespace     = '󰦮 ',
+        Null          = ' ',
+        Number        = '󰎠 ',
+        Object        = ' ',
+        Operator      = ' ',
+        Package       = ' ',
+        Property      = ' ',
+        Reference     = ' ',
+        Snippet       = '󱄽 ',
+        String        = ' ',
+        Struct        = '󰆼 ',
+        Supermaven    = ' ',
+        Text          = ' ',
+        TypeParameter = ' ',
+        Unit          = ' ',
+        Value         = ' ',
+        Variable      = '󰀫 ',
+      }
+    },
     cmdline = {
       enabled = true,
       completion = {
@@ -80,18 +124,22 @@ return {
 
     snippets = {
       preset = 'luasnip',
-      expand = function(snippet)
-        return LazyVim.cmp.expand(snippet)
-      end,
     },
     sources = {
-      default = { 'lsp', 'lazydev', 'path', 'snippets', 'buffer' },
+      default = {
+        'lsp',
+        -- 'lazydev',
+        'path',
+        'snippets',
+        'buffer',
+        -- 'dictionary'
+      },
       providers = {
-        lazydev = {
-          name = 'LazyDev',
-          module = 'lazydev.integrations.blink',
-          score_offset = 80, -- show at a higher priority than lsp
-        },
+        -- lazydev = {
+        --   name = 'LazyDev',
+        --   module = 'lazydev.integrations.blink',
+        --   score_offset = 80, -- show at a higher priority than lsp
+        -- },
 
         path = {
           opts = { show_hidden_files_by_default = true },
@@ -147,11 +195,6 @@ return {
       end,
     })
 
-    -- use lazyvim's config for setting up compat sources
-    -- require 'lazyvim.plugins.extras.coding.blink'[2].config(_, opts)
-    -- otherwise
-    opts.appearance = opts.appearance or {}
-    opts.appearance.kind_icons = vim.tbl_extend('force', opts.appearance.kind_icons or {}, LazyVim.config.icons.kinds)
     opts.sources.compat = nil
     require 'blink.cmp'.setup(opts)
   end

@@ -8,7 +8,6 @@ return {
     separator = ' ',
     highlight = true,
     depth_limit = 5,
-    -- icons = LazyVim.config.icons.kinds,
     icons = {
       Array         = ' ',
       Boolean       = '󰨙 ',

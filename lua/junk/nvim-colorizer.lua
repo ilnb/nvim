@@ -11,14 +11,4 @@ return {
       mode = 'foreground',                -- or "foreground"
     },
   },
-  keys = {
-    {
-      '<leader>uc',
-      function()
-        vim.cmd [[ColorizerToggle]]
-      end,
-      mode = { 'n', 'v' },
-      desc = 'Colorizer toggle'
-    }
-  }
 }

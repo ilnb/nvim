@@ -1,5 +1,7 @@
 return {
   'folke/snacks.nvim',
+  priority = 1000,
+  lazy = false,
   keys = {
     {
       '<leader>dd',
@@ -32,7 +34,9 @@ return {
     notifier = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
-    toggle = { map = LazyVim.safe_keymap_set },
+    toggle = {
+      -- map = require 'utils.plugins'.safe_keymap_set
+    },
     words = { enabled = true },
 
     statuscolumn = {
@@ -166,7 +170,6 @@ return {
           title = 'Actions',
           indent = 2,
           padding = 1,
-          -- stylua: ignore
           {
             icon = ' ',
             desc = 'Find file',
@@ -174,10 +177,9 @@ return {
             action = function()
               vim.cmd [[lua require'fzf-lua'.files {fd_opts = '-I -t f -E .git -H'}]]
             end
-          }, --action = '<leader><Space>'
-
+          },
+          { icon = ' ', desc = 'Grep', key = 'g', action = '<cmd>FzfLua live_grep<cr>' },
           { icon = '󰒲 ', desc = 'Lazy', key = 'l', action = ':Lazy' },
-          { icon = ' ', desc = 'Lazy Extras', key = 'x', action = ':LazyExtras' },
           { icon = ' ', desc = 'Exit', key = 'q', action = ':q' },
         },
 
@@ -267,5 +269,13 @@ return {
         end,
       },
     },
-  }
+  },
+
+  config = function(_, opts)
+    local notify = vim.notify
+    require 'snacks'.setup(opts)
+    if require 'lazy.core.config'.spec.plugins['noice.nvim'] then
+      vim.notify = notify
+    end
+  end,
 }

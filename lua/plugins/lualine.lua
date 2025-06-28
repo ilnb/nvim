@@ -16,20 +16,19 @@ return {
   opts = function()
     -- PERF: we don't need this lualine require madness 🤷
     require 'lualine_require'.require = require
-    local icons = LazyVim.config.icons
     vim.o.laststatus = vim.g.lualine_laststatus
 
     vim.api.nvim_create_autocmd('ColorScheme', {
       callback = function()
         require 'lualine'.setup {
-          options = { theme = require 'utils'.lualine_theme() },
+          options = { theme = require 'utils.plugins'.lualine_theme() },
         }
       end
     })
 
     local opts = {
       options = {
-        theme = require 'utils'.lualine_theme(),
+        theme = require 'utils.plugins'.lualine_theme(),
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
       },
@@ -42,22 +41,21 @@ return {
           {
             'diagnostics',
             symbols = {
-              error = icons.diagnostics.Error,
-              warn = icons.diagnostics.Warn,
-              info = icons.diagnostics.Info,
-              hint = icons.diagnostics.Hint,
+              error = ' ',
+              warn  = ' ',
+              info  = ' ',
+              hint  = ' ',
             },
           },
 
           {
             'filetype',
             icon_only = true,
-            separator = "",
+            separator = '',
             padding = { left = 1, right = 0 }
           },
 
           'filename',
-          -- LazyVim.lualine.pretty_path(),
           {
             function()
               local navic = require 'nvim-navic'
@@ -100,9 +98,6 @@ return {
           {
             'diff',
             symbols = {
-              -- added = icons.git.added,
-              -- modified = icons.git.modified,
-              -- removed = icons.git.removed,
               added = '+',
               modified = '~',
               removed = '-',
@@ -122,7 +117,7 @@ return {
           },
 
           {
-            function() return require 'utils'.os_icon() end
+            function() return require 'utils.plugins'.os_icon() end
           }
         },
 
@@ -145,7 +140,7 @@ return {
           end,
         },
       },
-      extensions = { 'fzf', 'lazy', 'mason', 'neo-tree' },
+      extensions = { 'fzf', 'lazy', 'mason' },
     }
 
     return opts
