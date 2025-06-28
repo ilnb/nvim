@@ -5,6 +5,7 @@ return {
     build = ':TSUpdate',
     event = { 'BufReadPre', 'BufNewFile' },
     lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    --[[
     init = function(plugin)
       -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
       -- This is needed because a bunch of plugins no longer `require('nvim-treesitter')`, which
@@ -14,6 +15,7 @@ return {
       require 'lazy.core.loader'.add_to_rtp(plugin)
       require 'nvim-treesitter.query_predicates'
     end,
+    --]]
     cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
     keys = {
       { '<c-space>', desc = 'Increment Selection' },
@@ -23,6 +25,7 @@ return {
     ---@type TSConfig
     ---@diagnostic disable-next-line: missing-fields
     opts = {
+      auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
       ensure_installed = {
@@ -30,6 +33,7 @@ return {
         'bash',
         'c',
         'cpp',
+        'css',
         'diff',
         'html',
         'hyprlang',
