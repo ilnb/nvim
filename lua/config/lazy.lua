@@ -32,12 +32,15 @@ require 'lazy'.setup {
   performance = {
     rtp = {
       disabled_plugins = {
+        'editorconfig',
         'gzip',
         -- 'matchit',
         -- if disabled, causes the cursor
         -- to be out of focus on dashboard
         -- 'matchparen',
+        'osc52',
         'netrwPlugin',
+        'rplugin',
         'tarPlugin',
         'tohtml',
         'tutor',
