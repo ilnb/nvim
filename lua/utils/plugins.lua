@@ -193,9 +193,21 @@ function M.get_opts(name)
 end
 
 function M.get_root()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == '' then return vim.loop.cwd() end
   local util = require 'lspconfig.util'
-  local pattern = util.root_pattern('Makefile', '.git', 'lua', 'package.json')
-  return pattern(vim.api.nvim_buf_get_name(0))
+  local root = util.root_pattern('Makefile', '.git', 'package.json')(path)
+  if root then return root end
+  local dir = vim.fs.dirname(path)
+  local home = vim.env.HOME
+  local parts = vim.split(dir, '/', { plain = true })
+  local depth = math.max(#parts - 2, 1)
+  local curr = dir
+  for _ = 1, #parts - depth do
+    curr = vim.fs.dirname(curr)
+    if curr == home then break end
+  end
+  return curr or vim.loop.cwd()
 end
 
 function M.safe_keymap_set(mode, lhs, rhs, opts)
