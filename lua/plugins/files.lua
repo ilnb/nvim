@@ -268,20 +268,8 @@ return {
     },
 
     keys = {
-      {
-        '<leader>fm',
-        function()
-          require 'mini.files'.open(vim.api.nvim_buf_get_name(0), true)
-        end,
-        desc = 'Open mini.files (Directory of Current File)',
-      },
-      {
-        '<leader>fM',
-        function()
-          require 'mini.files'.open(vim.uv.cwd(), true)
-        end,
-        desc = 'Open mini.files (cwd)',
-      },
+      { '<leader>fm', function() require 'mini.files'.open(vim.api.nvim_buf_get_name(0), true) end, desc = 'Open mini.files (Directory of Current File)', },
+      { '<leader>fM', function() require 'mini.files'.open(vim.uv.cwd(), true) end,                 desc = 'Open mini.files (cwd)', },
     },
 
     config = function(_, opts)
@@ -298,7 +286,7 @@ return {
       local toggle_dotfiles = function()
         show_dotfiles = not show_dotfiles
         local new_filter = show_dotfiles and filter_show or filter_hide
-        require 'mini.files'.refresh({ content = { filter = new_filter } })
+        require 'mini.files'.refresh { content = { filter = new_filter } }
       end
 
       local files_set_cwd = function()
