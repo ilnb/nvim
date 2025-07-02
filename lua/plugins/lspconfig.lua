@@ -49,7 +49,8 @@ return {
         'asm_lsp',
         'lua_ls',
         'clangd',
-        'pyright'
+        -- 'pyright',
+        'basedpyright',
       }
       -- if ok_mason then
       --   all_servers = mlsp.get_installed_servers()
