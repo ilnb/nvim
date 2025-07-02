@@ -31,22 +31,24 @@ M.on_attach = function(client, buffer)
   map('<leader>cr', function() vim.lsp.buf.rename() end, 'Rename')
   map('<leader>cf', function() vim.lsp.buf.format() end, 'Lsp Format')
   map('<leader>cd', function() vim.diagnostic.open_float() end, 'Line Diagnostics')
-  map('<leader>sd', function() vim.cmd [[FzfLua diagnostics_document]] end, 'Document Diagnostics')
-  map('<leader>sD', function() vim.cmd [[FzfLua diagnostics_workspace]] end, 'Workspace Diagnostics')
+  map('<leader>cl', function() Snacks.picker.lsp_config() end, 'Lsp Info')
+  map('<leader>sd', function() require 'fzf-lua'.diagnostics_document() end, 'Document Diagnostics')
+  map('<leader>sD', function() require 'fzf-lua'.diagnostics_workspace() end, 'Workspace Diagnostics')
   map('[d', function() vim.diagnostic.jump { count = -1, float = false } end, 'Previous Diagnostic')
   map(']d', function() vim.diagnostic.jump { count = 1, float = false } end, 'Next Diagnostic')
   map('[e', function() vim.diagnostic.jump { count = -1, float = false, severity = 'ERROR' } end, 'Previous Error')
   map(']e', function() vim.diagnostic.jump { count = 1, float = false, severity = 'ERROR' } end, 'Next Error')
   -- map('[w', function() vim.diagnostic.jump { count = -1, float = false, severity = 'WARN' } end, 'Previous Warning')
   -- map(']w', function() vim.diagnostic.jump { count = 1, float = false, severity = 'WARN' } end, 'Next Warning')
+  local filter = require 'utils.plugins'.symbols_filter
   map('<leader>ss', function()
     require 'fzf-lua'.lsp_document_symbols {
-      regex_filter = require 'utils.plugins'.symbols_filter,
+      regex_filter = filter,
     }
   end, 'Goto Symbol')
   map('<leader>sS', function()
     require 'fzf-lua'.lsp_live_workspace_symbols {
-      regex_filter = require 'utils.plugins'.symbols_filter,
+      regex_filter = filter,
     }
   end, 'Goto Symbol')
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
@@ -55,7 +57,7 @@ M.on_attach = function(client, buffer)
 
   if client:supports_method 'textDocument/formatting' then
     vim.api.nvim_create_autocmd('BufWritePre', {
-      group = vim.api.nvim_create_augroup('LspFormat' .. buffer, { clear = true }),
+      group = vim.api.nvim_create_augroup('LspFormat', {}),
       buffer = buffer,
       callback = function()
         vim.lsp.buf.format { bufnr = buffer }
