@@ -10,11 +10,12 @@ return {
   settings = {
     python = {
       analysis = {
-        typeCheckingMode = "strict", -- or basic
+        typeCheckingMode = 'basic', -- or strict
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
-        diagnosticMode = "openFilesOnly", -- faster; use "workspace" for full project
+        diagnosticMode = 'openFilesOnly', -- faster; use 'workspace' for full project
         autoImportCompletions = true,
+        reportMissingTypeStubs = false,
       },
     },
   },
