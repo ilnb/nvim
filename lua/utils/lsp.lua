@@ -56,8 +56,9 @@ M.on_attach = function(client, buffer)
   Snacks.toggle.inlay_hints():map '<leader>uh'
 
   if client:supports_method 'textDocument/formatting' then
+    local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
-      group = vim.api.nvim_create_augroup('LspFormat', {}),
+      group = grp,
       buffer = buffer,
       callback = function()
         vim.lsp.buf.format { bufnr = buffer }

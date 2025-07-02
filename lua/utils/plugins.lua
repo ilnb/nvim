@@ -105,8 +105,8 @@ function M.os_icon()
 end
 
 function M.ai_buffer(ai_type)
-  local start_line, end_line = 1, vim.fn.line("$")
-  if ai_type == "i" then
+  local start_line, end_line = 1, vim.fn.line'$'
+  if ai_type == 'i' then
     -- Skip first and last blank lines for `i` textobject
     local first_nonblank, last_nonblank = vim.fn.nextnonblank(start_line), vim.fn.prevnonblank(end_line)
     -- Do nothing for buffer with all blanks
@@ -123,37 +123,37 @@ end
 function M.get_kind_filter(buf)
   local kind_filter = {
     default = {
-      "Class",
-      "Constructor",
-      "Enum",
-      "Field",
-      "Function",
-      "Interface",
-      "Method",
-      "Module",
-      "Namespace",
-      "Package",
-      "Property",
-      "Struct",
-      "Trait",
+      'Class',
+      'Constructor',
+      'Enum',
+      'Field',
+      'Function',
+      'Interface',
+      'Method',
+      'Module',
+      'Namespace',
+      'Package',
+      'Property',
+      'Struct',
+      'Trait',
     },
     markdown = false,
     help = false,
     -- you can specify a different filter for each filetype
     lua = {
-      "Class",
-      "Constructor",
-      "Enum",
-      "Field",
-      "Function",
-      "Interface",
-      "Method",
-      "Module",
-      "Namespace",
-      -- "Package", -- remove package since luals uses it for control flow structures
-      "Property",
-      "Struct",
-      "Trait",
+      'Class',
+      'Constructor',
+      'Enum',
+      'Field',
+      'Function',
+      'Interface',
+      'Method',
+      'Module',
+      'Namespace',
+      -- 'Package', -- remove package since luals uses it for control flow structures
+      'Property',
+      'Struct',
+      'Trait',
     },
   }
   buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
@@ -164,11 +164,11 @@ function M.get_kind_filter(buf)
   if kind_filter[ft] == false then
     return
   end
-  if type(kind_filter[ft]) == "table" then
+  if type(kind_filter[ft]) == 'table' then
     return kind_filter[ft]
   end
   ---@diagnostic disable-next-line: return-type-mismatch
-  return type(kind_filter) == "table" and type(kind_filter.default) == "table" and kind_filter.default or
+  return type(kind_filter) == 'table' and type(kind_filter.default) == 'table' and kind_filter.default or
       nil
 end
 
@@ -184,19 +184,18 @@ end
 
 ---@param name string
 function M.get_opts(name)
-  local plugin = require("lazy.core.config").spec.plugins[name]
+  local plugin = require'lazy.core.config'.spec.plugins[name]
   if not plugin then
     return {}
   end
-  local Plugin = require("lazy.core.plugin")
+  local Plugin = require'lazy.core.plugin'
   return Plugin.values(plugin, 'opts', false)
 end
 
 function M.get_root()
   local path = vim.api.nvim_buf_get_name(0)
-  if path == '' then return vim.loop.cwd() end
-  local util = require 'lspconfig.util'
-  local root = util.root_pattern('Makefile', '.git', 'package.json')(path)
+  if path == '' then return vim.uv.cwd() end
+  local root = require 'lspconfig.util'.root_pattern('Makefile', 'lua', '.git')(path)
   if root then return root end
   local dir = vim.fs.dirname(path)
   local home = vim.env.HOME
@@ -207,13 +206,13 @@ function M.get_root()
     curr = vim.fs.dirname(curr)
     if curr == home then break end
   end
-  return curr or vim.loop.cwd()
+  return curr or vim.uv.cwd()
 end
 
 function M.safe_keymap_set(mode, lhs, rhs, opts)
   local keys = require 'lazy.core.handler'.handlers.keys
   ---@cast keys LazyKeysHandler
-  local modes = type(mode) == "string" and { mode } or mode
+  local modes = type(mode) == 'string' and { mode } or mode
 
   ---@param m string
   modes = vim.tbl_filter(function(m)
