@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    ft = { 'c', 'cpp', 'cs', 'h', 'python', 'asm', 'lua' },
     dependencies = nil,
 
     opts = {
@@ -26,7 +26,7 @@ return {
     config = function(_, opts)
       vim.diagnostic.config ---@type vim.diagnostic.Opts
       {
-        underline = true,
+        underline = { severity = 'ERROR' },
         update_in_insert = false,
         virtual_text = {
           current_line = true,
