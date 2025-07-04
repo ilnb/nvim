@@ -8,7 +8,7 @@ return {
       RRGGBB = true,                      -- #RRGGBB hex codes
       names = false,                      -- 'blue', 'red', etc
       css = true,                         -- enable all CSS features
-      mode = 'foreground',                -- or "foreground"
+      mode = 'foreground',                -- or 'foreground'
     },
   },
 }

@@ -110,7 +110,7 @@ return {
       config.defaults.keymap.fzf['ctrl-u'] = 'half-page-up'
       config.defaults.keymap.fzf['ctrl-d'] = 'half-page-down'
       config.defaults.keymap.fzf['ctrl-x'] = 'jump'
-      config.defaults.keymap.fzf["ctrl-f"] = 'preview-page-down'
+      config.defaults.keymap.fzf['ctrl-f'] = 'preview-page-down'
       config.defaults.keymap.fzf['ctrl-b'] = 'preview-page-up'
       config.defaults.keymap.builtin['<c-f>'] = 'preview-page-down'
       config.defaults.keymap.builtin['<c-b>'] = 'preview-page-up'
@@ -150,25 +150,25 @@ return {
           },
         },
         ui_select  = function(fzf_opts, items)
-          return vim.tbl_deep_extend("force", fzf_opts, {
-            prompt = " ",
+          return vim.tbl_deep_extend('force', fzf_opts, {
+            prompt = ' ',
             winopts = {
-              title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
-              title_pos = "center",
+              title = ' ' .. vim.trim((fzf_opts.prompt or 'Select'):gsub('%s*:%s*$', '')) .. ' ',
+              title_pos = 'center',
             },
-          }, fzf_opts.kind == "codeaction" and {
+          }, fzf_opts.kind == 'codeaction' and {
             winopts = {
-              layout = "vertical",
+              layout = 'vertical',
               -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
               height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
               width = 0.5,
-              preview = not vim.tbl_isempty(require 'utils.lsp'.get_clients { bufnr = 0, name = "vtsls" }) and {
-                layout = "vertical",
-                vertical = "down:15,border-top",
-                hidden = "hidden",
+              preview = not vim.tbl_isempty(require 'utils.lsp'.get_clients { bufnr = 0, name = 'vtsls' }) and {
+                layout = 'vertical',
+                vertical = 'down:15,border-top',
+                hidden = 'hidden',
               } or {
-                layout = "vertical",
-                vertical = "down:15,border-top",
+                layout = 'vertical',
+                vertical = 'down:15,border-top',
               },
             },
           } or {
@@ -191,14 +191,14 @@ return {
         files      = {
           cwd_prompt = false,
           actions = {
-            ["alt-i"] = { actions.toggle_ignore },
-            ["alt-h"] = { actions.toggle_hidden },
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
           },
         },
         grep       = {
           actions = {
-            ["alt-i"] = { actions.toggle_ignore },
-            ["alt-h"] = { actions.toggle_hidden },
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
           },
         },
         lsp        = {

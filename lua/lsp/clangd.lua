@@ -10,7 +10,7 @@ local nosnippets = require 'blink.cmp'.get_lsp_capabilities {
 }
 
 local capabilities = vim.tbl_deep_extend('force', {
-  offsetEncoding = { "utf-16" },
+  offsetEncoding = { 'utf-16' },
 }, nosnippets)
 
 return {
@@ -25,13 +25,13 @@ return {
   on_attach = require 'utils.lsp'.on_attach,
   capabilities = capabilities,
   cmd = {
-    "clangd",
-    "--background-index",
-    "--clang-tidy",
-    "--header-insertion=iwyu",
-    "--completion-style=detailed",
-    "--function-arg-placeholders",
-    "--fallback-style=llvm",
+    'clangd',
+    '--background-index',
+    '--clang-tidy',
+    '--header-insertion=iwyu',
+    '--completion-style=detailed',
+    '--function-arg-placeholders',
+    '--fallback-style=llvm',
   },
   init_options = {
     usePlaceholders = true,

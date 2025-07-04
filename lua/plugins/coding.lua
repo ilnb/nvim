@@ -8,7 +8,7 @@ return {
     },
     dependencies = {
       -- {
-      --   "archie-judd/blink-cmp-words",
+      --   'archie-judd/blink-cmp-words',
       --   event = 'InsertEnter',
       -- }
     },
@@ -153,21 +153,21 @@ return {
 
           --[[
         thesaurus = {
-          name = "blink-cmp-words",
-          module = "blink-cmp-words.thesaurus",
+          name = 'blink-cmp-words',
+          module = 'blink-cmp-words.thesaurus',
           opts = {
             score_offset = 0,
-            pointer_symbols = { "!", "&", "^" },
+            pointer_symbols = { '!', '&', '^' },
           },
         },
 
         dictionary = {
-          name = "blink-cmp-words",
-          module = "blink-cmp-words.dictionary",
+          name = 'blink-cmp-words',
+          module = 'blink-cmp-words.dictionary',
           opts = {
             dictionary_search_threshold = 3,
             score_offset = 0,
-            pointer_symbols = { "!", "&", "^" },
+            pointer_symbols = { '!', '&', '^' },
           },
         },
         --]]
@@ -337,7 +337,7 @@ return {
         enable = true,
         keymaps = {
           init_selection = '<C-space>',
-          node_incremental = "<C-space>",
+          node_incremental = '<C-space>',
           scope_incremental = false,
           node_decremental = '<bs>',
         },
@@ -345,7 +345,7 @@ return {
       textobjects = {
         move = {
           enable = true,
-          goto_next_start = { [']f'] = "@function.outer", [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
           goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
           goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
           goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },

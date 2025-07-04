@@ -33,18 +33,18 @@ return {
         --]]
       },
       completion = {
-        callSnippet = "Replace",
+        callSnippet = 'Replace',
       },
       doc = {
-        privateName = { "^_" },
+        privateName = { '^_' },
       },
       hint = {
         enable = true,
         setType = false,
         paramType = true,
-        paramName = "Disable",
-        semicolon = "Disable",
-        arrayIndex = "Disable",
+        paramName = 'Disable',
+        semicolon = 'Disable',
+        arrayIndex = 'Disable',
       },
     },
   },

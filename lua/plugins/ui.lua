@@ -104,7 +104,7 @@ return {
                 removed = '-',
               },
 
-              -- separator = "",
+              -- separator = '',
               source = function()
                 local gitsigns = vim.b.gitsigns_status_dict
                 if gitsigns then
@@ -323,7 +323,7 @@ return {
             {
               icon = ' ',
               desc = 'Find file',
-              key = "f",
+              key = 'f',
               action = function()
                 require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
               end
@@ -370,9 +370,9 @@ return {
             },
 
             {
-              icon = "󰙲 ",
-              desc = "C++ Codes",
-              key = "p",
+              icon = '󰙲 ',
+              desc = 'C++ Codes',
+              key = 'p',
               action = function()
                 local dir = '~/code/cpp'
                 require 'fzf-lua'.files {
@@ -559,7 +559,7 @@ return {
     lazy = true,
     opts = {
       file = {
-        ['.keep'] = { glyph = "󰊢", hl = 'MiniIconsGrey' },
+        ['.keep'] = { glyph = '󰊢', hl = 'MiniIconsGrey' },
         ['devcontainer.json'] = { glyph = '', hl = 'MiniIconsAzure' },
       },
       filetype = {

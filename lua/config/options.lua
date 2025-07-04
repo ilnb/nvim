@@ -1,12 +1,10 @@
--- This file is automatically loaded by plugins.core
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
 vim.g.autoformat = true
 
 -- Snacks animations
--- Set to `false` to globally disable all snacks animations
-vim.g.snacks_animate = true
+vim.g.snacks_animate = true                             -- Set to `false` to globally disable all snacks animations
 local opt = vim.opt
 opt.autowrite = true                                    -- Enable auto write
 opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
@@ -23,7 +21,7 @@ opt.fillchars = {
   diff = '╱',
   eob = ' ',
 }
--- opt.foldtext = "v:lua.require'utils'.custom_foldtext()"
+-- opt.foldtext = 'v:lua.require'utils'.custom_foldtext()'
 opt.foldlevel = 99
 opt.formatoptions = 'jcroqlnt' -- tcqj
 opt.grepformat = '%f:%l:%c:%m'
