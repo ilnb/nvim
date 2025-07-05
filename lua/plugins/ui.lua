@@ -71,7 +71,6 @@ return {
           },
 
           lualine_x = {
-            Snacks.profiler.status(),
             {
               function() return require 'noice'.api.status.command.get() end,
               cond = function() return package.loaded['noice'] and require 'noice'.api.status.command.has() end,
@@ -115,6 +114,17 @@ return {
                   }
                 end
               end,
+            },
+
+            {
+              'lsp_status',
+              icon = '', -- f013
+              symbols = {
+                spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+                done = '✓',
+                separator = ' ',
+              },
+              ignore_lsp = {},
             },
 
             {
