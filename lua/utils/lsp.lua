@@ -63,6 +63,12 @@ M.on_attach = function(client, buffer)
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
   Snacks.toggle.inlay_hints():map '<leader>uh'
 
+  -- remove native lsp keymaps
+  for _, key in ipairs { 'a', 'i', 'n', 'r' } do
+    vim.keymap.del('n', 'gr' .. key)
+  end
+  vim.keymap.del('v', 'gra')
+
   if client:supports_method 'textDocument/formatting' then
     local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
