@@ -31,6 +31,9 @@ M.on_attach = function(client, buffer)
       vim.notify("Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)", vim.log.levels.ERROR)
     end
   end
+  local del = function(mode, key)
+    pcall(vim.keymap.del, mode, key)
+  end
   map('gd', function() require 'fzf-lua'.lsp_definitions() end, 'Goto Definition')
   map('gD', function() require 'fzf-lua'.lsp_declarations() end, 'Goto Declaration')
   map('K', function() vim.lsp.buf.hover() end, 'Hover')
@@ -65,9 +68,9 @@ M.on_attach = function(client, buffer)
 
   -- remove native lsp keymaps
   for _, key in ipairs { 'a', 'i', 'n', 'r' } do
-    vim.keymap.del('n', 'gr' .. key)
+    del('n', 'gr' .. key)
   end
-  vim.keymap.del('v', 'gra')
+  del('v', 'gra')
 
   if client:supports_method 'textDocument/formatting' then
     local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })
