@@ -64,7 +64,7 @@ return {
               end,
               cond = function()
                 local ok, navic = pcall(require, 'nvim-navic')
-                return ok and navic.is_available()
+                return ok and navic.is_available() and vim.o.columns >= 130
               end,
               color = 'dynamic',
             }
@@ -118,7 +118,8 @@ return {
 
             {
               'lsp_status',
-              icon = '', -- f013
+              cond = function() return vim.o.columns >= 95 end,
+              icon = '',
               symbols = {
                 spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
                 done = '✓',
