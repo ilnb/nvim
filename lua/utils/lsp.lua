@@ -21,12 +21,20 @@ function M.get_clients(opts)
 end
 
 M.on_attach = function(client, buffer)
-  local map = function(key, fn, desc)
-    vim.keymap.set('n', key, fn, { buffer = buffer, desc = desc })
+  local map = function(...)
+    local args = { ... }
+    if #args == 3 then
+      vim.keymap.set('n', args[1], args[2], { buffer = buffer, desc = args[3] })
+    elseif #args == 4 then
+      vim.keymap.set(args[1], args[2], args[3], { buffer = buffer, desc = args[4] })
+    else
+      vim.notify("Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)", vim.log.levels.ERROR)
+    end
   end
   map('gd', function() require 'fzf-lua'.lsp_definitions() end, 'Goto Definition')
   map('gD', function() require 'fzf-lua'.lsp_declarations() end, 'Goto Declaration')
   map('K', function() vim.lsp.buf.hover() end, 'Hover')
+  map('i', '<C-K>', function() vim.lsp.buf.signature_help() end, 'Signature Help')
   map('<leader>ca', function() vim.lsp.buf.code_action() end, 'Code Action')
   map('<leader>cr', function() vim.lsp.buf.rename() end, 'Rename')
   map('<leader>cf', function() vim.lsp.buf.format() end, 'Lsp Format')
