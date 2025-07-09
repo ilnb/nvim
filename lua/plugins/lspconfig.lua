@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    ft = { 'c', 'cpp', 'cs', 'h', 'python', 'asm', 'lua' },
+    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua' },
     dependencies = nil,
 
     opts = {
