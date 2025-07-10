@@ -122,3 +122,10 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
   end,
 })
+
+-- enable snacks indent guides for new files
+vim.api.nvim_create_autocmd('BufNewFile', {
+  callback = function ()
+    require'snacks.indent'.enable()
+  end
+})
