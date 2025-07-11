@@ -203,7 +203,7 @@ function M.get_root()
   local depth = math.max(#parts - 2, 1)
   local curr = dir
   for _ = 1, #parts - depth do
-    if curr == home then break end
+    if curr == home or curr == '/' then break end
     curr = vim.fs.dirname(curr)
   end
   return curr or vim.uv.cwd()
@@ -223,7 +223,7 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
   if #modes > 0 then
     opts = opts or {}
     opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
+    if opts.remap then
       ---@diagnostic disable-next-line: no-unknown
       opts.remap = nil
     end
