@@ -105,7 +105,7 @@ function M.os_icon()
 end
 
 function M.ai_buffer(ai_type)
-  local start_line, end_line = 1, vim.fn.line'$'
+  local start_line, end_line = 1, vim.fn.line '$'
   if ai_type == 'i' then
     -- Skip first and last blank lines for `i` textobject
     local first_nonblank, last_nonblank = vim.fn.nextnonblank(start_line), vim.fn.prevnonblank(end_line)
@@ -184,11 +184,11 @@ end
 
 ---@param name string
 function M.get_opts(name)
-  local plugin = require'lazy.core.config'.spec.plugins[name]
+  local plugin = require 'lazy.core.config'.spec.plugins[name]
   if not plugin then
     return {}
   end
-  local Plugin = require'lazy.core.plugin'
+  local Plugin = require 'lazy.core.plugin'
   return Plugin.values(plugin, 'opts', false)
 end
 
@@ -203,8 +203,8 @@ function M.get_root()
   local depth = math.max(#parts - 2, 1)
   local curr = dir
   for _ = 1, #parts - depth do
-    curr = vim.fs.dirname(curr)
     if curr == home then break end
+    curr = vim.fs.dirname(curr)
   end
   return curr or vim.uv.cwd()
 end
