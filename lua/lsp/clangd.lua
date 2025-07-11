@@ -9,10 +9,6 @@ local nosnippets = require 'blink.cmp'.get_lsp_capabilities {
   },
 }
 
-local capabilities = vim.tbl_deep_extend('force', {
-  offsetEncoding = { 'utf-16' },
-}, nosnippets)
-
 return {
   root_dir = function(fname)
     return require 'lspconfig.util'.root_pattern(
@@ -23,7 +19,7 @@ return {
         vim.fn.getcwd()
   end,
   on_attach = require 'utils.lsp'.on_attach,
-  capabilities = capabilities,
+  capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), nosnippets),
   cmd = {
     'clangd',
     '--background-index',
