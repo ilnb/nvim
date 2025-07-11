@@ -8,9 +8,9 @@ return {
         vim.fn.getcwd()
   end,
   settings = {
-    python = {
+    basedpyright = {
       analysis = {
-        typeCheckingMode = 'basic', -- or strict
+        typeCheckingMode = 'standard',
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         diagnosticMode = 'openFilesOnly', -- faster; use 'workspace' for full project
