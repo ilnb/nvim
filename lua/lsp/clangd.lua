@@ -1,13 +1,17 @@
-local nosnippets = require 'blink.cmp'.get_lsp_capabilities {
-  textDocument = {
-    completion = {
-      completionItem =
-      {
-        snippetSupport = false,
+local capabilities = vim.tbl_deep_extend('force', {},
+  vim.lsp.protocol.make_client_capabilities(),
+  require 'blink.cmp'.get_lsp_capabilities {
+    textDocument = {
+      completion = {
+        completionItem =
+        {
+          snippetSupport = false,
+        },
       },
     },
   },
-}
+  { offsetEncoding = 'utf-16' }
+)
 
 return {
   root_dir = function(fname)
@@ -19,7 +23,7 @@ return {
         vim.fn.getcwd()
   end,
   on_attach = require 'utils.lsp'.on_attach,
-  capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), nosnippets),
+  capabilities = capabilities,
   cmd = {
     'clangd',
     '--background-index',
@@ -33,8 +37,5 @@ return {
     usePlaceholders = true,
     completeUnimported = true,
     clangdFileStatus = true,
-  },
-  inlay_hints = {
-    inline = false
   },
 }
