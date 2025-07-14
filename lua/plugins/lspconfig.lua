@@ -68,14 +68,13 @@ return {
 
       for _, lang in ipairs(all_servers) do
         local opt = {}
-        local lsp = require 'lspconfig'
         if vim.tbl_contains(servers, lang) then
           opt = require('lsp.' .. lang)
         else
           opt.capabilities = require 'utils.lsp'.capabilities
           opt.on_attach = require 'utils.lsp'.on_attach
         end
-        lsp[lang].setup(opt)
+        require 'lspconfig'[lang].setup(opt)
       end
     end
   },
