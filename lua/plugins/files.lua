@@ -140,11 +140,11 @@ return {
         previewers = {
           builtin = {
             extensions = {
-              ['png'] = img_previewer,
-              ['jpg'] = img_previewer,
-              ['jpeg'] = img_previewer,
-              ['gif'] = img_previewer,
-              ['webp'] = img_previewer,
+              png = img_previewer,
+              jpg = img_previewer,
+              jpeg = img_previewer,
+              gif = img_previewer,
+              webp = img_previewer,
             },
             ueberzug_scaler = 'fit_contain',
           },
