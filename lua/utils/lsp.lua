@@ -20,6 +20,8 @@ function M.get_clients(opts)
   return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
 end
 
+---@param client vim.lsp.Client
+---@param buffer integer
 M.on_attach = function(client, buffer)
   local map = function(...)
     local args = { ... }
@@ -67,8 +69,8 @@ M.on_attach = function(client, buffer)
   Snacks.toggle.inlay_hints():map '<leader>uh'
 
   -- remove native lsp keymaps
-  for _, key in ipairs { 'a', 'i', 'n', 'r' } do
-    del('n', 'gr' .. key)
+  for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'O' } do
+    del('n', 'g' .. key)
   end
   del('v', 'gra')
 
