@@ -26,6 +26,7 @@ opt.foldlevel = 99
 opt.formatoptions = 'jcroqlnt' -- tcqj
 opt.grepformat = '%f:%l:%c:%m'
 opt.grepprg = 'rg --vimgrep'
+opt.isfname:append '32'    -- spaces are included for file names
 opt.ignorecase = true      -- Ignore case
 opt.inccommand = 'nosplit' -- preview incremental substitute
 opt.jumpoptions = 'view'
