@@ -1,85 +1,52 @@
-local get_root = require 'utils.plugins'.get_root
-
 return {
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
     keys = {
-      { '<c-j>',           '<c-j>',                                                         ft = 'fzf',                       mode = 't', nowait = true },
-      { '<c-k>',           '<c-k>',                                                         ft = 'fzf',                       mode = 't', nowait = true },
-      { '<leader>:',       '<cmd>FzfLua command_history<cr>',                               desc = 'Command History' },
-      { '<leader>F',       '<cmd>FzfLua',                                                   desc = 'FzfLua' },
-      { '<leader><space>', function() require 'fzf-lua'.files { cwd = get_root() } end,     desc = 'Files (Root Dir)' },
-      { '<leader>fb',      '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>',      desc = 'Buffers' },
-      { '<leader>fg',      '<cmd>FzfLua git_files<cr>',                                     desc = 'Files (git-files)' },
-      { '<leader>fr',      '<cmd>FzfLua oldfiles<cr>',                                      desc = 'Resume' },
-      { '<leader>gc',      '<cmd>FzfLua git_commits<CR>',                                   desc = 'Commits' },
-      { '<leader>gs',      '<cmd>FzfLua git_status<CR>',                                    desc = 'Status' },
-      { '<leader>s"',      '<cmd>FzfLua registers<cr>',                                     desc = 'Registers' },
-      { '<leader>sa',      '<cmd>FzfLua autocmds<cr>',                                      desc = 'Auto Commands' },
-      { '<leader>sb',      '<cmd>FzfLua grep_curbuf<cr>',                                   desc = 'Buffer' },
-      { '<leader>sc',      '<cmd>FzfLua command_history<cr>',                               desc = 'Command History' },
-      { '<leader>sC',      '<cmd>FzfLua commands<cr>',                                      desc = 'Commands' },
-      { '<leader>sd',      '<cmd>FzfLua diagnostics_document<cr>',                          desc = 'Document Diagnostics' },
-      { '<leader>sD',      '<cmd>FzfLua diagnostics_workspace<cr>',                         desc = 'Workspace Diagnostics' },
-      { '<leader>sg',      function() require 'fzf-lua'.live_grep { cwd = get_root() } end, desc = 'Grep (Root Dir)' },
-      { '<leader>sh',      '<cmd>FzfLua help_tags<cr>',                                     desc = 'Help Pages' },
-      { '<leader>sH',      '<cmd>FzfLua highlights<cr>',                                    desc = 'Search Highlight Groups' },
-      { '<leader>sj',      '<cmd>FzfLua jumps<cr>',                                         desc = 'Jumplist' },
-      { '<leader>sk',      '<cmd>FzfLua keymaps<cr>',                                       desc = 'Key Maps' },
-      { '<leader>sl',      '<cmd>FzfLua loclist<cr>',                                       desc = 'Location List' },
-      { '<leader>sm',      '<cmd>FzfLua marks<cr>',                                         desc = 'Jump to Mark' },
-      { '<leader>sM',      '<cmd>FzfLua man_pages<cr>',                                     desc = 'Man Pages' },
-      { '<leader>sq',      '<cmd>FzfLua quickfix<cr>',                                      desc = 'Quickfix List' },
-      { '<leader>uC',      function() require 'fzf-lua'.colorschemes() end,                 desc = 'Colorscheme with Preview' },
-      {
-        '<leader>ff',
-        function()
-          require 'fzf-lua'.files {
-            fd_opts = '-I -t f -E .git -H',
-          }
-        end,
-        desc = 'Files (cwd)',
-        mode = { 'n', 'v' },
-      },
-      {
-        '<leader>fh',
-        function()
-          vim.cmd [[e ~/.zsh_history]]
-        end,
-        desc = 'Terminal history',
-        mode = { 'n', 'v' },
-      },
-      {
-        '<leader>fs',
-        function()
-          vim.cmd [[e ~/.zshrc]]
-        end,
-        desc = 'Zsh config',
-        mode = { 'n', 'v' },
-      },
-      {
-        '<leader>F',
-        function()
-          vim.cmd [[FzfLua]]
-        end,
-        desc = 'FzfLua',
-        mode = { 'n', 'v' },
-      },
+      { '<c-j>',           '<c-j>',                                                                             ft = 'fzf',                       mode = 't',          nowait = true },
+      { '<c-k>',           '<c-k>',                                                                             ft = 'fzf',                       mode = 't',          nowait = true },
+      { '<leader>:',       '<cmd>FzfLua command_history<cr>',                                                   desc = 'Command History' },
+      { '<leader>F',       '<cmd>FzfLua',                                                                       desc = 'FzfLua',                  mode = { 'n', 'v' }, },
+      { '<leader><space>', function() require 'fzf-lua'.files { cwd = require 'utils.plugins'.get_root() } end, desc = 'Files (Root Dir)' },
+      { '<leader>fb',      '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>',                          desc = 'Buffers' },
+      { '<leader>ff',      function() require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H', } end,          desc = 'Files (cwd)',             mode = { 'n', 'v' }, },
+      { '<leader>fg',      '<cmd>FzfLua git_files<cr>',                                                         desc = 'Files (git-files)' },
+      { '<leader>fh',      '<cmd>:e ~/.zsh_history<cr>',                                                        desc = 'Terminal history',        mode = { 'n', 'v' }, },
+      { '<leader>fr',      '<cmd>FzfLua oldfiles<cr>',                                                          desc = 'Resume' },
+      { '<leader>fs',      '<cmd>:e ~/.zshrc<cr>',                                                              desc = 'Zsh config',              mode = { 'n', 'v' }, },
+      { '<leader>gc',      '<cmd>FzfLua git_commits<CR>',                                                       desc = 'Commits' },
+      { '<leader>gs',      '<cmd>FzfLua git_status<CR>',                                                        desc = 'Status' },
+      { '<leader>s"',      '<cmd>FzfLua registers<cr>',                                                         desc = 'Registers' },
+      { '<leader>sa',      '<cmd>FzfLua autocmds<cr>',                                                          desc = 'Auto Commands' },
+      { '<leader>sb',      '<cmd>FzfLua grep_curbuf<cr>',                                                       desc = 'Buffer grep' },
+      { '<leader>sc',      '<cmd>FzfLua command_history<cr>',                                                   desc = 'Command History' },
+      { '<leader>sC',      '<cmd>FzfLua commands<cr>',                                                          desc = 'Commands' },
+      { '<leader>sd',      '<cmd>FzfLua diagnostics_document<cr>',                                              desc = 'Document Diagnostics' },
+      { '<leader>sD',      '<cmd>FzfLua diagnostics_workspace<cr>',                                             desc = 'Workspace Diagnostics' },
+      { '<leader>sh',      '<cmd>FzfLua help_tags<cr>',                                                         desc = 'Help Pages' },
+      { '<leader>sH',      '<cmd>FzfLua highlights<cr>',                                                        desc = 'Search Highlight Groups' },
+      { '<leader>sj',      '<cmd>FzfLua jumps<cr>',                                                             desc = 'Jumplist' },
+      { '<leader>sk',      '<cmd>FzfLua keymaps<cr>',                                                           desc = 'Key Maps' },
+      { '<leader>sl',      '<cmd>FzfLua loclist<cr>',                                                           desc = 'Location List' },
+      { '<leader>sm',      '<cmd>FzfLua marks<cr>',                                                             desc = 'Jump to Mark' },
+      { '<leader>sM',      '<cmd>FzfLua man_pages<cr>',                                                         desc = 'Man Pages' },
+      { '<leader>sq',      '<cmd>FzfLua quickfix<cr>',                                                          desc = 'Quickfix List' },
+      { '<leader>uC',      '<cmd>FzfLua colorschemes<cr>',                                                      desc = 'Colorscheme with Preview' },
 
       {
-        '<leader>sb',
+        '<leader>sg',
         function()
           local mode = vim.api.nvim_get_mode().mode
           if mode == 'v' or mode == 'V' or mode == '\22' then
-            require 'fzf-lua'.grep_visual()
+            require 'fzf-lua'.grep_visual { cwd = require 'utils.plugins'.get_root() }
           else
-            require 'fzf-lua'.lgrep_curbuf()
+            require 'fzf-lua'.live_grep { cwd = require 'utils.plugins'.get_root() }
           end
         end,
-        desc = 'Buffer grep',
+        desc = 'Grep (Root Dir)',
         mode = { 'n', 'v' },
       },
+
       {
         '<leader>fc',
         function()
