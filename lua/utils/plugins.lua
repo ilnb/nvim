@@ -209,25 +209,25 @@ function M.get_root()
   return curr or vim.uv.cwd()
 end
 
-function M.safe_keymap_set(mode, lhs, rhs, opts)
+function M.keymap_set(key)
   local keys = require 'lazy.core.handler'.handlers.keys
   ---@cast keys LazyKeysHandler
-  local modes = type(mode) == 'string' and { mode } or mode
+  local modes = type(key.mode) == 'string' and { key.mode } or key.mode or { 'n' }
 
   ---@param m string
   modes = vim.tbl_filter(function(m)
-    return not (keys.have and keys:have(lhs, m))
+    return not (keys.have and keys:have(key[1], m))
   end, modes)
 
   -- do not create the keymap if a lazy keys handler exists
+  local opts = key.opts or {}
   if #modes > 0 then
-    opts = opts or {}
     opts.silent = opts.silent ~= false
     if opts.remap then
       ---@diagnostic disable-next-line: no-unknown
       opts.remap = nil
     end
-    vim.keymap.set(modes, lhs, rhs, opts)
+    vim.keymap.set(modes, key[1], key[2], opts)
   end
 end
 
