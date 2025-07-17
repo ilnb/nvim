@@ -68,7 +68,7 @@ M.on_attach = function(client, buffer)
   Snacks.toggle.inlay_hints():map '<leader>uh'
 
   -- remove native lsp keymaps
-  for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'O' } do
+  for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'rt', 'O' } do
     del('n', 'g' .. key)
   end
   del('v', 'gra')
