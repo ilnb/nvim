@@ -209,6 +209,7 @@ function M.get_root()
   return curr or vim.uv.cwd()
 end
 
+---@param key KeyConfig
 function M.keymap_set(key)
   local keys = require 'lazy.core.handler'.handlers.keys
   ---@cast keys LazyKeysHandler
@@ -224,7 +225,6 @@ function M.keymap_set(key)
   if #modes > 0 then
     opts.silent = opts.silent ~= false
     if opts.remap then
-      ---@diagnostic disable-next-line: no-unknown
       opts.remap = nil
     end
     vim.keymap.set(modes, key[1], key[2], opts)
