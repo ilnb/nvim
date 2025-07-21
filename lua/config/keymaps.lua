@@ -41,7 +41,7 @@ map('n', '<leader>bo', function()
 end, { desc = "Delete Other Buffers" })
 map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
 
--- Clear search and stop snippet on escape
+-- Clear search highlight
 map({ 'i', 'n', 's' }, '<esc>', function()
   vim.cmd 'noh'
   return '<esc>'
@@ -130,7 +130,7 @@ map('n', '<leader>uI', function()
 end, { desc = 'Inspect Tree' })
 
 -- floating terminal
-map('n', '<leader>fT', function() Snacks.terminal() end, { desc = 'Terminal (cwd)' })
+map('n', '<leader>ft', function() Snacks.terminal() end, { desc = 'Terminal (cwd)' })
 
 -- Terminal Mappings
 map('t', '<C-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
@@ -150,8 +150,18 @@ map('n', '<leader><tab>l', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
 map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
 map('n', '<leader><tab>h', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
 
-map('n', '<leader>o', '<cmd>call append(line("."), repeat([""], v:count1))<CR>', { desc = 'Newline below' })
-map('n', '<leader>O', '<cmd>call append(line(".") -1, repeat([""], v:count1))<CR>', { desc = 'Newline above' })
+-- Add empty lines (grabbed from /runtime/vim/lua/_defaults.lua)
+vim.keymap.del('n', '[<Space>')
+vim.keymap.del('n', ']<Space>')
+map('n', '<leader>o', function()
+  vim.go.operatorfunc = "v:lua.require'vim._buf'.space_below"
+  return 'g@l'
+end, { expr = true, desc = 'Newline below' })
+
+map('n', '<leader>O', function()
+  vim.go.operatorfunc = "v:lua.require'vim._buf'.space_above"
+  return 'g@l'
+end, { expr = true, desc = 'Newline above' })
 
 -- typo fixes
 vim.cmd [[

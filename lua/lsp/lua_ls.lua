@@ -16,21 +16,6 @@ return {
       },
       workspace = {
         checkThirdParty = false,
-        -- using lazydev instead
-        --[[
-        library = {
-          vim.env.VIMRUNTIME,
-          '${3rd}/luv/library',
-          vim.fn.stdpath 'config',
-          vim.fn.stdpath 'data' .. '/lazy/snacks.nvim',
-          vim.fn.stdpath 'data' .. '/lazy/flash.nvim',
-          vim.fn.stdpath 'data' .. '/lazy/lazy.nvim',
-          vim.fn.stdpath 'data' .. '/lazy/kanagawa.nvim',
-          vim.fn.stdpath 'data' .. '/lazy/kanso.nvim',
-          vim.fn.stdpath 'data' .. '/lazy/catppuccin',
-          vim.fn.stdpath 'data' .. '/lazy/blink.cmp',
-        },
-        --]]
       },
       completion = {
         callSnippet = 'Replace',

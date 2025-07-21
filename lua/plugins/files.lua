@@ -6,7 +6,7 @@ return {
       { '<c-j>',           '<c-j>',                                                                             ft = 'fzf',                       mode = 't',          nowait = true },
       { '<c-k>',           '<c-k>',                                                                             ft = 'fzf',                       mode = 't',          nowait = true },
       { '<leader>:',       '<cmd>FzfLua command_history<cr>',                                                   desc = 'Command History' },
-      { '<leader>F',       '<cmd>FzfLua',                                                                       desc = 'FzfLua',                  mode = { 'n', 'v' }, },
+      { '<leader>F',       '<cmd>FzfLua<cr>',                                                                   desc = 'FzfLua',                  mode = { 'n', 'v' }, },
       { '<leader><space>', function() require 'fzf-lua'.files { cwd = require 'utils.plugins'.get_root() } end, desc = 'Files (Root Dir)' },
       { '<leader>fb',      '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>',                          desc = 'Buffers' },
       { '<leader>ff',      function() require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H', } end,          desc = 'Files (cwd)',             mode = { 'n', 'v' }, },
