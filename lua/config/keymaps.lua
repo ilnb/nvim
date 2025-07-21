@@ -42,7 +42,7 @@ end, { desc = "Delete Other Buffers" })
 map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
 
 -- Clear search highlight
-map({ 'i', 'n', 's' }, '<esc>', function()
+map({ 'n', 's' }, '<esc>', function()
   vim.cmd 'noh'
   return '<esc>'
 end, { expr = true, desc = 'Escape and Clear hlsearch' })
