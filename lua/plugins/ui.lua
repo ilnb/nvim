@@ -56,11 +56,14 @@ return {
               padding = { left = 1, right = 0 }
             },
 
-            'filename',
+            {
+              'filename',
+              separator = { right = '' }
+            },
+
             {
               function()
-                local navic = require 'nvim-navic'
-                return navic.get_location()
+                return require 'nvim-navic'.get_location()
               end,
               cond = function()
                 local ok, navic = pcall(require, 'nvim-navic')
