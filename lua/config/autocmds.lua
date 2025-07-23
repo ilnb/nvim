@@ -125,7 +125,15 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 
 -- enable snacks indent guides for new files
 vim.api.nvim_create_autocmd('BufNewFile', {
-  callback = function ()
-    require'snacks.indent'.enable()
+  callback = function()
+    require 'snacks.indent'.enable()
+  end
+})
+
+-- # comment symbol for asm
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'asm',
+  callback = function()
+    vim.bo.commentstring = '# %s'
   end
 })
