@@ -30,7 +30,7 @@ M.on_attach = function(client, buffer)
     elseif #args == 4 then
       vim.keymap.set(args[1], args[2], args[3], { buffer = buffer, desc = args[4] })
     else
-      vim.notify("Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)", vim.log.levels.ERROR)
+      vim.notify('Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)', vim.log.levels.ERROR)
     end
   end
   local del = function(mode, key)
