@@ -40,7 +40,6 @@ M.on_attach = function(client, buffer)
   map('gd', function() require 'fzf-lua'.lsp_definitions() end, 'Goto Definition')
   map('gD', function() require 'fzf-lua'.lsp_declarations() end, 'Goto Declaration')
   map('K', function() vim.lsp.buf.hover() end, 'Hover')
-  map('i', '<C-K>', function() vim.lsp.buf.signature_help() end, 'Signature Help')
   map('<leader>ca', function() vim.lsp.buf.code_action() end, 'Code Action')
   map('<leader>cr', function() vim.lsp.buf.rename() end, 'Rename')
   map('<leader>cf', function() vim.lsp.buf.format() end, 'Lsp Format')
@@ -68,15 +67,23 @@ M.on_attach = function(client, buffer)
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
   Snacks.toggle.inlay_hints():map '<leader>uh'
+  map({ 'n', 'i' }, '<c-k>', function()
+    local r, c = unpack(vim.api.nvim_win_get_cursor(0))
+    local l = vim.api.nvim_get_current_line()
+    if l:sub(c + 1, c + 1) == '(' then
+      vim.api.nvim_win_set_cursor(0, { r, c + 1 })
+    end
+    vim.defer_fn(vim.lsp.buf.signature_help, 1)
+  end, 'Signature Help')
 
   -- remove native lsp keymaps
   for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'rt', 'O' } do
     del('n', 'g' .. key)
   end
-  del({ 'i', 's' }, '<C-S>')
+  del({ 'i', 's' }, '<c-s>')
   del('x', 'gra')
-  del('n', '<C-w><c-d>')
-  del('n', '<C-w>d')
+  del('n', '<c-w><c-d>')
+  del('n', '<c-w>d')
 
   if client:supports_method 'textDocument/formatting' then
     local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })

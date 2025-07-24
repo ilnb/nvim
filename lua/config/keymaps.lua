@@ -7,24 +7,24 @@ map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, 
 map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
-map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window', remap = true })
-map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window', remap = true })
-map('n', '<C-k>', '<C-w>k', { desc = 'Go to Upper Window', remap = true })
-map('n', '<C-l>', '<C-w>l', { desc = 'Go to Right Window', remap = true })
+map('n', '<c-h>', '<c-w>h', { desc = 'Go to Left Window', remap = true })
+map('n', '<c-j>', '<c-w>j', { desc = 'Go to Lower Window', remap = true })
+map('n', '<c-k>', '<c-w>k', { desc = 'Go to Upper Window', remap = true })
+map('n', '<c-l>', '<c-w>l', { desc = 'Go to Right Window', remap = true })
 
 -- Resize window using <ctrl> arrow keys
-map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
-map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
-map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
-map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
+map('n', '<c-up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
+map('n', '<c-down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
+map('n', '<c-left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
+map('n', '<c-right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 
 -- Move Lines
-map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
-map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
-map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
-map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
-map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
-map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
+map('n', '<a-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
+map('n', '<a-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
+map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
+map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
+map('v', '<a-j>', ":<c-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
+map('v', '<a-k>', ":<c-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
 -- buffers
 map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
@@ -52,7 +52,7 @@ end, { expr = true, desc = 'Escape and Clear hlsearch' })
 map(
   'n',
   '<leader>ur',
-  '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
+  '<cmd>nohlsearch<Bar>diffupdate<Bar>normal! <c-L><cr>',
   { desc = 'Redraw / Clear hlsearch / Diff Update' }
 )
 
@@ -134,13 +134,13 @@ end, { desc = 'Inspect Tree' })
 map('n', '<leader>ft', function() Snacks.terminal() end, { desc = 'Terminal (cwd)' })
 
 -- Terminal Mappings
-map('t', '<C-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
+map('t', '<c-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
 map('t', '<c-_>', '<cmd>close<cr>', { desc = 'which_key_ignore' })
 
 -- windows
-map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
-map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
-map('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = true })
+map('n', '<leader>-', '<c-w>s', { desc = 'Split Window Below', remap = true })
+map('n', '<leader>|', '<c-w>v', { desc = 'Split Window Right', remap = true })
+map('n', '<leader>wd', '<c-w>c', { desc = 'Delete Window', remap = true })
 
 -- tabs
 map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })

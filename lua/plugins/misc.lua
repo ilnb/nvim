@@ -1,43 +1,28 @@
-local s_opts = {
-  mappings = {
-    add = 'gsa',            -- Add surrounding in Normal and Visual modes
-    delete = 'gsd',         -- Delete surrounding
-    find = 'gsf',           -- Find surrounding (to the right)
-    find_left = 'gsF',      -- Find surrounding (to the left)
-    highlight = 'gsh',      -- Highlight surrounding
-    replace = 'gsr',        -- Replace surrounding
-    update_n_lines = 'gsn', -- Update `n_lines`
-  },
-  n_lines = 40,
-}
-
--- local keys = {
---   { opts.mappings.add,            desc = 'Add Surrounding',                     mode = { 'n', 'v' } },
---   { opts.mappings.delete,         desc = 'Delete Surrounding' },
---   { opts.mappings.find,           desc = 'Find Right Surrounding' },
---   { opts.mappings.find_left,      desc = 'Find Left Surrounding' },
---   { opts.mappings.highlight,      desc = 'Highlight Surrounding' },
---   { opts.mappings.replace,        desc = 'Replace Surrounding' },
---   { opts.mappings.update_n_lines, desc = 'Update `MiniSurround.config.n_lines`' },
--- }
--- keys = vim.tbl_filter(function(m)
---   return m[1] and #m[1] > 0
--- end, keys)
-
 return {
   {
     'echasnovski/mini.surround',
     event = 'InsertEnter',
     keys = {
-      { s_opts.mappings.add,            desc = 'Add Surrounding',                     mode = { 'n', 'v' } },
-      { s_opts.mappings.delete,         desc = 'Delete Surrounding' },
-      { s_opts.mappings.find,           desc = 'Find Right Surrounding' },
-      { s_opts.mappings.find_left,      desc = 'Find Left Surrounding' },
-      { s_opts.mappings.highlight,      desc = 'Highlight Surrounding' },
-      { s_opts.mappings.replace,        desc = 'Replace Surrounding' },
-      { s_opts.mappings.update_n_lines, desc = 'Update `MiniSurround.config.n_lines`' },
+      { 'gsa', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
+      { 'gsd', desc = 'Delete Surrounding' },
+      { 'gsf', desc = 'Find Right Surrounding' },
+      { 'gsF', desc = 'Find Left Surrounding' },
+      { 'gsh', desc = 'Highlight Surrounding' },
+      { 'gsr', desc = 'Replace Surrounding' },
+      { 'gsn', desc = 'Update n_lines' },
     },
-    opts = s_opts,
+    opts = {
+      mappings = {
+        add = 'gsa',        -- Add surrounding in Normal and Visual modes
+        delete = 'gsd',     -- Delete surrounding
+        find = 'gsf',       -- Find surrounding (to the right)
+        find_left = 'gsF',  -- Find surrounding (to the left)
+        highlight = 'gsh',  -- Highlight surrounding
+        replace = 'gsr',    -- Replace surrounding
+        update_n_lines = 'gsn', -- Update `n_lines`
+      },
+      n_lines = 40,
+    },
   },
 
   {
