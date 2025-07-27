@@ -26,19 +26,23 @@ function M.lualine_theme()
 
     local overrides = {
       normal = {
-        b = { bg = darker(palette.inkBlue2, 0.75) }
+        a = { bg = palette.blue3 },
+        b = {
+          fg = palette.blue3,
+          bg = darker(palette.blue3, 0.75)
+        }
       },
       insert = {
-        b = { bg = darker(palette.springGreen, 0.75) }
+        b = { bg = darker(palette.green, 0.75) }
       },
       command = {
-        b = { bg = darker(palette.inkGray2, 0.75) }
+        b = { bg = darker(palette.gray4, 0.75) }
       },
       visual = {
-        b = { bg = darker(palette.inkViolet, 0.75) }
+        b = { bg = darker(palette.violet2, 0.75) }
       },
       replace = {
-        b = { bg = darker(palette.inkOrange, 0.75) }
+        b = { bg = darker(palette.orange, 0.75) }
       },
     }
     for mode, sections in pairs(overrides) do
@@ -120,6 +124,7 @@ function M.ai_buffer(ai_type)
   return { from = { line = start_line, col = 1 }, to = { line = end_line, col = to_col } }
 end
 
+---@param buf integer
 function M.get_kind_filter(buf)
   local kind_filter = {
     default = {
