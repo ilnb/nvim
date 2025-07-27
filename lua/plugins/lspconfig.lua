@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua' },
+    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua', 'go' },
     dependencies = nil,
 
     opts = {
@@ -31,6 +31,7 @@ return {
         'clangd',
         -- 'pyright',
         'basedpyright',
+        'gopls',
       }
       -- if ok_mason then
       --   all_servers = mlsp.get_installed_servers()
