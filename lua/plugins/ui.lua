@@ -1,3 +1,22 @@
+local function set_entry(icon, desc, key, dir, select)
+  local s = function(selected, opts)
+    if selected and #selected > 0 then
+      vim.cmd('tcd' .. dir)
+      require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
+    end
+  end
+  return {
+    icon = icon,
+    key = key,
+    desc = desc,
+    action = function()
+      local opts = { cwd = dir }
+      opts.actions = select and { default = s }
+      require 'fzf-lua'.files(opts)
+    end
+  }
+end
+
 return {
   {
     'nvim-lualine/lualine.nvim',
@@ -351,97 +370,15 @@ return {
 
           {
             icon = ' ',
-            title = 'Projects',
+            title = 'Files',
             indent = 2,
             padding = 1,
-            {
-              icon = '󰉋 ',
-              desc = 'Data Structure',
-              key = 'd',
-              action = function()
-                local dir = '~/data structure/'
-                require 'fzf-lua'.files {
-                  cwd = dir,
-                  actions = {
-                    default = function(selected, opts)
-                      if selected and #selected > 0 then
-                        vim.cmd('tcd' .. dir)
-                        require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
-                      end
-                    end
-                  }
-                }
-              end
-            },
 
-            {
-              icon = '󰙱 ',
-              desc = 'C Codes',
-              key = 'c',
-              action = function()
-                require 'fzf-lua'.files { cwd = '~/code/' }
-              end
-            },
-
-            {
-              icon = '󰙲 ',
-              desc = 'C++ Codes',
-              key = 'p',
-              action = function()
-                local dir = '~/code/cpp'
-                require 'fzf-lua'.files {
-                  cwd = dir,
-                  actions = {
-                    default = function(selected, opts)
-                      if selected and #selected > 0 then
-                        vim.cmd('tcd' .. dir)
-                        require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
-                      end
-                    end
-                  }
-                }
-              end
-            },
-
-            {
-              icon = '',
-              desc = 'Lua Codes',
-              key = 'L',
-              action = function()
-                local dir = '~/code/lua'
-                require 'fzf-lua'.files {
-                  cwd = dir,
-                  actions = {
-                    default = function(selected, opts)
-                      if selected and #selected > 0 then
-                        vim.cmd('tcd' .. dir)
-                        require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
-                      end
-                    end
-                  }
-                }
-              end
-            },
-
-            {
-              icon = '',
-              desc = 'Go Codes',
-              key = 'g',
-              action = function()
-                local dir = '~/code/go'
-                require 'fzf-lua'.files {
-                  cwd = dir,
-                  actions = {
-                    default = function(selected, opts)
-                      if selected and #selected > 0 then
-                        vim.cmd('tcd' .. dir)
-                        require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
-                      end
-                    end
-                  }
-                }
-              end
-            },
+            set_entry('󰉋 ', 'Data Structure', 'd', '~/data structure/', true),
+            set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
+            set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
+            set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
+            set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
           },
           { section = 'startup' },
         },
