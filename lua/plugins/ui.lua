@@ -342,7 +342,7 @@ return {
                 require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
               end
             },
-            { icon = ' ', desc = 'Grep', key = 'g', action = '<cmd>FzfLua live_grep<cr>' },
+            { icon = ' ', desc = 'Grep', key = 'g', action = ':FzfLua live_grep<cr>' },
             { icon = '󰒲 ', desc = 'Lazy', key = 'l', action = ':Lazy' },
             { icon = ' ', desc = 'Exit', key = 'q', action = ':q' },
           },

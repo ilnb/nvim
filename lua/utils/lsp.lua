@@ -82,8 +82,6 @@ M.on_attach = function(client, buffer)
   end
   del({ 'i', 's' }, '<c-s>')
   del('x', 'gra')
-  del('n', '<c-w><c-d>')
-  del('n', '<c-w>d')
 
   if client:supports_method 'textDocument/formatting' then
     local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })

@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
   callback = function()
-    vim.diagnostic.config ---@type vim.diagnostic.Opts
+    vim.diagnostic.config
     {
       underline = { severity = 'ERROR' },
       update_in_insert = false,

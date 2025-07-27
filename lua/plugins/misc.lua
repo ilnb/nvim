@@ -13,13 +13,13 @@ return {
     },
     opts = {
       mappings = {
-        add = 'gsa',        -- Add surrounding in Normal and Visual modes
-        delete = 'gsd',     -- Delete surrounding
-        find = 'gsf',       -- Find surrounding (to the right)
-        find_left = 'gsF',  -- Find surrounding (to the left)
-        highlight = 'gsh',  -- Highlight surrounding
-        replace = 'gsr',    -- Replace surrounding
-        update_n_lines = 'gsn', -- Update `n_lines`
+        add = 'gsa',
+        delete = 'gsd',
+        find = 'gsf',
+        find_left = 'gsF',
+        highlight = 'gsh',
+        replace = 'gsr',
+        update_n_lines = 'gsn',
       },
       n_lines = 40,
     },
@@ -69,12 +69,12 @@ return {
         { '<c-space>', desc = 'Increment Selection', mode = { 'x', 'n' } },
         {
           mode = { 'n', 'v' },
-          { '<leader><tab>', group = 'tabs' },
+          { '<leader>t', group = 'tabs' },
           { '<leader>c', group = 'code' },
           { '<leader>f', group = 'file/find' },
           { '<leader>g', group = 'git' },
           { '<leader>gh', group = 'hunks' },
-          { '<leader>q', group = 'quit/session' },
+          { '<leader>q', group = 'quit' },
           { '<leader>s', group = 'search' },
           { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
           { '[', group = 'prev' },
@@ -115,8 +115,15 @@ return {
         function()
           require 'which-key'.show { keys = '<c-w>', loop = true }
         end,
-        desc = 'Window Hydra Mode (which-key)',
+        desc = 'Window Hydra Mode',
       },
+      {
+        '<space>b<space>',
+        function()
+          require 'which-key'.show { keys = '<space>b', loop = true }
+        end,
+        desc = 'Buffer Hydra Mode',
+      }
     },
     config = function(_, opts)
       require 'which-key'.setup(opts)
