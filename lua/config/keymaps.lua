@@ -92,21 +92,6 @@ Snacks.toggle.treesitter():map '<leader>uT'
 Snacks.toggle.animate():map '<leader>ua'
 Snacks.toggle.indent():map '<leader>ug'
 Snacks.toggle.scroll():map '<leader>uS'
-Snacks.toggle.new {
-  id = 'colorizer',
-  name = 'Colorizer',
-  set = function(state)
-    if state then
-      vim.cmd [[ColorizerAttachToBuffer]]
-    else
-      vim.cmd [[ColorizerDetachFromBuffer]]
-    end
-    vim.b.colorizer_enabled = state
-  end,
-  get = function()
-    return vim.b.colorizer_enabled == true
-  end
-}:map '<leader>uc'
 
 map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git blame line' })
 map({ 'n', 'x' }, '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git browse (open)' })
