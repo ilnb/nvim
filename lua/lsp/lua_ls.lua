@@ -1,6 +1,4 @@
 return {
-  capabilities = require 'utils.lsp'.capabilities,
-  on_attach = require 'utils.lsp'.on_attach,
   settings = {
     Lua = {
       telemetry = { enable = false },

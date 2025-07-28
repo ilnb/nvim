@@ -1,5 +1,5 @@
 ---@class KeyConfig
----@field [1] string
----@field [2] string|function
----@field mode string|string[]?
----@field opts table?
+---@field [1] string -- lhs
+---@field [2] string|function -- rhs
+---@field mode string|string[]? -- mode for the keymap
+---@field opts table? -- opts

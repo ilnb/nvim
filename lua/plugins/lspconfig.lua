@@ -45,9 +45,6 @@ return {
 
   {
     'SmiteshP/nvim-navic',
-    init = function()
-      vim.g.navic_silence = true
-    end,
 
     opts = {
       separator = ' ',

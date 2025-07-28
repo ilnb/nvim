@@ -218,21 +218,22 @@ end
 function M.keymap_set(key)
   local keys = require 'lazy.core.handler'.handlers.keys
   ---@cast keys LazyKeysHandler
-  local modes = type(key.mode) == 'string' and { key.mode } or key.mode or { 'n' }
+  key.mode = type(key.mode) == 'string' and { key.mode } or key.mode or { 'n' }
 
   ---@param m string
-  modes = vim.tbl_filter(function(m)
+  key.mode = vim.tbl_filter(function(m)
     return not (keys.have and keys:have(key[1], m))
-  end, modes)
+    ---@diagnostic disable-next-line: param-type-mismatch
+  end, key.mode)
 
   -- do not create the keymap if a lazy keys handler exists
-  local opts = key.opts or {}
-  if #modes > 0 then
-    opts.silent = opts.silent ~= false
-    if opts.remap then
-      opts.remap = nil
+  key.opts = key.opts or {}
+  if #key.mode > 0 then
+    key.opts.silent = key.opts.silent == true
+    if key.opts.remap then
+      key.opts.remap = nil
     end
-    vim.keymap.set(modes, key[1], key[2], opts)
+    vim.keymap.set(key.mode, key[1], key[2], key.opts)
   end
 end
 

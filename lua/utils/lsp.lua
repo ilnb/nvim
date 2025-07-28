@@ -84,7 +84,7 @@ M.on_attach = function(client, buffer)
   del('x', 'gra')
 
   if client:supports_method 'textDocument/formatting' then
-    local grp = vim.api.nvim_create_augroup('LspFormat', { clear = true })
+    local grp = vim.api.nvim_create_augroup('LspFormat' .. buffer, { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = grp,
       buffer = buffer,
@@ -106,12 +106,10 @@ M.on_attach = function(client, buffer)
   end
 end
 
-local ok_blink, blink = pcall(require, 'blink.cmp')
 M.capabilities = vim.tbl_deep_extend(
-  'force',
-  {},
+  'force', {},
   vim.lsp.protocol.make_client_capabilities(),
-  ok_blink and blink.get_lsp_capabilities() or {}
+  require 'blink.cmp'.get_lsp_capabilities()
 )
 
 return M

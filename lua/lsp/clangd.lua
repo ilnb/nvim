@@ -21,7 +21,6 @@ return {
         )(fname) or
         vim.fn.getcwd()
   end,
-  on_attach = require 'utils.lsp'.on_attach,
   capabilities = capabilities,
   cmd = {
     'clangd',

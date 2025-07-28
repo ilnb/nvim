@@ -54,6 +54,7 @@ opt.splitbelow = true      -- Put new windows below current
 opt.splitkeep = 'screen'
 opt.splitright = true      -- Put new windows right of current
 opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+opt.swapfile = false       -- swapfiles are annoying
 opt.tabstop = 2            -- Number of spaces tabs count for
 opt.termguicolors = true   -- True color support
 opt.timeoutlen = 300       -- Low to quickly trigger which-key
