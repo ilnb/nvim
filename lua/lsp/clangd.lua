@@ -9,8 +9,7 @@ local capabilities = vim.tbl_deep_extend('force', {},
         },
       },
     },
-  },
-  { offsetEncoding = 'utf-16' }
+  }
 )
 
 return {
