@@ -103,8 +103,7 @@ return {
           }
         },
         ghost_text = {
-          enabled = true,
-          -- enabled = vim.g.ai_cmp,
+          enabled = false,
         }
       },
 
@@ -392,25 +391,30 @@ return {
 
   {
     'folke/todo-comments.nvim',
-    cmd = { 'TodoTelescope' },
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
-    -- stylua: ignore
     keys = {
-      { ']t',         function() require 'todo-comments'.jump_next() end, desc = 'Next Todo Comment' },
-      { '[t',         function() require 'todo-comments'.jump_prev() end, desc = 'Previous Todo Comment' },
-      { '<leader>st', ':TodoTelescope<cr>',                               desc = 'Todo' },
-      { '<leader>sT', ':TodoTelescope keywords=TODO,FIX,FIXME<cr>',       desc = 'Todo/Fix/Fixme' },
+      { ']t',         function() require 'todo-comments'.jump_next() end,                               desc = 'Next Todo Comment' },
+      { '[t',         function() require 'todo-comments'.jump_prev() end,                               desc = 'Previous Todo Comment' },
+      { '<leader>st', function() require 'todo-comments.fzf'.todo() end,                                desc = 'Todo' },
+      { '<leader>sT', function() require 'todo-comments.fzf'.todo { keywords = { 'TODO', 'FIX' } } end, desc = 'Todo/Fix' },
     },
   },
 
   {
     'echasnovski/mini.indentscope',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = function()
-      return {
-        char = '┊',
+    config = function()
+      require 'mini.indentscope'.setup {
+        symbol = '┊', -- ╎
+        draw = {
+          delay = 0,
+          animation = require 'mini.indentscope'.gen_animation.quadratic { easing = 'out', duration = 20, unit = 'step' },
+        },
+        options = {
+          try_as_border = true,
+        },
       }
-    end,
+    end
   }
 }

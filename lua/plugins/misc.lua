@@ -1,7 +1,6 @@
 return {
   {
     'echasnovski/mini.surround',
-    event = 'InsertEnter',
     keys = {
       { 'gsa', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
       { 'gsd', desc = 'Delete Surrounding' },
@@ -45,7 +44,6 @@ return {
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
-    vscode = true,
     ---@type Flash.Config
     ---@diagnostic disable-next-line: missing-fields
     opts = {},
