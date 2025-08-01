@@ -144,6 +144,7 @@ vim.api.nvim_create_autocmd('User', {
   callback = function()
     vim.diagnostic.config
     {
+      float = { border = 'rounded' },
       underline = { severity = 'ERROR' },
       update_in_insert = false,
       virtual_text = {
