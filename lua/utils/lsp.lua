@@ -40,11 +40,11 @@ M.on_attach = function(client, buffer)
   map('gd', function() require 'fzf-lua'.lsp_definitions() end, 'Goto Definition')
   map('gD', function() require 'fzf-lua'.lsp_declarations() end, 'Goto Declaration')
   map('K', function() vim.lsp.buf.hover() end, 'Hover')
-  map('<leader>ca', function() vim.lsp.buf.code_action() end, 'Code Action')
-  map('<leader>cr', function() vim.lsp.buf.rename() end, 'Rename')
-  map('<leader>cf', function() vim.lsp.buf.format() end, 'Lsp Format')
-  map('<leader>cd', function() vim.diagnostic.open_float() end, 'Line Diagnostics')
-  map('<leader>cl', function() Snacks.picker.lsp_config() end, 'Lsp Info')
+  map('<leader>la', function() vim.lsp.buf.code_action() end, 'Code Action')
+  map('<leader>lr', function() vim.lsp.buf.rename() end, 'Rename')
+  map('<leader>lf', function() vim.lsp.buf.format() end, 'Lsp Format')
+  map('<leader>ld', function() vim.diagnostic.open_float() end, 'Line Diagnostics')
+  map('<leader>ll', function() Snacks.picker.lsp_config() end, 'Lsp Info')
   map('<leader>sd', function() require 'fzf-lua'.diagnostics_document() end, 'Document Diagnostics')
   map('<leader>sD', function() require 'fzf-lua'.diagnostics_workspace() end, 'Workspace Diagnostics')
   del('n', '[d')
@@ -67,7 +67,7 @@ M.on_attach = function(client, buffer)
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
   Snacks.toggle.inlay_hints():map '<leader>uh'
-  map({ 'n', 'i' }, '<c-k>', function()
+  map({ 'n', 'i' }, '<c-i>', function()
     local r, c = unpack(vim.api.nvim_win_get_cursor(0))
     local l = vim.api.nvim_get_current_line()
     if l:sub(c + 1, c + 1) == '(' then
@@ -101,7 +101,9 @@ M.on_attach = function(client, buffer)
     end
   end
 
-  if client:supports_method 'textDocument/inlayHint' then
+  local exclude = { 'zls' }
+
+  if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(exclude, client.name) then
     vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
   end
 end

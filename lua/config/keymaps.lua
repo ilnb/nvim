@@ -76,7 +76,7 @@ map('n', 'gco', 'o<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment be
 map('n', 'gcO', 'O<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment above' })
 
 -- lazy
-map('n', '<leader>l', ':Lazy<cr>', { desc = 'Lazy' })
+map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy' })
 
 -- new file
 map('n', '<leader>fn', ':enew<cr>', { desc = 'New File' })
@@ -91,6 +91,7 @@ Snacks.toggle.option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vi
 Snacks.toggle.treesitter():map '<leader>uT'
 Snacks.toggle.animate():map '<leader>ua'
 Snacks.toggle.indent():map '<leader>ug'
+Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
 Snacks.toggle.scroll():map '<leader>uS'
 
 map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git blame line' })
