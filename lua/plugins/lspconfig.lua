@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua', 'go' },
+    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua', 'go', 'zig' },
     dependencies = nil,
 
     opts = {
@@ -31,6 +31,7 @@ return {
         'gopls',
         'lua_ls',
         -- 'pyright',
+        'zls',
       }
 
       for _, lang in ipairs(all_servers) do
