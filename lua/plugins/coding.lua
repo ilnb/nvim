@@ -70,7 +70,7 @@ return {
           ['<Tab>'] = { 'select_next', 'fallback' },
           ['<S-Tab>'] = { 'select_prev', 'fallback' },
           ['<C-e>'] = { 'cancel', 'fallback' },
-          ['<C-s>'] = { 'show' },
+          ['<C-h>'] = { 'show' },
           ['<C-y>'] = { 'select_and_accept' },
         }
       },
@@ -116,7 +116,7 @@ return {
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-y>'] = { 'select_and_accept' },
-        ['<C-s>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },

@@ -148,6 +148,7 @@ return {
                 separator = ' ',
               },
               ignore_lsp = {},
+              separator = { left = '' }
             },
 
             {

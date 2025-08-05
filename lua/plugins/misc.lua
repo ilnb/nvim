@@ -46,7 +46,13 @@ return {
     event = 'VeryLazy',
     ---@type Flash.Config
     ---@diagnostic disable-next-line: missing-fields
-    opts = {},
+    opts = {
+      -- modes = {
+      --   char = {
+      --     jump_labels = true,
+      --   },
+      -- },
+    },
     keys = {
       { 's',     mode = { 'n', 'x', 'o' }, function() require 'flash'.jump() end,              desc = 'Flash' },
       { 'S',     mode = { 'n', 'o', 'x' }, function() require 'flash'.treesitter() end,        desc = 'Flash Treesitter' },
