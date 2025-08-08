@@ -379,7 +379,8 @@ return {
             set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
             set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
             set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
-            set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
+            -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
+            set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },
           { section = 'startup' },
         },
@@ -540,5 +541,6 @@ return {
         return package.loaded['nvim-web-devicons']
       end
     end,
-  }
+  },
+
 }

@@ -104,5 +104,6 @@ return {
         { path = 'snacks.nvim',        words = { 'Snacks', 'snacks.nvim' } },
       },
     },
-  }
+  },
+
 }
