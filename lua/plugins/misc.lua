@@ -304,5 +304,14 @@ return {
       end
       require 'which-key'.add(ret, { notify = false })
     end,
-  }
+  },
+
+  {
+    'jiaoshijie/undotree',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = true,
+    keys = {
+      { '<leader>U', function() require 'undotree'.toggle() end },
+    },
+  },
 }
