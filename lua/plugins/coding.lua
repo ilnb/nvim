@@ -151,33 +151,29 @@ return {
           --   score_offset = 100,
           -- },
 
-          --[[
-        thesaurus = {
-          name = 'blink-cmp-words',
-          module = 'blink-cmp-words.thesaurus',
-          opts = {
-            score_offset = 0,
-            pointer_symbols = { '!', '&', '^' },
-          },
-        },
+          -- thesaurus = {
+          --   name = 'blink-cmp-words',
+          --   module = 'blink-cmp-words.thesaurus',
+          --   opts = {
+          --     score_offset = 0,
+          --     definition_pointers = { '!', '&', '^' },
+          --   },
+          -- },
 
-        dictionary = {
-          name = 'blink-cmp-words',
-          module = 'blink-cmp-words.dictionary',
-          opts = {
-            dictionary_search_threshold = 3,
-            score_offset = 0,
-            pointer_symbols = { '!', '&', '^' },
-          },
+          -- dictionary = {
+          --   name = 'blink-cmp-words',
+          --   module = 'blink-cmp-words.dictionary',
+          --   opts = {
+          --     dictionary_search_threshold = 3,
+          --     score_offset = 0,
+          --     definition_pointers = { '!', '&', '^' },
+          --   },
+          -- },
         },
-        --]]
-        },
-        --[[
-      per_filetype = {
-        text = { 'dictionary' },
-        markdown = { 'thesaurus' },
-      }
-      --]]
+        -- per_filetype = {
+        --   text = { 'dictionary' },
+        --   markdown = { 'thesaurus' },
+        -- }
       },
     },
 

@@ -314,4 +314,5 @@ return {
       { '<leader>U', function() require 'undotree'.toggle() end },
     },
   },
+
 }
