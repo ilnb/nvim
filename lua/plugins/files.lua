@@ -69,16 +69,17 @@ return {
       local fzf = require 'fzf-lua'
       local config = fzf.config
       local actions = fzf.actions
+      local keymap = config.defaults.keymap
 
       -- Quickfix
-      config.defaults.keymap.fzf['ctrl-q'] = 'select-all+accept'
-      config.defaults.keymap.fzf['ctrl-u'] = 'half-page-up'
-      config.defaults.keymap.fzf['ctrl-d'] = 'half-page-down'
-      config.defaults.keymap.fzf['ctrl-x'] = 'jump'
-      config.defaults.keymap.fzf['ctrl-f'] = 'preview-page-down'
-      config.defaults.keymap.fzf['ctrl-b'] = 'preview-page-up'
-      config.defaults.keymap.builtin['<c-f>'] = 'preview-page-down'
-      config.defaults.keymap.builtin['<c-b>'] = 'preview-page-up'
+      keymap.fzf['ctrl-q'] = 'select-all+accept'
+      keymap.fzf['ctrl-u'] = 'half-page-up'
+      keymap.fzf['ctrl-d'] = 'half-page-down'
+      keymap.fzf['ctrl-x'] = 'jump'
+      keymap.fzf['ctrl-f'] = 'preview-page-down'
+      keymap.fzf['ctrl-b'] = 'preview-page-up'
+      keymap.builtin['<c-f>'] = 'preview-page-down'
+      keymap.builtin['<c-b>'] = 'preview-page-up'
 
       local img_previewer ---@type string[]?
       for _, v in ipairs {
@@ -93,7 +94,7 @@ return {
       end
 
       return {
-        'default-title',
+        'border-fused',
         fzf_colors = true,
         fzf_opts   = {
           ['--no-scrollbar'] = true,
@@ -146,8 +147,10 @@ return {
         end,
         winopts    = {
           width = 0.8,
-          height = 0.8,
-          row = 0.5,
+          -- height = 0.8,
+          height = 0.5,
+          -- row = 0.5,
+          row = 1,
           col = 0.5,
           preview = {
             scrollchars = { '┃', '' },
