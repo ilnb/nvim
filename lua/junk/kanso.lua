@@ -31,7 +31,7 @@ return {
       ---@type fun(colors: KansoColorsSpec): table<string, table>
       overrides = function(colors)
         return {
-          NavicText = { fg = colors.palette.mistWhite },
+          NavicText = { fg = colors.palette.pearlWhite0 },
           Pmenu = { bg = 'NONE' },
           CursorLine = { bg = 'NONE' },
           NormalFloat = { bg = 'NONE' },
