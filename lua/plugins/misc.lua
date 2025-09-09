@@ -8,7 +8,6 @@ return {
       { 'gsF', desc = 'Find Left Surrounding' },
       { 'gsh', desc = 'Highlight Surrounding' },
       { 'gsr', desc = 'Replace Surrounding' },
-      { 'gsn', desc = 'Update n_lines' },
     },
     opts = {
       mappings = {
@@ -18,10 +17,13 @@ return {
         find_left = 'gsF',
         highlight = 'gsh',
         replace = 'gsr',
-        update_n_lines = 'gsn',
       },
       n_lines = 40,
     },
+    config = function(_, opts)
+      require 'mini.surround'.setup(opts)
+      vim.keymap.set('n', 'gsn', '<Cmd>lua MiniSurround.update_n_lines()<CR>')
+    end
   },
 
   {
