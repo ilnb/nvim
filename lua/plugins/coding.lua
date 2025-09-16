@@ -181,13 +181,15 @@ return {
     config = function(_, opts)
       -- snippets
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'c', 'cpp' },
+        pattern = { 'c', 'cpp', 'zig' },
         callback = function(args)
-          local luasnip = require 'luasnip'
+          local ls = require 'luasnip'
           if args.match == 'c' then
-            luasnip.add_snippets('c', require 'snippets.c')
+            ls.add_snippets('c', require 'snippets.c')
           elseif args.match == 'cpp' then
-            luasnip.add_snippets('cpp', require 'snippets.cpp')
+            ls.add_snippets('cpp', require 'snippets.cpp')
+          elseif args.match == 'zig' then
+            ls.add_snippets('zig', require 'snippets.zig')
           end
         end,
       })
