@@ -11,14 +11,15 @@ for server, tbl in pairs(servers) do
   vim.api.nvim_create_autocmd('FileType', {
     pattern = tbl.ft,
     callback = function()
-      local ok, opts = pcall(require, 'lsp.' .. server)
-      opts = ok and opts or {}
-      opts.on_attach = opts.on_attach or require 'utils.lsp'.on_attach
-      opts.capabilities = opts.capabilities or require 'utils.lsp'.capabilities
-      opts.filetypes = tbl.ft
+      local ok, cfg = pcall(require, 'lsp.' .. server)
+      cfg = ok and cfg or {}
+      cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
+      cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
+      cfg.filetypes = tbl.ft
+      cfg.name = server
 
       if not servers[server].done then
-        vim.lsp.start(vim.tbl_extend('force', opts, { name = server }))
+        vim.lsp.start(cfg)
         servers[server].done = true
       else
         for _, client in pairs(vim.lsp.get_clients()) do

@@ -1,11 +1,11 @@
 return {
   root_dir = function(fname)
-    return require 'lspconfig.util'.root_pattern(
+    return require 'utils.plugins'.root_pattern(
           '.git'
         )(fname) or
         vim.fn.getcwd()
   end,
-  cmd = {'basedpyright-langserver', '--stdio'},
+  cmd = { 'basedpyright-langserver', '--stdio' },
   settings = {
     basedpyright = {
       analysis = {

@@ -22,7 +22,7 @@ local capabilities = vim.tbl_deep_extend('force', {},
 
 return {
   root_dir = function(fname)
-    return require 'lspconfig.util'.root_pattern(
+    return require 'utils.plugins'.root_pattern(
           'Makefile',
           '.git',
           '.clang-format'

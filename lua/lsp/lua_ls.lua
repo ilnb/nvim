@@ -1,5 +1,5 @@
 return {
-  cmd = {'lua-language-server'},
+  cmd = { 'lua-language-server' },
   settings = {
     Lua = {
       telemetry = { enable = false },

@@ -197,10 +197,40 @@ function M.get_opts(name)
   return Plugin.values(plugin, 'opts', false)
 end
 
+--- Returns a function which matches a filepath against the given glob/wildcard patterns.
+--- Also works with zipfile:/tarfile: buffers (via `strip_archive_subpath`).
+function M.root_pattern(...)
+  local patterns = vim.iter { ... }:flatten(math.huge):totable()
+
+  return function(startpath)
+    startpath = startpath or vim.api.nvim_buf_get_name(0)
+    startpath = startpath ~= "" and startpath or vim.uv.cwd()
+    startpath = M.strip_archive_subpath(startpath)
+
+    for _, pattern in ipairs(patterns) do
+      for path in vim.fs.parents(startpath) do
+        local candidate = vim.fs.joinpath(path, pattern)
+        if vim.uv.fs_stat(candidate) then
+          return path
+        end
+      end
+    end
+  end
+end
+
+-- For zipfile: or tarfile: virtual paths, returns the path to the archive.
+-- Other paths are returned unaltered.
+function M.strip_archive_subpath(path)
+  -- Matches regex from zip.vim / tar.vim
+  path = vim.fn.substitute(path, 'zipfile://\\(.\\{-}\\)::[^\\\\].*$', '\\1', '')
+  path = vim.fn.substitute(path, 'tarfile:\\(.\\{-}\\)::.*$', '\\1', '')
+  return path
+end
+
 function M.get_root()
   local path = vim.api.nvim_buf_get_name(0)
   if path == '' then return vim.uv.cwd() end
-  local root = require 'utils.lspconfig'.root_pattern('Makefile', 'lua', '.git')(path)
+  local root = M.root_pattern('Makefile', 'lua', '.git')(path)
   if root then return root end
   local dir = vim.fs.dirname(path)
   local home = vim.env.HOME
