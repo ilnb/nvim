@@ -200,7 +200,7 @@ end
 function M.get_root()
   local path = vim.api.nvim_buf_get_name(0)
   if path == '' then return vim.uv.cwd() end
-  local root = require 'lspconfig.util'.root_pattern('Makefile', 'lua', '.git')(path)
+  local root = require 'utils.lspconfig'.root_pattern('Makefile', 'lua', '.git')(path)
   if root then return root end
   local dir = vim.fs.dirname(path)
   local home = vim.env.HOME

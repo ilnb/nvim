@@ -1,50 +1,5 @@
 return {
   {
-    'neovim/nvim-lspconfig',
-    ft = { 'c', 'cpp', 'cs', 'python', 'asm', 'lua', 'go', 'zig' },
-    dependencies = nil,
-
-    opts = {
-      inlay_hints = {
-        enabled = true,
-        exclude = {}
-      },
-      capabilities = {
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
-      },
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil
-      },
-    },
-
-    config = function()
-      local all_servers = {
-        'asm_lsp',
-        'basedpyright',
-        'clangd',
-        'gopls',
-        'lua_ls',
-        -- 'pyright',
-        'zls',
-      }
-
-      for _, lang in ipairs(all_servers) do
-        local ok, opts = pcall(require, 'lsp.' .. lang)
-        opts = ok and opts or {}
-        opts.on_attach = opts.on_attach or require 'utils.lsp'.on_attach
-        opts.capabilities = opts.capabilities or require 'utils.lsp'.capabilities
-        require 'lspconfig'[lang].setup(opts)
-      end
-    end
-  },
-
-  {
     'SmiteshP/nvim-navic',
 
     opts = {
