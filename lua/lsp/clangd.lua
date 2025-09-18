@@ -9,6 +9,14 @@ local capabilities = vim.tbl_deep_extend('force', {},
         },
       },
     },
+  },
+  {
+    offsetEncoding = { 'utf-8', 'utf-16' },
+    textDocument = {
+      completion = {
+        editsNearCursor = true,
+      },
+    },
   }
 )
 

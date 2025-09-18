@@ -5,6 +5,7 @@ return {
         )(fname) or
         vim.fn.getcwd()
   end,
+  cmd = {'pyright-langserver', '--stdio'},
   settings = {
     python = {
       analysis = {
