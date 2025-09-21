@@ -1,10 +1,10 @@
 return {
-  'echasnovski/mini.files',
-  -- lazy = false,
-  keys = {},
-  opts = {
-    windows = {
-      max_number = 4,
-    },
-  }
+	"nvim-mini/mini.files",
+	-- lazy = false,
+	keys = {},
+	opts = {
+		windows = {
+			max_number = 4,
+		},
+	},
 }

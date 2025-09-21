@@ -1,6 +1,6 @@
 return {
-  'echasnovski/mini.pairs',
-  event = function()
-    return { 'InsertEnter', 'CmdLineEnter' }
-  end
+	"nvim-mini/mini.pairs",
+	event = function()
+		return { "InsertEnter", "CmdLineEnter" }
+	end,
 }

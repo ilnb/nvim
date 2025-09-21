@@ -9,9 +9,9 @@
 -- })
 
 -- comments in asm
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'asm',
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "asm",
   callback = function()
-    vim.opt_local.commentstring = '# %s'
+    vim.opt_local.commentstring = "# %s"
   end,
 })
