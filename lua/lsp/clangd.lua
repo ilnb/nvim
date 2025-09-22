@@ -21,14 +21,7 @@ local capabilities = vim.tbl_deep_extend('force', {},
 )
 
 return {
-  root_dir = function(fname)
-    return require 'utils.plugins'.root_pattern(
-          'Makefile',
-          '.git',
-          '.clang-format'
-        )(fname) or
-        vim.fn.getcwd()
-  end,
+  root_markers = { 'Makefile', '.git', '.clang-format' },
   capabilities = capabilities,
   cmd = {
     'clangd',
@@ -46,3 +39,4 @@ return {
   },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
 }
+

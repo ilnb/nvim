@@ -1,10 +1,4 @@
 return {
-  root_dir = function(fname)
-    return require 'utils.plugins'.root_pattern(
-          '.git'
-        )(fname) or
-        vim.fn.getcwd()
-  end,
   cmd = { 'pyright-langserver', '--stdio' },
   filetypes = { 'python' },
   settings = {
