@@ -1,4 +1,4 @@
-_G.servers = {
+local servers = {
   asm_lsp      = { 'asm' },
   basedpyright = { 'python' },
   clangd       = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
