@@ -6,6 +6,7 @@ return {
         vim.fn.getcwd()
   end,
   cmd = { 'pyright-langserver', '--stdio' },
+  filetypes = { 'python' },
   settings = {
     python = {
       analysis = {
