@@ -35,7 +35,7 @@ return {
         '<leader>sg',
         function()
           local mode = vim.api.nvim_get_mode().mode
-          if mode == 'v' or mode == 'V' or mode == '\22' then
+          if mode:match '[vV\022]' then
             require 'fzf-lua'.grep_visual { cwd = require 'utils.plugins'.get_root() }
           else
             require 'fzf-lua'.live_grep { cwd = require 'utils.plugins'.get_root() }
