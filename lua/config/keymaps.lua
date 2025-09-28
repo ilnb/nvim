@@ -167,4 +167,5 @@ vim.cmd [[
     cnoreabbrev Q q
     cnoreabbrev Qa qa
     cnoreabbrev Qall qall
+    cnoreabbrev E e
 ]]
