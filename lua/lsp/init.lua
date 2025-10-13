@@ -3,6 +3,7 @@ local servers = {
   basedpyright = { 'python' },
   clangd       = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   gopls        = { 'go' },
+  -- pyright = { 'python' },
   lua_ls       = { 'lua' },
   zls          = { 'zig' },
 }
