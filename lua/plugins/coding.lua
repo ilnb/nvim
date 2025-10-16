@@ -201,6 +201,7 @@ return {
 
   {
     'L3MON4D3/LuaSnip',
+    name = 'luasnip',
     -- filetype = { 'c', 'cpp' },
   },
 
@@ -332,6 +333,7 @@ return {
         'vimdoc',
         'xml',
         'yaml',
+        'zig',
       },
       incremental_selection = {
         enable = true,
