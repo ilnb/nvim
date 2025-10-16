@@ -101,10 +101,16 @@ M.on_attach = function(client, buffer)
     end
   end
 
-  local exclude = { 'basedpyright', 'pyright', 'zls' }
+  local exclude = {
+    'basedpyright',
+    'pyright',
+    -- 'zls'
+  }
 
   if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(exclude, client.name) then
-    vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+    vim.defer_fn(function()
+      vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+    end, 0)
   end
 end
 
