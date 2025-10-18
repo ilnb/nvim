@@ -40,5 +40,31 @@ return {
         if (status == .leak) expect(false) catch @panic("FAILURE");
     }}]], {}
     )
-  )
+  ),
+
+  -- stdin
+  s('sti',
+    fmt([[
+    var stdin_buf: [{}]u8 = undefined;
+    var stdin_writer = std.fs.File.stdin().reader(&stdin_buf);
+    const stdin = &stdin_writer.interface;
+    ]],
+      {
+        i(1)
+      }
+    )
+  ),
+
+  -- stdout
+  s('sto',
+    fmt([[
+    var stdout_buf: [{}]u8 = undefined;
+    var stdout_writer = std.fs.File.stdout().writer(&stdout_buf);
+    const stdout = &stdout_writer.interface;
+    ]],
+      {
+        i(1)
+      }
+    )
+  ),
 }
