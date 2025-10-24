@@ -1,3 +1,8 @@
+---@param icon string
+---@param desc string
+---@param key string
+---@param dir string
+---@param select boolean
 local function set_entry(icon, desc, key, dir, select)
   local s = function(selected, opts)
     if selected and #selected > 0 then
@@ -446,6 +451,7 @@ return {
             TabLineFill = { bg = 'NONE' },
             UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
+            Whitespace = { fg = '#33334A' },
           }
         end,
 
