@@ -67,4 +67,15 @@ return {
       }
     )
   ),
+
+  -- stdout print
+  s('stp',
+    fmt([[
+    try stdout.print("{}", .{{{}}});
+    ]],
+      {
+        i(1), i(2),
+      }
+    )
+  ),
 }
