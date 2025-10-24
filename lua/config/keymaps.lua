@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local del = vim.keymap.del
 
 -- better up/down
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
@@ -44,9 +45,7 @@ end, { expr = true, desc = 'Escape and clear hlsearch' })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
-map(
-  'n',
-  '<leader>ur',
+map('n', '<leader>ur',
   ':nohlsearch<Bar>diffupdate<Bar>normal! <c-L><cr>',
   { desc = 'Redraw / Clear hlsearch / Diff update' }
 )
@@ -133,8 +132,8 @@ map('n', '<leader>td', ':tabc<cr>', { desc = 'Close tab' })
 map('n', '<leader>th', ':tabp<cr>', { desc = 'Previous tab' })
 
 -- Add empty lines (grabbed from /runtime/vim/lua/_defaults.lua)
-vim.keymap.del('n', '[<space>')
-vim.keymap.del('n', ']<space>')
+del('n', '[<space>')
+del('n', ']<space>')
 map('n', '<leader>o', function()
   vim.go.operatorfunc = "v:lua.require'vim._buf'.space_below"
   return 'g@l'
@@ -146,8 +145,11 @@ map('n', '<leader>O', function()
 end, { expr = true, desc = 'Newline above' })
 
 -- diagnostics keymaps
-vim.keymap.del('n', '<c-w><c-d>')
-vim.keymap.del('n', '<c-w>d')
+del('n', '<c-w><c-d>')
+del('n', '<c-w>d')
+
+-- pasting in visual mode doesn't reset the register
+map('x', '<leader>p', '"_dP', { remap = false })
 
 -- typo fixes
 vim.cmd [[
