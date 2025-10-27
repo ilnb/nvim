@@ -37,7 +37,7 @@ return {
     var gpa = std.heap.DebugAllocator(.{{}}){{}};
     defer {{
         const status = gpa.deinit();
-        if (status == .leak) expect(false) catch @panic("FAILURE");
+        if (status == .leak) std.testing.expect(false) catch @panic("FAILURE");
     }}]], {}
     )
   ),
