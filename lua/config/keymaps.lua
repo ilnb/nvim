@@ -102,6 +102,7 @@ end, { desc = 'Git browse (copy)' })
 -- quit
 map('n', '<leader>qq', ':qa<cr>', { desc = 'Quit all' })
 map('n', '<leader>qw', ':wqa<cr>', { desc = 'Write and quit all' })
+map('n', '<leader>w', ':up<cr>', { desc = 'Write' })
 
 -- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect pos' })
@@ -120,7 +121,6 @@ map('t', '<c-_>', ':close<cr>', { desc = 'which_key_ignore' })
 -- windows
 map('n', '<leader>-', '<c-w>s', { desc = 'Split window below', remap = true })
 map('n', '<leader>|', '<c-w>v', { desc = 'Split window right', remap = true })
-map('n', '<leader>wd', '<c-w>c', { desc = 'Delete window', remap = true })
 
 -- tabs
 map('n', '<leader>tl', ':tabl<cr>', { desc = 'Last tab' })
