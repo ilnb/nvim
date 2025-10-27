@@ -96,9 +96,8 @@ return {
             end,
           },
           {
-            '<leader>w',
+            '<c-w>',
             group = 'windows',
-            proxy = '<c-w>',
             expand = function()
               return require 'which-key.extras'.expand.win()
             end,
