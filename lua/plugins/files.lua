@@ -236,8 +236,21 @@ return {
     },
 
     keys = {
-      { '<leader>fm', function() require 'mini.files'.open(vim.api.nvim_buf_get_name(0), true) end, desc = 'Open mini.files (%:h)', },
-      { '<leader>fM', function() require 'mini.files'.open(vim.uv.cwd(), true) end,                 desc = 'Open mini.files (cwd)', },
+      {
+        '<leader>fm',
+        function()
+          local path = vim.api.nvim_buf_get_name(0)
+          local t
+          if path == '' then
+            t = vim.uv.cwd()
+          else
+            t = vim.fn.fnamemodify(path, ':h')
+          end
+          require 'mini.files'.open(t, true)
+        end,
+        desc = 'Open mini.files (%:h)',
+      },
+      { '<leader>fM', function() require 'mini.files'.open(vim.uv.cwd(), true) end, desc = 'Open mini.files (cwd)', },
     },
 
     config = function(_, opts)
