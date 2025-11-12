@@ -184,12 +184,15 @@ return {
         pattern = { 'c', 'cpp', 'zig' },
         callback = function(args)
           local ls = require 'luasnip'
-          if args.match == 'c' then
+          if not _G.c_done and args.match == 'c' then
             ls.add_snippets('c', require 'snippets.c')
-          elseif args.match == 'cpp' then
+            _G.c_done = true
+          elseif not _G.cpp_done and args.match == 'cpp' then
             ls.add_snippets('cpp', require 'snippets.cpp')
-          elseif args.match == 'zig' then
+            _G.cpp_done = true
+          elseif not _G.zig_done and args.match == 'zig' then
             ls.add_snippets('zig', require 'snippets.zig')
+            _G.zig_done = true
           end
         end,
       })
