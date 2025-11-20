@@ -136,20 +136,9 @@ return {
           -- 'dictionary'
         },
         providers = {
-          -- lazydev = {
-          --   name = 'LazyDev',
-          --   module = 'lazydev.integrations.blink',
-          --   score_offset = 80, -- show at a higher priority than lsp
-          -- },
-
           path = {
             opts = { show_hidden_files_by_default = true },
           },
-
-          -- snippets = {
-          --   name = 'LuaSnip',
-          --   score_offset = 100,
-          -- },
 
           -- thesaurus = {
           --   name = 'blink-cmp-words',
@@ -180,19 +169,22 @@ return {
     ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
     config = function(_, opts)
       -- snippets
+      local langs = {
+        'c',
+        'cpp',
+        'zig',
+      }
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'c', 'cpp', 'zig' },
+        pattern = langs,
         callback = function(args)
           local ls = require 'luasnip'
-          if not _G.c_done and args.match == 'c' then
-            ls.add_snippets('c', require 'snippets.c')
-            _G.c_done = true
-          elseif not _G.cpp_done and args.match == 'cpp' then
-            ls.add_snippets('cpp', require 'snippets.cpp')
-            _G.cpp_done = true
-          elseif not _G.zig_done and args.match == 'zig' then
-            ls.add_snippets('zig', require 'snippets.zig')
-            _G.zig_done = true
+          _G.lang_done = _G.lang_done or {}
+
+          for _, lang in ipairs(langs) do
+            if args.match == lang and not _G.lang_done[lang] then
+              ls.add_snippets(lang, require('snippets.' .. lang))
+              break
+            end
           end
         end,
       })
@@ -205,7 +197,6 @@ return {
   {
     'L3MON4D3/LuaSnip',
     name = 'luasnip',
-    -- filetype = { 'c', 'cpp' },
   },
 
   {
