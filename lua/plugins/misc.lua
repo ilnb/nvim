@@ -171,7 +171,7 @@ return {
     opts = {
       views = {
         hover = {
-          scrollbar = false,
+          scrollbar = true,
         },
       },
       cmdline = {
