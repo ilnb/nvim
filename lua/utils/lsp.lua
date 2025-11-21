@@ -1,7 +1,6 @@
 local M = {}
 
 ---@alias lsp.Client.filter {id?: number, bufnr?: number, name?: string, method?: string, filter?:fun(client: lsp.Client):boolean}
-
 ---@param opts? lsp.Client.filter
 function M.get_clients(opts)
   local ret = {} ---@type vim.lsp.Client[]
@@ -67,7 +66,7 @@ M.on_attach = function(client, buffer)
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
   Snacks.toggle.inlay_hints():map '<leader>uh'
-  map({ 'n', 'i' }, '<c-s>', function()
+  map({ 'n', 'i' }, '<c-h>', function()
     local r, c = unpack(vim.api.nvim_win_get_cursor(0))
     local l = vim.api.nvim_get_current_line()
     if l:sub(c + 1, c + 1) == '(' then

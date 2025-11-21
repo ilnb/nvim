@@ -69,8 +69,7 @@ return {
           ['<CR>'] = { 'accept', 'fallback' },
           ['<Tab>'] = { 'select_next', 'fallback' },
           ['<S-Tab>'] = { 'select_prev', 'fallback' },
-          ['<C-e>'] = { 'cancel', 'fallback' },
-          ['<C-h>'] = { 'show' },
+          ['<C-e>'] = { 'cancel', 'fallback' }, -- also shows
           ['<C-y>'] = { 'select_and_accept' },
         }
       },
