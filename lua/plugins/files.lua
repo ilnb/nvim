@@ -35,13 +35,7 @@ return {
         function()
           local mode = vim.api.nvim_get_mode().mode
           local opt = { cwd = require 'utils.plugins'.get_root() }
-          local fn
-          if mode:match '[vV\022]' then
-            fn = 'grep_visual'
-          else
-            fn = 'live_grep'
-          end
-          require 'fzf-lua'[fn](opt)
+          require 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
         end,
         desc = 'Grep (root dir)',
         mode = { 'n', 'v' },
