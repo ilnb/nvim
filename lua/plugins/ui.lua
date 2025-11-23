@@ -99,13 +99,13 @@ return {
 
           lualine_x = {
             {
-              function() return require 'noice'.api.status.command.get() end,
+              require 'noice'.api.status.command.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
               color = function() return { fg = Snacks.util.color 'Statement' } end,
             },
 
             {
-              function() return require 'noice'.api.status.mode.get() end,
+              require 'noice'.api.status.mode.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
               color = function() return { fg = Snacks.util.color 'Constant' } end,
             },
@@ -157,7 +157,7 @@ return {
             },
 
             {
-              function() return require 'utils.plugins'.os_icon() end
+              require 'utils.plugins'.os_icon
             }
           },
 
