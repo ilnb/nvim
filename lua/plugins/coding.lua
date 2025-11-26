@@ -182,6 +182,7 @@ return {
           for _, lang in ipairs(langs) do
             if args.match == lang and not _G.lang_done[lang] then
               ls.add_snippets(lang, require('snippets.' .. lang))
+              _G.lang_done[lang] = true
               break
             end
           end
