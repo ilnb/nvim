@@ -54,14 +54,10 @@ M.on_attach = function(client, buffer)
   map(']e', function() vim.diagnostic.jump { count = 1, float = false, severity = 'ERROR' } end, 'Next Error')
   local filter = require 'utils.plugins'.symbols_filter
   map('<leader>ss', function()
-    require 'fzf-lua'.lsp_document_symbols {
-      regex_filter = filter,
-    }
+    require 'fzf-lua'.lsp_document_symbols { regex_filter = filter }
   end, 'Goto Symbol')
   map('<leader>sS', function()
-    require 'fzf-lua'.lsp_live_workspace_symbols {
-      regex_filter = filter,
-    }
+    require 'fzf-lua'.lsp_live_workspace_symbols { regex_filter = filter }
   end, 'Goto Symbol')
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
