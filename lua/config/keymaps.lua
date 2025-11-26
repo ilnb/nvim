@@ -151,6 +151,18 @@ del('n', '<c-w>d')
 -- pasting in visual mode doesn't reset the register
 map('x', '<leader>p', '"_dP', { remap = false, silent = true })
 
+-- delete window + buffer
+map('n', '<c-w>d', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+
+  vim.api.nvim_buf_delete(buf, { force = true })
+
+  if vim.api.nvim_win_is_valid(win) and #vim.api.nvim_tabpage_list_wins(0) > 1 then
+    vim.api.nvim_win_close(win, true)
+  end
+end, { desc = 'Delete the window' })
+
 -- typo fixes
 vim.cmd [[
     cnoreabbrev W! w!
