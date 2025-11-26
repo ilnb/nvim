@@ -197,9 +197,30 @@ vim.api.nvim_create_autocmd('FileType', {
         local path, lnum = target:match('^file:(.+)#L(%d+)$')
         if not path then path = target:sub(6) end
 
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+
+        -- already have the file open
+        if vim.fn.fnamemodify(buf_name, ':p') == path then
+          if lnum then vim.cmd('norm!' .. lnum .. 'G') end
+          return
+        end
+
+        -- have it open in another window
+        local ex = vim.fn.bufnr(path)
+        if ex ~= -1 then
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_buf(win) == ex then
+              vim.api.nvim_set_current_win(win)
+              if lnum then vim.cmd('norm!' .. lnum .. 'G') end
+              return
+            end
+          end
+        end
+
+        -- new file to open
         vim.cmd 'quit'
         vim.cmd('split ' .. path)
-        if lnum then vim.cmd(lnum) end
+        if lnum then vim.cmd('norm!' .. lnum .. 'G') end
       end
     end, { buffer = buf })
   end,
