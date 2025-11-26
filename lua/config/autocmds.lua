@@ -165,3 +165,42 @@ vim.api.nvim_create_autocmd('User', {
     }
   end
 })
+
+-- zls hover links
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'noice',
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    local bt = vim.api.nvim_get_option_value('buftype', { buf = buf })
+    if bt ~= 'nofile' then return end
+
+    vim.keymap.set('n', '<leader><cr>', function()
+      local line = vim.api.nvim_get_current_line()
+      local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+
+      -- expand left to find '['
+      local start_idx = col
+      while start_idx > 1 and line:sub(start_idx, start_idx) ~= '[' do
+        start_idx = start_idx - 1
+      end
+
+      -- expand right to find ']'
+      local end_idx = col
+      while end_idx <= #line and line:sub(end_idx, end_idx) ~= ']' do
+        end_idx = end_idx + 1
+      end
+
+      -- extract target in parentheses immediately after ']'
+      local target = line:sub(end_idx + 2, line:find(')', end_idx + 2) - 1)
+
+      if target and target:match '^file:' then
+        local path, lnum = target:match('^file:(.+)#L(%d+)$')
+        if not path then path = target:sub(6) end
+
+        vim.cmd 'quit'
+        vim.cmd('split ' .. path)
+        if lnum then vim.cmd(lnum) end
+      end
+    end, { buffer = buf })
+  end,
+})
