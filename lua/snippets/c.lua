@@ -20,7 +20,7 @@ return {
     )
   ),
 
-  -- struct
+  -- typedef struct
   s('ts',
     fmt([[
     typedef struct {} {{
@@ -29,6 +29,19 @@ return {
     ]],
       {
         i(1), i(2), i(3)
+      }
+    )
+  ),
+
+  -- struct
+  s('st',
+    fmt([[
+    struct {} {{
+      {}
+    }};
+    ]],
+      {
+        i(1), i(2)
       }
     )
   ),
