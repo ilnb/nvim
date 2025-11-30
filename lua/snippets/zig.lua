@@ -8,7 +8,7 @@ return {
   -- list init
   s('li',
     fmt([[
-    var {} = std.ArrayList({}).init({});
+    var {} = std.ArrayList({}){};
     defer {}.deinit();
     ]],
       {
@@ -38,7 +38,21 @@ return {
     defer {{
         const status = gpa.deinit();
         if (status == .leak) std.testing.expect(false) catch @panic("FAILURE");
-    }}]], {}
+    }}
+    const ga = gpa.allocator();]], {}
+    )
+  ),
+
+  -- fba
+  s('fba',
+    fmt([[
+    var {}: [{}]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&{});
+    const fa = fba.allocator();
+    ]],
+      {
+        i(1), i(2), rep(1)
+      }
     )
   ),
 
@@ -78,4 +92,5 @@ return {
       }
     )
   ),
+
 }
