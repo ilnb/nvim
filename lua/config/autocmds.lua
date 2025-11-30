@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd('User', {
   end
 })
 
--- zls hover links
+-- open embedded markdown files in lsp hover
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'noice',
   callback = function()
@@ -222,6 +222,6 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.cmd('split ' .. path)
         if lnum then vim.cmd('norm!' .. lnum .. 'G') end
       end
-    end, { buffer = buf })
+    end, { buffer = buf, desc = 'Open the linked file' })
   end,
 })
