@@ -115,7 +115,7 @@ return {
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-y>'] = { 'select_and_accept' },
-        ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        -- ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
