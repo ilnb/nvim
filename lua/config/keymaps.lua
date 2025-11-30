@@ -102,7 +102,7 @@ end, { desc = 'Git browse (copy)' })
 -- quit
 map('n', '<leader>qq', ':qa<cr>', { desc = 'Quit all', silent = true })
 map('n', '<leader>qw', ':wqa<cr>', { desc = 'Write and quit all', silent = true })
-map({ 'n', 'v' }, '<leader>w', ':up<cr>', { desc = 'Write', silent = true })
+map({ 'n', 'v' }, '<leader>W', ':up<cr>', { desc = 'Write', silent = true })
 
 -- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect pos', silent = true })
