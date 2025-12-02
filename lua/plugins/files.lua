@@ -43,6 +43,18 @@ return {
       },
 
       {
+        '<leader>sG',
+        function()
+          local mode = vim.api.nvim_get_mode().mode
+          local opt = { cwd = vim.uv.cwd() }
+          require 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
+        end,
+        desc = 'Grep (cwd)',
+        mode = { 'n', 'v' },
+        silent = true,
+      },
+
+      {
         '<leader><space>',
         function()
           require 'fzf-lua'.files { cwd = require 'utils.plugins'.get_root() }
