@@ -230,7 +230,7 @@ end
 function M.get_root()
   local path = vim.api.nvim_buf_get_name(0)
   if path == '' then return vim.uv.cwd() end
-  local root = M.root_pattern('Makefile', 'lua', '.git')(path)
+  local root = M.root_pattern('Makefile', '.git', 'lua')(path)
   if root then return root end
   local dir = vim.fs.dirname(path)
   local home = vim.env.HOME
