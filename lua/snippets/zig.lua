@@ -5,14 +5,15 @@ local fmt = require 'luasnip.extras.fmt'.fmt
 local rep = require 'luasnip.extras'.rep
 
 return {
-  -- list init
+  -- list gpa
   s('li',
     fmt([[
-    var {} = std.ArrayList({}){};
-    defer {}.deinit();
+    var {} = try std.ArrayList({}).initCapacity({}, {});
+    defer {}.deinit({});
     ]],
       {
-        i(1), i(2), i(3), rep(1),
+        i(1), i(2), i(3), i(4),
+        rep(1), rep(3),
       }
     )
   ),
