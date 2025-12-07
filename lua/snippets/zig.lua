@@ -94,4 +94,33 @@ return {
     )
   ),
 
+  s('spf',
+    fmt([[
+    try stdout.print("{}", .{{{}}});
+    try stdout.flush();
+    ]],
+      {
+        i(1), i(2),
+      }
+    )
+  ),
+
+  s('fo',
+    fmt([[
+    const {} = try std.fs.cwd().openFile("{}", .{{ .mode = {} }});
+    defer {}.close();
+    var {}_buf: [{}]u8 = undefined;
+    var {}_r = {}.reader(&{}_buf);
+    const {} = &{}_r.interface;
+    ]],
+      {
+        i(1), i(2), i(3),
+        rep(1),
+        rep(1), i(4),
+        rep(1), rep(1), rep(1),
+        i(5), rep(1)
+      }
+    )
+  ),
+
 }
