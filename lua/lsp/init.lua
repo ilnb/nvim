@@ -5,6 +5,7 @@ local servers = {
   gopls        = { 'go' },
   -- pyright = { 'python' },
   lua_ls       = { 'lua' },
+  qmlls6       = { 'qml', 'qmljs' },
   zls          = { 'zig' },
 }
 

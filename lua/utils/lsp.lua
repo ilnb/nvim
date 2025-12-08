@@ -78,7 +78,18 @@ M.on_attach = function(client, buffer)
   del({ 'i', 's' }, '<c-s>')
   del('x', 'gra')
 
-  if client:supports_method 'textDocument/formatting' then
+  local excludes = {
+    format = {
+      'qmlls6',
+    },
+    inlay = {
+      'basedpyright',
+      'pyright',
+      -- 'zls',
+    }
+  }
+
+  if client:supports_method 'textDocument/formatting' and not vim.tbl_contains(excludes.format, client.name) then
     local grp = vim.api.nvim_create_augroup('LspFormat' .. buffer, { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = grp,
@@ -96,13 +107,7 @@ M.on_attach = function(client, buffer)
     end
   end
 
-  local exclude = {
-    'basedpyright',
-    'pyright',
-    -- 'zls'
-  }
-
-  if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(exclude, client.name) then
+  if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(excludes.inlay, client.name) then
     vim.defer_fn(function()
       vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
     end, 0)
