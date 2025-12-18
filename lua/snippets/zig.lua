@@ -94,6 +94,7 @@ return {
     )
   ),
 
+  -- stdout print with flush
   s('spf',
     fmt([[
     try stdout.print("{}", .{{{}}});
@@ -105,6 +106,7 @@ return {
     )
   ),
 
+  -- file open
   s('fo',
     fmt([[
     const {} = try std.fs.cwd().openFile("{}", .{{ .mode = {} }});
