@@ -3,8 +3,7 @@ local capabilities = vim.tbl_deep_extend('force', {},
   require 'blink.cmp'.get_lsp_capabilities {
     textDocument = {
       completion = {
-        completionItem =
-        {
+        completionItem = {
           snippetSupport = false,
         },
       },
@@ -39,4 +38,3 @@ return {
   },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
 }
-
