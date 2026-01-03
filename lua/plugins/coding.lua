@@ -297,6 +297,7 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     opts = {
       auto_install = true,
+      ignore_install = { 'csv' },
       highlight = { enable = true },
       indent = { enable = true },
       ensure_installed = {
@@ -306,7 +307,7 @@ return {
         'markdown', 'markdown_inline', 'python',
         'query', 'regex', 'toml', 'typescript',
         'typst', 'vim', 'vimdoc', 'xml', 'yaml',
-        'zig',
+        'zig', 'desktop',
       },
       incremental_selection = {
         enable = true,

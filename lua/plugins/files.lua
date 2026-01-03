@@ -253,7 +253,6 @@ return {
         use_as_default_explorer = false,
       },
     },
-
     keys = {
       {
         '<leader>fm',
@@ -269,7 +268,13 @@ return {
         end,
         desc = 'Open mini.files (%:h)',
       },
-      { '<leader>fM', function() require 'mini.files'.open(vim.uv.cwd(), true) end, desc = 'Open mini.files (cwd)', },
+      {
+        '<leader>fM',
+        function()
+          require 'mini.files'.open(vim.uv.cwd(), true)
+        end,
+        desc = 'Open mini.files (cwd)',
+      },
     },
 
     config = function(_, opts)
@@ -290,25 +295,26 @@ return {
       end
 
       local files_set_cwd = function()
-        local cur_entry_path = MiniFiles.get_fs_entry().path
-        local cur_directory = vim.fs.dirname(cur_entry_path)
-        if cur_directory ~= nil then
-          vim.fn.chdir(cur_directory)
+        local path = MiniFiles.get_fs_entry().path
+        local dir = vim.fs.dirname(path)
+        if dir ~= nil then
+          vim.fn.chdir(dir)
         end
       end
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesBufferCreate',
         callback = function(args)
+          local map = opts.mappings
           vim.keymap.set(
             'n',
-            opts.mappings and opts.mappings.toggle_hidden or 'g.',
+            map and map.toggle_hidden or 'g.',
             toggle_dotfiles,
             { buffer = args.data.buf_id, desc = 'Toggle hidden files' }
           )
           vim.keymap.set(
             'n',
-            opts.mappings and opts.mappings.change_cwd or 'gc',
+            map and map.change_cwd or 'gc',
             files_set_cwd,
             { buffer = args.data.buf_id, desc = 'Set cwd' }
           )

@@ -6,7 +6,7 @@ local rep = require 'luasnip.extras'.rep
 
 return {
   -- list gpa
-  s('li',
+  s('lig',
     fmt([[
     var {} = try std.ArrayList({}).initCapacity({}, {});
     defer {}.deinit({});
@@ -14,6 +14,19 @@ return {
       {
         i(1), i(2), i(3), i(4),
         rep(1), rep(3),
+      }
+    )
+  ),
+
+  -- list gpa
+  s('li',
+    fmt([[
+    var {}: std.ArrayList({}) = .empty;
+    defer {}.deinit({});
+    ]],
+      {
+        i(1), i(2),
+        rep(1), i(3),
       }
     )
   ),
@@ -61,8 +74,8 @@ return {
   s('sti',
     fmt([[
     var stdin_buf: [{}]u8 = undefined;
-    var stdin_writer = std.fs.File.stdin().reader(&stdin_buf);
-    const stdin = &stdin_writer.interface;
+    var stdin_reader = std.fs.File.stdin().reader(&stdin_buf);
+    const stdin = &stdin_reader.interface;
     ]],
       {
         i(1)
@@ -121,6 +134,21 @@ return {
         rep(1), i(4),
         rep(1), rep(1), rep(1),
         i(5), rep(1)
+      }
+    )
+  ),
+
+  -- init
+  s('z',
+    fmt([[
+    const std = @import("std");
+
+    pub fn main() !void {{
+        {}
+    }}
+    ]],
+      {
+        i(1)
       }
     )
   ),
