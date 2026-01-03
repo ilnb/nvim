@@ -18,7 +18,7 @@ return {
     )
   ),
 
-  -- list gpa
+  -- list empty
   s('li',
     fmt([[
     var {}: std.ArrayList({}) = .empty;
