@@ -61,6 +61,7 @@ return {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         { path = 'snacks.nvim',        words = { 'Snacks', 'snacks.nvim' } },
         { path = 'wezterm-types',      words = { 'wezterm' } },
+        { path = 'tokyonight.nvim',    words = { 'tokyonight.nvim' } },
       },
     },
   },

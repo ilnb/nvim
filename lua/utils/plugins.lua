@@ -7,6 +7,10 @@ function M.lualine_theme()
     theme = require 'lualine.themes.kanagawa'
   elseif color:find 'catppuccin' then
     theme = require 'lualine.themes.catppuccin-mocha'
+  elseif color:find 'wisteria' then
+    theme = require 'wisteria.colors.lualine' ()
+  elseif color:find 'tokyonight' then
+    theme = require 'lualine.themes.tokyonight-night'
   elseif color:find 'kanso' then
     theme = require 'lualine.themes.kanso'
     local palette = require 'kanso.colors'.setup().palette
