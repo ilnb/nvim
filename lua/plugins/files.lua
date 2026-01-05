@@ -243,6 +243,11 @@ return {
     'echasnovski/mini.files',
     -- event = 'VeryLazy',
     opts = {
+      content = {
+        filter = function(fs_entry)
+          return not vim.startswith(fs_entry.name, '.')
+        end,
+      },
       windows = {
         max_number = 4,
         preview = true,
@@ -280,7 +285,7 @@ return {
     config = function(_, opts)
       require 'mini.files'.setup(opts)
 
-      local show_dotfiles = true
+      local show_dotfiles = false -- initial state
       local filter_show = function(fs_entry)
         return true
       end
