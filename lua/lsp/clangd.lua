@@ -20,7 +20,7 @@ local capabilities = vim.tbl_deep_extend('force', {},
 )
 
 return {
-  root_markers = { 'Makefile', '.git', '.clang-format' },
+  root_markers = { 'Makefile', '.clangd', '.clang-format', '.git' },
   capabilities = capabilities,
   cmd = {
     'clangd',
