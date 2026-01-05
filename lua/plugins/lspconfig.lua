@@ -62,6 +62,7 @@ return {
         { path = 'snacks.nvim',        words = { 'Snacks', 'snacks.nvim' } },
         { path = 'wezterm-types',      words = { 'wezterm' } },
         { path = 'tokyonight.nvim',    words = { 'tokyonight.nvim' } },
+        { path = 'wisteria.nvim',      words = { 'Wisteria', 'wisteria.nvim' } },
       },
     },
   },

@@ -51,6 +51,50 @@ return {
   },
 
   {
+    'masisz/wisteria.nvim',
+    dir = '~/wisteria.nvim',
+    opts = {
+      transparent = true,
+      ---@type fun(colors:WisteriaColors):HighlightSpec
+      overrides = function(colors)
+        local keyword_fg = vim.api.nvim_get_hl(0, { name = '@keyword' }).fg
+        local property_fg = vim.api.nvim_get_hl(0, { name = '@property' }).fg
+
+        ---@param c integer?
+        ---@param p number
+        ---@return integer?
+        local function darker(c, p)
+          if not c then return nil end
+          p = 1 - p
+
+          local bd = bit.band
+          local f = math.floor
+
+          local r = bd(bit.rshift(c, 16), 0xFF)
+          local g = bd(bit.rshift(c, 8), 0xFF)
+          local b = bd(c, 0xFF)
+
+          r = f(r * p + 0.5)
+          g = f(g * p + 0.5)
+          b = f(b * p + 0.5)
+
+          return bit.lshift(r, 16) + bit.lshift(g, 8) + b
+        end
+
+        return {
+          CursorLine = { bg = 'NONE' },
+          Function = { fg = 'NvimLightRed' },
+          ['@keyword.function'] = { fg = keyword_fg },
+          Whitespace = { fg = '#33334A' },
+          Visual = { bg = darker(property_fg, 0.5) },
+          LineNr = { fg = '#44445D' },
+          Comment = { fg = '#67678D' },
+        }
+      end
+    },
+  },
+
+  {
     'webhooked/kanso.nvim',
     config = function()
       require 'kanso'.setup {
