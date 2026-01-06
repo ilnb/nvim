@@ -99,24 +99,6 @@ return {
 
           lualine_x = {
             {
-              require 'noice'.api.status.command.get,
-              cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
-              color = function() return { fg = Snacks.util.color 'Statement' } end,
-            },
-
-            {
-              require 'noice'.api.status.mode.get,
-              cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
-              color = function() return { fg = Snacks.util.color 'Constant' } end,
-            },
-
-            {
-              function() return '  ' .. require 'dap'.status() end,
-              cond = function() return package.loaded.dap and require 'dap'.status() ~= '' end,
-              color = function() return { fg = Snacks.util.color 'Debug' } end,
-            },
-
-            {
               require 'lazy.status'.updates,
               cond = require 'lazy.status'.has_updates,
               color = function() return { fg = Snacks.util.color 'Special' } end,
@@ -380,7 +362,7 @@ return {
             indent = 2,
             padding = 1,
 
-            set_entry('󰉋 ', 'Data Structure', 'd', '~/data structure/', true),
+            set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
             set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
             set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
             set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
