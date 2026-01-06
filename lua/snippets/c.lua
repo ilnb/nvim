@@ -9,13 +9,31 @@ return {
     fmt([[
     #include <stdio.h>
 
-    int main() {{
+    int main()
+    {{
       {}
       return 0;
     }}
     ]],
       {
         i(1),
+      }
+    )
+  ),
+
+  -- init more
+  s('zm',
+    fmt([[
+    #include <stdio.h>
+    {}
+    int main()
+    {{
+      {}
+      return 0;
+    }}
+    ]],
+      {
+        i(1), i(2),
       }
     )
   ),
@@ -49,11 +67,13 @@ return {
   -- for
   s('fr',
     fmt([[
-    for ({}; {}; {})
+    for ({}; {}; {}) {{
       {}
+    }}
     ]],
       {
-        i(1), i(2), i(3), i(4)
+        i(1), i(2), i(3),
+        i(4)
       }
     )
   ),
@@ -61,8 +81,9 @@ return {
   -- while
   s('wh',
     fmt([[
-    while ({})
+    while ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -73,8 +94,9 @@ return {
   -- if
   s('if',
     fmt([[
-    if ({})
+    if ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -85,8 +107,9 @@ return {
   -- else if
   s('ef',
     fmt([[
-    else if ({})
+    else if ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -97,8 +120,9 @@ return {
   -- else
   s('el',
     fmt([[
-    else
+    else {{
       {}
+    }}
     ]],
       {
         i(1),
@@ -109,7 +133,8 @@ return {
   -- main
   s('m',
     fmt([[
-    int main({}) {{
+    int main({})
+    {{
       {}
       return 0;
     }}
@@ -123,13 +148,14 @@ return {
   -- function
   s('fn',
     fmt([[
-    {} {}({}) {{
+    {}({})
+    {{
       {}
     }}
     ]],
       {
-        i(1), i(2), i(3),
-        i(4)
+        i(1), i(2),
+        i(3)
       }
     )
   ),

@@ -9,7 +9,8 @@ return {
     fmt([[
     #include <iostream>
 
-    int main() {{
+    int main()
+    {{
       {}
       return 0;
     }}
@@ -20,14 +21,47 @@ return {
     )
   ),
 
+  -- init more
+  s('zm',
+    fmt([[
+    #include <iostream>
+    {}
+    int main()
+    {{
+      {}
+      return 0;
+    }}
+    ]],
+      {
+        i(1), i(2),
+      }
+    )
+  ),
+
   -- for
   s('fr',
     fmt([[
-    for ({}; {}; {})
+    for ({}; {}; {}) {{
       {}
+    }}
     ]],
       {
-        i(1), i(2), i(3), i(4)
+        i(1), i(2), i(3),
+        i(4)
+      }
+    )
+  ),
+
+  -- ranged for
+  s('frr',
+    fmt([[
+    for ({} : {}) {{
+      {}
+    }}
+    ]],
+      {
+        i(1), i(2),
+        i(3)
       }
     )
   ),
@@ -35,8 +69,9 @@ return {
   -- while
   s('wh',
     fmt([[
-    while ({})
+    while ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -47,8 +82,9 @@ return {
   -- if
   s('if',
     fmt([[
-    if ({})
+    if ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -59,8 +95,9 @@ return {
   -- else if
   s('ef',
     fmt([[
-    else if ({})
+    else if ({}) {{
       {}
+    }}
     ]],
       {
         i(1), i(2)
@@ -71,8 +108,9 @@ return {
   -- else
   s('el',
     fmt([[
-    else
+    else {{
       {}
+    }}
     ]],
       {
         i(1),
@@ -103,6 +141,21 @@ return {
     ]],
       {
         i(1), i(2)
+      }
+    )
+  ),
+
+  -- function
+  s('fn',
+    fmt([[
+    {}({})
+    {{
+      {}
+    }}
+    ]],
+      {
+        i(1), i(2),
+        i(3)
       }
     )
   ),
