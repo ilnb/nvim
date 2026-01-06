@@ -4,15 +4,15 @@ return {
     config = function()
       require 'kanagawa'.setup {
         compile = false,
-        undercurl = true, -- enable undercurls
+        undercurl = true,
         commentStyle = { italic = true },
         functionStyle = {},
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
         transparent = true,
-        dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
-        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        dimInactive = false,
+        terminalColors = true,
 
         colors = {
           palette = {},
@@ -41,6 +41,7 @@ return {
             UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
+            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
 
@@ -57,8 +58,8 @@ return {
       transparent = true,
       ---@type fun(colors:WisteriaColors):HighlightSpec
       overrides = function(colors)
-        local keyword_fg = vim.api.nvim_get_hl(0, { name = '@keyword' }).fg
-        local property_fg = vim.api.nvim_get_hl(0, { name = '@property' }).fg
+        local keyword = vim.api.nvim_get_hl(0, { name = '@keyword' })
+        local property = vim.api.nvim_get_hl(0, { name = '@property' })
 
         ---@param c integer?
         ---@param p number
@@ -81,14 +82,16 @@ return {
           return bit.lshift(r, 16) + bit.lshift(g, 8) + b
         end
 
+        ---@type table<string, vim.api.keyset.highlight>
         return {
           CursorLine = { bg = 'NONE' },
           Function = { fg = 'NvimLightRed' },
-          ['@keyword.function'] = { fg = keyword_fg },
           Whitespace = { fg = '#33334A' },
-          Visual = { bg = darker(property_fg, 0.5) },
+          Visual = { bg = darker(property.fg, 0.5) },
           LineNr = { fg = '#44445D' },
-          Comment = { fg = '#67678D' },
+          Comment = { fg = '#67678D', italic = true },
+          ['@keyword.function'] = { fg = keyword.fg },
+          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
         }
       end
     },
@@ -101,15 +104,15 @@ return {
         compile = false,
         bold = true,
         italics = true,
-        undercurl = true, -- enable undercurls
+        undercurl = true,
         commentStyle = { italic = true },
         functionStyle = {},
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
         transparent = true,
-        dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
-        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        dimInactive = false,
+        terminalColors = true,
 
         colors = {
           palette = {},
@@ -136,6 +139,8 @@ return {
             TabLineFill = { bg = 'NONE' },
             UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
+            Whitespace = { fg = '#33334A' },
+            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
 
@@ -210,6 +215,7 @@ return {
           FloatBorder = { bg = 'NONE' },
           StatusLine = { bg = 'NONE' },
           TabLineFill = { bg = 'NONE' },
+          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
         }
       end,
 
@@ -237,13 +243,13 @@ return {
       vim.g.material_style = 'deep ocean'
       require 'material'.setup {
         contrast = {
-          terminal = false,            -- Enable contrast for the built-in terminal
-          sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-          floating_windows = false,    -- Enable contrast for floating windows
-          cursor_line = false,         -- Enable darker background for the cursor line
-          lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
-          non_current_windows = false, -- Enable contrasted background for non-current windows
-          filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
+          terminal = false,
+          sidebars = false,
+          floating_windows = false,
+          cursor_line = false,
+          lsp_virtual_text = false,
+          non_current_windows = false,
+          filetypes = {},
         },
 
         styles = {
@@ -258,6 +264,7 @@ return {
 
         plugins = {
           -- Available plugins:
+          'blink',
           -- 'coc',
           -- 'colorful-winsep',
           'dap',
@@ -274,17 +281,17 @@ return {
           'mini',
           -- 'neogit',
           -- 'neotest',
-          'neo-tree',
+          -- 'neo-tree',
           -- 'neorg',
           'noice',
           -- 'nvim-cmp',
           'nvim-navic',
-          'nvim-tree',
-          'nvim-web-devicons',
+          -- 'nvim-tree',
+          -- 'nvim-web-devicons',
           -- 'rainbow-delimiters',
           -- 'sneak',
-          'telescope',
-          'trouble',
+          -- 'telescope',
+          -- 'trouble',
           'which-key',
           -- 'nvim-notify',
         },
@@ -327,9 +334,15 @@ return {
           return vim.tbl_deep_extend('force', t, {
             Pmenu = { bg = 'NONE' },
             StatusLine = { bg = 'NONE' },
-            TabLineSel = function(colors, _)
-              return { bold = true, }
-            end
+            TabLineSel = { bold = true },
+            ['@attribute.c'] = { link = 'Constant' },
+            Search = { bg = '#404040' },
+            IncSearch = { bg = '#404040' },
+            CurSearch = { bg = '#797960', fg = '#212C64' },
+            Whitespace = { fg = '#2C2C43' },
+            CursorLine = { bg = 'NONE' },
+            MiniFilesCursorLine = { bg = '#404040' },
+            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           })
         end,
       }
@@ -400,6 +413,7 @@ return {
         highlights.StatusLine = { bg = 'NONE' }
         highlights.TabLineFill = { bg = 'NONE' }
         highlights.LspInlayHint = { link = 'NonText' }
+        highlights['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
       end,
     },
   },
