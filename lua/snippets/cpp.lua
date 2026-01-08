@@ -7,25 +7,8 @@ return {
   -- base init
   s('z',
     fmt([[
-    #include <iostream>
+    #include <iostream>{}
 
-    int main()
-    {{
-      {}
-      return 0;
-    }}
-    ]],
-      {
-        i(1),
-      }
-    )
-  ),
-
-  -- init more
-  s('zm',
-    fmt([[
-    #include <iostream>
-    {}
     int main()
     {{
       {}

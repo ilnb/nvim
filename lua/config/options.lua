@@ -34,13 +34,13 @@ opt.laststatus = 3         -- global statusline
 opt.linebreak = true       -- Wrap lines at convenient points
 opt.list = true            -- Show some invisible characters (tabs...
 opt.listchars = {
-  -- lead = '·',
-  space = '·',
+  trail = '-',
+  -- space = '·',
   tab = '> ',
   nbsp = '+'
 }
 opt.mouse = 'a'           -- Enable mouse mode
-opt.mousescroll = 'ver:' .. (string.find(vim.uv.os_getenv 'TERM', 'ghostty') and 1 or 3)
+opt.mousescroll = 'ver:' .. (string.find(vim.uv.os_getenv 'TERM' or '', 'ghostty') and 1 or 3)
 opt.number = true         -- Print line number
 opt.pumblend = 10         -- Popup blend
 opt.pumheight = 10        -- Maximum number of entries in a popup

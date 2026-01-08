@@ -24,7 +24,7 @@ require 'lazy'.setup {
     lazy = true,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { 'catppuccin', 'kanagawa' } },
+  install = { colorscheme = { 'kanagawa', 'catppuccin' } },
   checker = {
     enabled = true,
     notify = false,

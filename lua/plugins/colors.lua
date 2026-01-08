@@ -53,7 +53,7 @@ return {
 
   {
     'masisz/wisteria.nvim',
-    dir = '~/wisteria.nvim',
+    enabled = false,
     opts = {
       transparent = true,
       ---@type fun(colors:WisteriaColors):HighlightSpec
@@ -99,6 +99,7 @@ return {
 
   {
     'webhooked/kanso.nvim',
+    enabled = false,
     config = function()
       require 'kanso'.setup {
         compile = false,
@@ -152,6 +153,7 @@ return {
 
   {
     'catppuccin/nvim',
+    enabled = false,
     name = 'catppuccin',
     ---@diagnostic disable: missing-fields
     ---@type CatppuccinOptions
@@ -239,6 +241,7 @@ return {
 
   {
     'marko-cerovac/material.nvim',
+    enabled = false,
     config = function()
       vim.g.material_style = 'deep ocean'
       require 'material'.setup {
@@ -351,6 +354,7 @@ return {
 
   {
     'folke/tokyonight.nvim',
+    enabled = false,
     opts = {
       style = 'night',
       transparent = true,

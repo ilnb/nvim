@@ -141,14 +141,14 @@ return {
   -- init
   s('z',
     fmt([[
-    const std = @import("std");
+    const std = @import("std");{}
 
     pub fn main() !void {{
         {}
     }}
     ]],
       {
-        i(1)
+        i(1), i(2),
       }
     )
   ),

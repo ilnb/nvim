@@ -7,25 +7,8 @@ return {
   -- base init
   s('z',
     fmt([[
-    #include <stdio.h>
+    #include <stdio.h>{}
 
-    int main()
-    {{
-      {}
-      return 0;
-    }}
-    ]],
-      {
-        i(1),
-      }
-    )
-  ),
-
-  -- init more
-  s('zm',
-    fmt([[
-    #include <stdio.h>
-    {}
     int main()
     {{
       {}
