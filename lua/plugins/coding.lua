@@ -85,14 +85,41 @@ return {
           auto_show = true,
           border = 'rounded',
           draw = {
-            treesitter = { 'lsp' }
+            treesitter = { 'lsp' },
+            padding = { 0, 1 },
+            components = {
+              source_name = {
+                width = { fill = true },
+                text = function(ctx)
+                  local str = ctx.source_name:lower()
+                  if str == 'buffer' then
+                    str = 'buf'
+                  elseif str == 'cmdline' then
+                    return ''
+                  elseif str == 'snippets' then
+                    str = 'snip'
+                  end
+                  return '[' .. str .. ']'
+                end
+              },
+              label_description = {
+                text = function(ctx)
+                  local mode = vim.api.nvim_get_mode().mode
+                  return mode ~= 'c' and '' or ctx.label_description -- only show it in cmdline
+                end
+              },
+            },
+            columns = {
+              { 'kind_icon',   'label' },
+              { 'source_name', 'label_description', gap = 1 },
+            },
           },
           winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
           scrollbar = false,
         },
 
         documentation = {
-          auto_show = true, -- doc window for completions
+          auto_show = true,
           auto_show_delay_ms = 0,
           treesitter_highlighting = true,
           window = {
@@ -108,14 +135,12 @@ return {
 
       keymap = {
         ['<CR>'] = { 'accept', 'fallback' },
-        -- ['<Esc>'] = { 'hide', 'fallback' },
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
         ['<C-e>'] = { 'cancel', 'show', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-y>'] = { 'select_and_accept' },
-        -- ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
