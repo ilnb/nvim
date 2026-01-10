@@ -99,6 +99,18 @@ return {
 
           lualine_x = {
             {
+              require 'noice'.api.status.command.get,
+              cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
+              color = function() return { fg = Snacks.util.color 'Statement' } end,
+            },
+
+            {
+              require 'noice'.api.status.mode.get,
+              cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
+              color = function() return { fg = Snacks.util.color 'Constant' } end,
+            },
+
+            {
               require 'lazy.status'.updates,
               cond = require 'lazy.status'.has_updates,
               color = function() return { fg = Snacks.util.color 'Special' } end,
