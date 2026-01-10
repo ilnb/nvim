@@ -41,6 +41,7 @@ return {
             UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
+            BlinkCmpSource = { link = 'Special' },
             ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
@@ -53,7 +54,7 @@ return {
 
   {
     'masisz/wisteria.nvim',
-    enabled = false,
+    -- enabled = false,
     opts = {
       transparent = true,
       ---@type fun(colors:WisteriaColors):HighlightSpec
@@ -90,6 +91,7 @@ return {
           Visual = { bg = darker(property.fg, 0.5) },
           LineNr = { fg = '#44445D' },
           Comment = { fg = '#67678D', italic = true },
+          BlinkCmpSource = { link = 'Special' },
           ['@keyword.function'] = { fg = keyword.fg },
           ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
         }
@@ -141,6 +143,7 @@ return {
             UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
+            BlinkCmpSource = { link = 'Special' },
             ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
@@ -210,6 +213,7 @@ return {
           Pmenu = { bg = 'NONE' },
           PmenuSel = { bg = '#2D4F67' },
           BlinkCmpMenuSelection = { link = 'PmenuSel' },
+          BlinkCmpSource = { link = 'Special' },
           MiniFilesCursorLine = { link = 'PmenuSel' },
           CursorLine = { bg = 'NONE' },
           NormalFloat = { bg = 'NONE' },
@@ -345,6 +349,7 @@ return {
             Whitespace = { fg = '#2C2C43' },
             CursorLine = { bg = 'NONE' },
             MiniFilesCursorLine = { bg = '#404040' },
+            BlinkCmpSource = { link = 'Special' },
             ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           })
         end,
@@ -411,6 +416,7 @@ return {
         highlights.Pmenu = { bg = 'NONE' }
         highlights.PmenuSel = { bg = '#2D4F67' }
         highlights.BlinkCmpMenuSelection = { link = 'PmenuSel' }
+        highlights.BlinkCmpSource = { link = 'Special' }
         highlights.CursorLine = { bg = 'NONE' }
         highlights.NormalFloat = { bg = 'NONE' }
         highlights.FloatBorder = { bg = 'NONE' }
