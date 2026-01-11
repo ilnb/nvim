@@ -54,7 +54,7 @@ return {
 
   {
     'masisz/wisteria.nvim',
-    -- enabled = false,
+    enabled = false,
     opts = {
       transparent = true,
       ---@type fun(colors:WisteriaColors):HighlightSpec
