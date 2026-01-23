@@ -48,10 +48,12 @@ M.on_attach = function(client, buffer)
   map('<leader>sD', function() require 'fzf-lua'.diagnostics_workspace() end, 'Workspace Diagnostics')
   del('n', '[d')
   del('n', ']d')
-  map('[d', function() vim.diagnostic.jump { count = -1, float = false } end, 'Previous Diagnostic')
-  map(']d', function() vim.diagnostic.jump { count = 1, float = false } end, 'Next Diagnostic')
-  map('[e', function() vim.diagnostic.jump { count = -1, float = false, severity = 'ERROR' } end, 'Previous Error')
-  map(']e', function() vim.diagnostic.jump { count = 1, float = false, severity = 'ERROR' } end, 'Next Error')
+  map({ 'n', 'v' }, '[d', function() vim.diagnostic.jump { count = -1, float = false } end, 'Previous Diagnostic')
+  map({ 'n', 'v' }, ']d', function() vim.diagnostic.jump { count = 1, float = false } end, 'Next Diagnostic')
+  map({ 'n', 'v' }, '[e', function() vim.diagnostic.jump { count = -1, float = false, severity = 'ERROR' } end,
+    'Previous Error')
+  map({ 'n', 'v' }, ']e', function() vim.diagnostic.jump { count = 1, float = false, severity = 'ERROR' } end,
+    'Next Error')
   local filter = require 'utils.plugins'.symbols_filter
   map('<leader>ss', function()
     require 'fzf-lua'.lsp_document_symbols { regex_filter = filter }

@@ -140,7 +140,7 @@ return {
         ['<C-e>'] = { 'cancel', 'show', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
-        ['<C-y>'] = { 'select_and_accept' },
+        ['<C-y>'] = { 'cancel', 'show' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
@@ -407,7 +407,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require 'mini.indentscope'.setup {
-        symbol = '┊', -- ╎
+        char = '┊', -- ╎
         draw = {
           delay = 0,
           animation = require 'mini.indentscope'.gen_animation.quadratic { easing = 'out', duration = 20, unit = 'step' },

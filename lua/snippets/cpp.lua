@@ -117,7 +117,8 @@ return {
   -- main
   s('m',
     fmt([[
-    int main({}) {{
+    int main({})
+    {{
       {}
       return 0;
     }}
