@@ -1,6 +1,7 @@
 local servers = {
   asm_lsp      = { 'asm' },
   basedpyright = { 'python' },
+  -- ccls         = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   clangd       = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   gopls        = { 'go' },
   -- pyright = { 'python' },
