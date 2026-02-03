@@ -1,3 +1,4 @@
+---@diagnostic disable:undefined-doc-name, undefined-field, inject-field
 return {
   {
     'rebelot/kanagawa.nvim',
@@ -7,7 +8,7 @@ return {
         undercurl = true,
         commentStyle = { italic = true },
         functionStyle = {},
-        keywordStyle = { italic = true },
+        keywordStyle = { italic = false },
         statementStyle = { bold = true },
         typeStyle = {},
         transparent = true,
@@ -42,6 +43,7 @@ return {
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
             BlinkCmpSource = { link = 'Special' },
+            String = { italic = true },
             ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
@@ -53,50 +55,84 @@ return {
   },
 
   {
-    'masisz/wisteria.nvim',
-    enabled = false,
-    opts = {
-      transparent = true,
-      ---@type fun(colors:WisteriaColors):HighlightSpec
-      overrides = function(colors)
-        local keyword = vim.api.nvim_get_hl(0, { name = '@keyword' })
-        local property = vim.api.nvim_get_hl(0, { name = '@property' })
+    'vague-theme/vague.nvim',
+    -- enabled = false,
+    config = function()
+      require 'vague'.setup {
+        transparent = true,
+        bold = true,
+        italic = true,
+        style = {
+          -- 'none' == default
+          comments = 'italic',
+          strings = 'italic',
+          keywords = 'none',
+          keyword_return = 'italic',
+          keywords_loop = 'none',
+          keywords_label = 'bold',
+          keywords_exception = 'none',
+          builtin_constants = 'bold',
+          builtin_functions = 'none',
+          builtin_types = 'none',
+          builtin_variables = 'none',
+        },
+        plugins = {
+          blink = {
+            match = 'bold',
+            match_fuzzy = 'bold',
+          },
+          lsp = {
+            diagnostic_error = 'bold',
+            diagnostic_hint = 'italic',
+            diagnostic_info = 'italic',
+            diagnostic_warn = 'bold',
+          },
+        },
+        -- very weak
+        on_highlights = function(hi, col)
+          hi.Pmenu = { bg = 'NONE' }
+          hi.CursorLine = { bg = 'NONE' }
+          hi.NormalFloat = { bg = 'NONE' }
+          hi.FloatBorder = { bg = 'NONE' }
+          hi.StatusLine = { bg = 'NONE' }
+          hi.TabLineFill = { bg = 'NONE' }
+        end,
+        colors = {
+          bg = '#141415',
+          inactiveBg = '#1c1c24',
+          fg = '#cdcdcd',
+          floatBorder = '#878787',
+          line = '#252530',
+          comment = '#606079',
+          builtin = '#b4d4cf',
+          func = '#c48282',
+          string = '#e8b589',
+          number = '#e0a363',
+          property = '#c3c3d5',
+          constant = '#aeaed1',
+          parameter = '#bb9dbd',
+          visual = '#333738',
+          error = '#d8647e',
+          warning = '#f3be7c',
+          hint = '#7e98e8',
+          operator = '#90a0b5',
+          keyword = '#6e94b2',
+          type = '#9bb4bc',
+          search = '#405065',
+          plus = '#7fa563',
+          delta = '#f3be7c',
+        },
+      }
 
-        ---@param c integer?
-        ---@param p number
-        ---@return integer?
-        local function darker(c, p)
-          if not c then return nil end
-          p = 1 - p
-
-          local bd = bit.band
-          local f = math.floor
-
-          local r = bd(bit.rshift(c, 16), 0xFF)
-          local g = bd(bit.rshift(c, 8), 0xFF)
-          local b = bd(c, 0xFF)
-
-          r = f(r * p + 0.5)
-          g = f(g * p + 0.5)
-          b = f(b * p + 0.5)
-
-          return bit.lshift(r, 16) + bit.lshift(g, 8) + b
-        end
-
-        ---@type table<string, vim.api.keyset.highlight>
-        return {
-          CursorLine = { bg = 'NONE' },
-          Function = { fg = 'NvimLightRed' },
-          Whitespace = { fg = '#33334A' },
-          Visual = { bg = darker(property.fg, 0.5) },
-          LineNr = { fg = '#44445D' },
-          Comment = { fg = '#67678D', italic = true },
+      vim.defer_fn(function()
+        for grp, opt in pairs {
           BlinkCmpSource = { link = 'Special' },
-          ['@keyword.function'] = { fg = keyword.fg },
-          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
-        }
-      end
-    },
+          BlinkCmpMenuSelection = { bg = vim.api.nvim_get_hl(0, { name = 'IncSearch' }).bg },
+        } do
+          vim.api.nvim_set_hl(0, grp, opt)
+        end
+      end, 0.1)
+    end,
   },
 
   {
@@ -144,6 +180,7 @@ return {
             UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
             BlinkCmpSource = { link = 'Special' },
+            String = { italic = true },
             ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
           }
         end,
@@ -158,7 +195,6 @@ return {
     'catppuccin/nvim',
     enabled = false,
     name = 'catppuccin',
-    ---@diagnostic disable: missing-fields
     ---@type CatppuccinOptions
     opts = {
       flavour = 'frappe',
@@ -407,23 +443,23 @@ return {
         colors.git.modified = '#0000FF'
       end,
 
-      ---@param highlights tokyonight.Highlights
+      ---@param hi tokyonight.Highlights
       ---@param colors ColorScheme
-      on_highlights = function(highlights, colors)
-        highlights.GitSignsAdd = { fg = '#00A000' }
-        highlights.GitSignsChange = { fg = '#0000FF' }
-        highlights.GitSignsDelete = { fg = '#BA0000' }
-        highlights.Pmenu = { bg = 'NONE' }
-        highlights.PmenuSel = { bg = '#2D4F67' }
-        highlights.BlinkCmpMenuSelection = { link = 'PmenuSel' }
-        highlights.BlinkCmpSource = { link = 'Special' }
-        highlights.CursorLine = { bg = 'NONE' }
-        highlights.NormalFloat = { bg = 'NONE' }
-        highlights.FloatBorder = { bg = 'NONE' }
-        highlights.StatusLine = { bg = 'NONE' }
-        highlights.TabLineFill = { bg = 'NONE' }
-        highlights.LspInlayHint = { link = 'NonText' }
-        highlights['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
+      on_highlights = function(hi, colors)
+        hi.GitSignsAdd = { fg = '#00A000' }
+        hi.GitSignsChange = { fg = '#0000FF' }
+        hi.GitSignsDelete = { fg = '#BA0000' }
+        hi.Pmenu = { bg = 'NONE' }
+        hi.PmenuSel = { bg = '#2D4F67' }
+        hi.BlinkCmpMenuSelection = { link = 'PmenuSel' }
+        hi.BlinkCmpSource = { link = 'Special' }
+        hi.CursorLine = { bg = 'NONE' }
+        hi.NormalFloat = { bg = 'NONE' }
+        hi.FloatBorder = { bg = 'NONE' }
+        hi.StatusLine = { bg = 'NONE' }
+        hi.TabLineFill = { bg = 'NONE' }
+        hi.LspInlayHint = { link = 'NonText' }
+        hi['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
       end,
     },
   },
