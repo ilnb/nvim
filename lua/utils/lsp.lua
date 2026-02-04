@@ -115,6 +115,18 @@ M.on_attach = function(client, buffer)
     end, 0)
   end
 
+  local ok, lsp_sig = pcall(require, 'lsp_signature')
+  if ok then
+    lsp_sig.on_attach({
+      bind = true,
+      fix_pos = true,
+      floating_window = false,
+      hint_enable = true,
+      hint_prefix = "● ",
+      hint_scheme = "DiagnosticSignInfo",
+    }, buffer)
+  end
+
   local servers = require 'lsp'
   if not vim.api.nvim_get_commands {}.LspStop then
     vim.api.nvim_create_user_command('LspStop', function(opts)
