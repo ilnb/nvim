@@ -1,13 +1,15 @@
 local servers = {
-  asm_lsp      = { 'asm' },
-  basedpyright = { 'python' },
+  asm_lsp       = { 'asm' },
+  basedpyright  = { 'python' },
   -- ccls         = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-  clangd       = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-  gopls        = { 'go' },
+  clangd        = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+  gopls         = { 'go' },
   -- pyright = { 'python' },
-  lua_ls       = { 'lua' },
-  qmlls6       = { 'qml', 'qmljs' },
-  zls          = { 'zig' },
+  lua_ls        = { 'lua' },
+  nimlangserver = { 'nim' },
+  ['serve-d']   = { 'd' },
+  qmlls6        = { 'qml', 'qmljs' },
+  zls           = { 'zig' },
 }
 
 for server, ft in pairs(servers) do
