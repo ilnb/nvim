@@ -122,8 +122,8 @@ M.on_attach = function(client, buffer)
       fix_pos = true,
       floating_window = false,
       hint_enable = true,
-      hint_prefix = "● ",
-      hint_scheme = "DiagnosticSignInfo",
+      hint_prefix = '● ',
+      hint_scheme = 'DiagnosticSignInfo',
     }, buffer)
   end
 
@@ -131,8 +131,8 @@ M.on_attach = function(client, buffer)
   if not vim.api.nvim_get_commands {}.LspStop then
     vim.api.nvim_create_user_command('LspStop', function(opts)
       local args = {}
-      if opts.args ~= "" then
-        for name in string.gmatch(opts.args, "%S+") do
+      if opts.args ~= '' then
+        for name in string.gmatch(opts.args, '%S+') do
           table.insert(args, name)
         end
       end
@@ -160,8 +160,8 @@ M.on_attach = function(client, buffer)
   if not vim.api.nvim_get_commands {}.LspStart then
     vim.api.nvim_create_user_command('LspStart', function(opts)
       local args = {}
-      if opts.args ~= "" then
-        for name in string.gmatch(opts.args, "%S+") do
+      if opts.args ~= '' then
+        for name in string.gmatch(opts.args, '%S+') do
           table.insert(args, name)
         end
       end
