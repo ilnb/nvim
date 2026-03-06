@@ -125,9 +125,11 @@ return {
       }
 
       vim.defer_fn(function()
+        local bg = vim.api.nvim_get_hl(0, { name = 'IncSearch' }).bg
         for grp, opt in pairs {
           BlinkCmpSource = { link = 'Special' },
-          BlinkCmpMenuSelection = { bg = vim.api.nvim_get_hl(0, { name = 'IncSearch' }).bg },
+          BlinkCmpMenuSelection = { bg = bg },
+          MiniFilesCursorLine = { bg = bg },
         } do
           vim.api.nvim_set_hl(0, grp, opt)
         end
