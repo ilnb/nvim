@@ -1,4 +1,4 @@
----@diagnostic disable:undefined-doc-name, undefined-field, inject-field
+---@diagnostic disable:undefined-doc-name, undefined-field, inject-field, param-type-mismatch
 return {
   {
     'rebelot/kanagawa.nvim',
@@ -21,7 +21,10 @@ return {
             all = {
               ui = {
                 bg_gutter = 'NONE',
-                float = { bg_border = 'NONE', },
+                float = {
+                  bg = 'NONE',
+                  bg_border = 'NONE',
+                },
               },
             },
           },
@@ -31,10 +34,7 @@ return {
         overrides = function(colors)
           return {
             NavicText = { fg = colors.palette.fujiWhite },
-            Pmenu = { bg = 'NONE' },
             CursorLine = { bg = 'NONE' },
-            NormalFloat = { bg = 'NONE' },
-            FloatBorder = { bg = 'NONE' },
             MiniFilesCursorLine = { link = 'PmenuSel' },
             MiniFilesTitleFocused = { fg = '#F9E2AF' },
             StatusLine = { bg = 'NONE' },
@@ -415,8 +415,8 @@ return {
         properties = {},
         types = {},
         operators = {},
-        sidebars = 'dark',
-        floats = 'dark',
+        sidebars = 'transparent',
+        floats = 'transparent',
       },
       dim_inactive = false,
       lualine_bold = false,
@@ -448,18 +448,16 @@ return {
       ---@param hi tokyonight.Highlights
       ---@param colors ColorScheme
       on_highlights = function(hi, colors)
-        hi.GitSignsAdd = { fg = '#00A000' }
-        hi.GitSignsChange = { fg = '#0000FF' }
-        hi.GitSignsDelete = { fg = '#BA0000' }
-        hi.Pmenu = { bg = 'NONE' }
-        hi.PmenuSel = { bg = '#2D4F67' }
-        hi.BlinkCmpMenuSelection = { link = 'PmenuSel' }
+        hi.GitSignsAdd = vim.tbl_extend('force', hi.GitSignsAdd, { fg = '#00A000' })
+        hi.GitSignsChange = vim.tbl_extend('force', hi.GitSignsChange, { fg = '#0000FF' })
+        hi.GitSignsDelete = vim.tbl_extend('force', hi.GitSignsDelete, { fg = '#BA0000' })
+        hi.PmenuSel = vim.tbl_extend('force', hi.PmenuSel, { bg = '#2D4F67' })
         hi.BlinkCmpSource = { link = 'Special' }
-        hi.CursorLine = { bg = 'NONE' }
-        hi.NormalFloat = { bg = 'NONE' }
-        hi.FloatBorder = { bg = 'NONE' }
-        hi.StatusLine = { bg = 'NONE' }
-        hi.TabLineFill = { bg = 'NONE' }
+        hi.CursorLine = vim.tbl_extend('force', hi.CursorLine, { bg = 'NONE' })
+        hi.StatusLine = vim.tbl_extend('force', hi.StatusLine, { bg = 'NONE' })
+        hi.TabLineFill = vim.tbl_extend('force', hi.TabLineFill, { bg = 'NONE' })
+        hi.String = vim.tbl_extend('force', hi.String, { italic = true })
+        hi.BlinkCmpMenuSelection = { link = 'PmenuSel' }
         hi.LspInlayHint = { link = 'NonText' }
         hi['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
       end,
