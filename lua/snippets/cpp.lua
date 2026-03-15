@@ -9,8 +9,7 @@ return {
     fmt([[
     #include <iostream>{}
 
-    int main()
-    {{
+    int main() {{
       {}
       return 0;
     }}
@@ -117,8 +116,7 @@ return {
   -- main
   s('m',
     fmt([[
-    int main({})
-    {{
+    int main({}) {{
       {}
       return 0;
     }}
@@ -132,14 +130,13 @@ return {
   -- function
   s('fn',
     fmt([[
-    {}({})
-    {{
+    {} {}({}) {{
       {}
     }}
     ]],
       {
-        i(1), i(2),
-        i(3)
+        i(1), i(2), i(3),
+        i(4)
       }
     )
   ),
