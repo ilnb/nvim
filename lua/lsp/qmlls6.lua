@@ -1,7 +1,7 @@
 return {
   cmd = { 'qmlls6' },
   filetypes = { 'qml' },
-  root_dir = require 'utils.plugins'.root_pattern '.git',
+  root_markers = { '.git', 'qmlls.ini' },
   settings = {
     QmlLsp = {
       import_paths = { '/usr/lib/qt/qml' },

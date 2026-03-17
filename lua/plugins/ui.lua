@@ -374,10 +374,10 @@ return {
             indent = 2,
             padding = 1,
 
-            set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
+            -- set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
             set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
             set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
-            set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
+            -- set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
             -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
             set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },

@@ -195,7 +195,7 @@ return {
 
   {
     'catppuccin/nvim',
-    enabled = false,
+    -- enabled = false,
     name = 'catppuccin',
     ---@type CatppuccinOptions
     opts = {
@@ -206,7 +206,7 @@ return {
         conditionals = { 'italic' },
         loops = {},
         functions = {},
-        strings = {},
+        strings = { 'italic' },
         variables = {},
         numbers = {},
         booleans = {},
