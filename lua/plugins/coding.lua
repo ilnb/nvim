@@ -251,6 +251,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     event = { 'BufReadPre', 'BufNewFile' },
+    cmd = { "TSUpdate', 'TSInstall', 'TSUninstall', 'TSLog" },
     dependencies = {
       {
         'nvim-treesitter/nvim-treesitter-textobjects',
