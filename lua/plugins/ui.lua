@@ -6,7 +6,7 @@
 local function set_entry(icon, desc, key, dir, select)
   local s = function(selected, opts)
     if selected and #selected > 0 then
-      vim.cmd('tcd' .. dir)
+      vim.cmd('tcd ' .. dir)
       require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
     end
   end
@@ -65,7 +65,7 @@ return {
           lualine_c = {
             {
               'diagnostics',
-              symbols = NeoVim.icons.diagnostics.lualine,
+              symbols = NeoVim.icons.diagnostics,
             },
 
             {
@@ -113,11 +113,7 @@ return {
 
             {
               'diff',
-              symbols = {
-                added = '+',
-                modified = '~',
-                removed = '-',
-              },
+              symbols = NeoVim.icons.git,
 
               -- separator = '',
               source = function()

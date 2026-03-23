@@ -42,16 +42,27 @@ NeoVim.icons = {
   },
 
   diagnostics = {
-    [vim.diagnostic.severity.ERROR] = ' ',
-    [vim.diagnostic.severity.WARN] = ' ',
-    [vim.diagnostic.severity.INFO] = ' ',
-    [vim.diagnostic.severity.HINT] = ' ',
-    lualine = {
-      error = ' ',
-      warn  = ' ',
-      info  = ' ',
-      hint  = ' ',
-    },
+    ERROR = ' ',
+    WARN  = ' ',
+    INFO  = ' ',
+    HINT  = ' ',
+    error = ' ',
+    warn  = ' ',
+    info  = ' ',
+    hint  = ' ',
+    Error = ' ',
+    Warn  = ' ',
+    Info  = ' ',
+    Hint  = ' ',
+  },
+
+  git = {
+    -- added    = ' ',
+    -- modified = ' ',
+    -- removed  = ' ',
+    added = '+',
+    modified = '~',
+    removed = '-',
   },
 }
 
