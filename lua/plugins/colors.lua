@@ -257,6 +257,7 @@ return {
           NormalFloat = { bg = 'NONE' },
           MiniFilesTitleFocused = { fg = '#F9E2AF' },
           FloatBorder = { bg = 'NONE' },
+          FloatTitle = { bg = 'NONE' },
           StatusLine = { bg = 'NONE' },
           TabLineFill = { bg = 'NONE' },
           ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
