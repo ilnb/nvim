@@ -463,6 +463,9 @@ return {
   {
     'nvim-mini/mini.icons',
     lazy = true,
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', },
+    },
     opts = {
       file = {
         ['.keep'] = { glyph = '󰊢', hl = 'MiniIconsGrey' },
