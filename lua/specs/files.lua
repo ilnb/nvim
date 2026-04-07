@@ -228,7 +228,7 @@ return {
       local origin = vim.ui.select
       vim.ui.select = function(...)
         -- Check if plugin is on disk/rtp
-        local spec = _G.NeoVim.specs['fzf-lua']
+        local spec = NeoVim.specs['fzf-lua']
         if not package.loaded['fzf-lua'] then
           load_plugin(spec)
         end

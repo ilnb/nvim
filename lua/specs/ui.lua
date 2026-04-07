@@ -112,12 +112,6 @@ return {
               color = function() return { fg = '#957fb8' } end,
             },
 
-            -- {
-            --   require 'lazy.status'.updates,
-            --   cond = require 'lazy.status'.has_updates,
-            --   color = function() return { fg = Snacks.util.color 'Special' } end,
-            -- },
-
             {
               'diff',
               symbols = NeoVim.icons.git,
@@ -184,7 +178,6 @@ return {
 
   {
     'folke/snacks.nvim',
-    enabled = false,
     keys = {
       {
         '<leader>dd',
@@ -380,7 +373,6 @@ return {
             -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
             set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },
-          { section = 'startup' },
         },
 
         formats = {

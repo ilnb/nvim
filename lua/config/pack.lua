@@ -1,6 +1,6 @@
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
-_G.NeoVim.specs = {}
+NeoVim.specs = {}
 
 ---@param str string
 local function to_git(str)
@@ -12,8 +12,11 @@ local function make_name(spec)
   return spec.name or vim.split(spec[1], '/')[2]
 end
 
+local loaded = {}
+
 ---@param spec table
 local function load_plugin(spec)
+  if loaded[spec.name] then return end
   local ok, _ = pcall(vim.cmd.packadd, spec.name)
   if not ok then return end
   if type(spec.config) == 'function' then
@@ -23,8 +26,6 @@ local function load_plugin(spec)
     spec.config(spec.opts or {})
   end
 end
-
-local loaded = {}
 
 local function add(spec)
   local enabled = spec.enabled
@@ -38,7 +39,7 @@ local function add(spec)
   if loaded[spec.name] then return end
   loaded[spec.name] = true
 
-  _G.NeoVim.specs[spec.name] = spec
+  NeoVim.specs[spec.name] = spec
 
   for _, d in ipairs(spec.deps or {}) do
     if not d or not d[1] then goto continue end
@@ -229,7 +230,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name = ev.data.spec.name
     local kind = ev.data.kind
-
     if kind == 'install' or kind == 'update' then
       local fn = builds[name]
       if fn then
@@ -238,3 +238,9 @@ vim.api.nvim_create_autocmd('PackChanged', {
     end
   end,
 })
+
+local plugin_path = vim.fn.stdpath 'data' .. '/site/pack/core/opt/blink.cmp'
+local binary = plugin_path .. '/target/release/libblink_fuzzy_lib.so'
+if vim.fn.filereadable(binary) == 0 then
+  builds['blink.cmp'] { data = { path = plugin_path } }
+end

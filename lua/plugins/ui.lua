@@ -93,30 +93,22 @@ return {
 
           lualine_x = {
             {
-              function()
-                local ok, noice = pcall(require, 'noice')
-                if not ok then return '' end
-                return noice.api.status.command.get() or ''
-              end,
+              require 'noice'.api.status.command.get(),
               cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
               color = function() return { fg = '#ffa066' } end,
             },
 
             {
-              function()
-                local ok, noice = pcall(require, 'noice')
-                if not ok then return '' end
-                return noice.api.status.mode.get() or ''
-              end,
+              require 'noice'.api.status.mode.get(),
               cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
               color = function() return { fg = '#957fb8' } end,
             },
 
-            -- {
-            --   require 'lazy.status'.updates,
-            --   cond = require 'lazy.status'.has_updates,
-            --   color = function() return { fg = Snacks.util.color 'Special' } end,
-            -- },
+            {
+              require 'lazy.status'.updates,
+              cond = require 'lazy.status'.has_updates,
+              color = function() return { fg = Snacks.util.color 'Special' } end,
+            },
 
             {
               'diff',

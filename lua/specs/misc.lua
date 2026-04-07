@@ -2,12 +2,12 @@ return {
   {
     'echasnovski/mini.surround',
     keys = {
-      { 'gsa', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
-      { 'gsd', desc = 'Delete Surrounding' },
-      { 'gsf', desc = 'Find Right Surrounding' },
-      { 'gsF', desc = 'Find Left Surrounding' },
-      { 'gsh', desc = 'Highlight Surrounding' },
-      { 'gsr', desc = 'Replace Surrounding' },
+      { 'gsa', '', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
+      { 'gsd', '', desc = 'Delete Surrounding' },
+      { 'gsf', '', desc = 'Find Right Surrounding' },
+      { 'gsF', '', desc = 'Find Left Surrounding' },
+      { 'gsh', '', desc = 'Highlight Surrounding' },
+      { 'gsr', '', desc = 'Replace Surrounding' },
     },
     opts = {
       mappings = {
