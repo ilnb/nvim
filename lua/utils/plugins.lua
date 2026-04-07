@@ -191,14 +191,13 @@ function M.symbols_filter(entry, ctx)
   return vim.tbl_contains(ctx.symbols_filter, entry.kind)
 end
 
----@param name string
-function M.get_opts(name)
-  local plugin = require 'lazy.core.config'.spec.plugins[name]
-  if not plugin then
-    return {}
+function M.plugin_exists(name)
+  for _, pack in ipairs(vim.pack.get()) do
+    if pack.spec.name == name then
+      return true, pack
+    end
   end
-  local Plugin = require 'lazy.core.plugin'
-  return Plugin.values(plugin, 'opts', false)
+  return false, nil
 end
 
 --- Returns a function which matches a filepath against the given glob/wildcard patterns.
@@ -246,29 +245,6 @@ function M.get_root()
     curr = vim.fs.dirname(curr)
   end
   return curr or vim.uv.cwd()
-end
-
----@param key KeyConfig
-function M.keymap_set(key)
-  local keys = require 'lazy.core.handler'.handlers.keys
-  ---@cast keys LazyKeysHandler
-  key.mode = type(key.mode) == 'string' and { key.mode } or key.mode or { 'n' }
-
-  ---@param m string
-  key.mode = vim.tbl_filter(function(m)
-    return not (keys.have and keys:have(key[1], m))
-    ---@diagnostic disable-next-line: param-type-mismatch
-  end, key.mode)
-
-  -- do not create the keymap if a lazy keys handler exists
-  key.opts = key.opts or {}
-  if #key.mode > 0 then
-    key.opts.silent = key.opts.silent == true
-    if key.opts.remap then
-      key.opts.remap = nil
-    end
-    vim.keymap.set(key.mode, key[1], key[2], key.opts)
-  end
 end
 
 return M

@@ -126,7 +126,10 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 -- enable snacks indent guides for new files
 vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function()
-    require 'snacks.indent'.enable()
+    local ok, idt = pcall(require, 'snacks.indent')
+    if ok then
+      idt.enable()
+    end
   end
 })
 
@@ -140,7 +143,6 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- diagnostics config
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'VeryLazy',
   callback = function()
     vim.diagnostic.config {
       float = { border = 'rounded' },

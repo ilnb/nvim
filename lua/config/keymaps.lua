@@ -31,10 +31,22 @@ map('v', '<a-k>', ":<c-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map('n', '<S-h>', ':bp<cr>', { desc = 'Prev buffer', silent = true })
 map('n', '<S-l>', ':bn<cr>', { desc = 'Next buffer', silent = true })
 map('n', '<leader>bb', ':e #<cr>', { desc = 'Switch to other buffer', silent = true })
-map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer', silent = true })
 map('n', '<leader>bh', ':bp<cr>', { desc = 'Prev buffer', silent = true })
 map('n', '<leader>bl', ':bn<cr>', { desc = 'Next buffer', silent = true })
-map('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers', silent = true })
+if Snacks ~= nil then
+  map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer', silent = true })
+  map('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers', silent = true })
+else
+  map('n', '<leader>bd', ':bd<cr>', { desc = 'Delete buffer', silent = true })
+  map('n', '<leader>bo', function()
+    local current = vim.api.nvim_get_current_buf()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and buf ~= current then
+        vim.api.nvim_buf_delete(buf, { force = false })
+      end
+    end
+  end, { desc = 'Delete other buffers' })
+end
 map('n', '<leader>bD', ':bd<cr>', { desc = 'Delete buffer and window', silent = true })
 
 -- Clear search highlight
@@ -63,6 +75,9 @@ map('i', ',', ',<c-g>u')
 map('i', '.', '.<c-g>u')
 map('i', ';', ';<c-g>u')
 
+-- undo tree
+map({ 'n', 'v' }, '<leader>U', '<esc>:Undotree<cr>', { desc = 'Undotree' })
+
 --keywordprg
 map('n', '<leader>K', ':norm! K<cr>', { desc = 'Keywordprg', silent = true })
 
@@ -81,23 +96,28 @@ map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy', silent = true })
 map('n', '<leader>fn', ':enew<cr>', { desc = 'New File', silent = true })
 
 -- toggle options
-Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
-Snacks.toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
-Snacks.toggle.diagnostics():map '<leader>ud'
-Snacks.toggle.line_number():map '<leader>ul'
-Snacks.toggle.option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
-    :map '<leader>uA'
-Snacks.toggle.treesitter():map '<leader>uT'
-Snacks.toggle.animate():map '<leader>ua'
-Snacks.toggle.indent():map '<leader>ug'
-Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
-Snacks.toggle.scroll():map '<leader>uS'
+if Snacks ~= nil then
+  Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+  Snacks.toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
+  Snacks.toggle.diagnostics():map '<leader>ud'
+  Snacks.toggle.line_number():map '<leader>ul'
+  Snacks.toggle.option('showtabline',
+    { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
+      :map '<leader>uA'
+  Snacks.toggle.treesitter():map '<leader>uT'
+  Snacks.toggle.animate():map '<leader>ua'
+  Snacks.toggle.indent():map '<leader>ug'
+  Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
+  Snacks.toggle.scroll():map '<leader>uS'
 
-map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git blame line', silent = true })
-map({ 'n', 'x' }, '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git browse (open)', silent = true })
-map({ 'n', 'x' }, '<leader>gY', function()
-  Snacks.gitbrowse { open = function(url) vim.fn.setreg('+', url) end, notify = false }
-end, { desc = 'Git browse (copy)' })
+  map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git blame line', silent = true })
+  map({ 'n', 'x' }, '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git browse (open)', silent = true })
+  map({ 'n', 'x' }, '<leader>gY', function()
+    Snacks.gitbrowse { open = function(url) vim.fn.setreg('+', url) end, notify = false }
+  end, { desc = 'Git browse (copy)' })
+  -- floating terminal
+  map('n', '<leader>ft', function() Snacks.terminal() end, { desc = 'Terminal (cwd)', silent = true })
+end
 
 -- quit
 map('n', '<leader>qq', ':qa<cr>', { desc = 'Quit all', silent = true })
@@ -110,9 +130,6 @@ map('n', '<leader>uI', function()
   vim.treesitter.inspect_tree()
   vim.api.nvim_input 'I'
 end, { desc = 'Inspect tree' })
-
--- floating terminal
-map('n', '<leader>ft', function() Snacks.terminal() end, { desc = 'Terminal (cwd)', silent = true })
 
 -- Terminal Mappings
 map('t', '<c-/>', ':close<cr>', { desc = 'Hide terminal', silent = true })

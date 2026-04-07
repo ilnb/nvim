@@ -1,6 +1,7 @@
 require 'config.globals'
 require 'config.options'
-require 'config.lazy'
+-- require 'config.lazy'
+require 'config.pack'
 
 local cs = ''
 -- cs = 'catppuccin'

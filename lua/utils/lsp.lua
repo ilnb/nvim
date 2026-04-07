@@ -60,9 +60,11 @@ M.on_attach = function(client, buffer)
   map('<leader>sS', function()
     require 'fzf-lua'.lsp_live_workspace_symbols { regex_filter = filter }
   end, 'Goto Symbol')
-  map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
-  map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
-  Snacks.toggle.inlay_hints():map '<leader>uh'
+  if Snacks ~= nil then
+    map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
+    map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
+    Snacks.toggle.inlay_hints():map '<leader>uh'
+  end
   map({ 'n', 'i' }, '<c-h>', function()
     local r, c = unpack(vim.api.nvim_win_get_cursor(0))
     local l = vim.api.nvim_get_current_line()
