@@ -135,14 +135,14 @@ map('n', '<leader>th', ':tabp<cr>', { desc = 'Previous tab', silent = true })
 del('n', '[<space>')
 del('n', ']<space>')
 map('n', '<leader>o', function()
-  vim.go.operatorfunc = "v:lua.require'vim._buf'.space_below"
-  return 'g@l'
-end, { expr = true, desc = 'Newline below' })
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row, row, true, { '' })
+end, { desc = 'Newline below' })
 
 map('n', '<leader>O', function()
-  vim.go.operatorfunc = "v:lua.require'vim._buf'.space_above"
-  return 'g@l'
-end, { expr = true, desc = 'Newline above' })
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row - 1, row - 1, true, { '' })
+end, { desc = 'Newline below' })
 
 -- diagnostics keymaps
 del('n', '<c-w><c-d>')

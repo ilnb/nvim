@@ -29,5 +29,3 @@ for server, ft in pairs(servers) do
     end
   })
 end
-
-return servers
