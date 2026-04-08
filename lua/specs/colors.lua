@@ -2,6 +2,7 @@
 return {
   {
     'rebelot/kanagawa.nvim',
+    modname = 'kanagawa',
     opts = {
       compile = false,
       undercurl = true,
@@ -50,81 +51,78 @@ return {
       theme = 'wave',
       background = { dark = 'wave', light = 'wave' },
     },
-    config = function(opts)
-      require 'kanagawa'.setup(opts)
-    end
   },
 
   {
     'vague-theme/vague.nvim',
     enabled = false,
-    opts = {
-      transparent = true,
-      bold = true,
-      italic = true,
-      style = {
-        -- 'none' == default
-        comments = 'italic',
-        strings = 'italic',
-        keywords = 'none',
-        keyword_return = 'italic',
-        keywords_loop = 'none',
-        keywords_label = 'bold',
-        keywords_exception = 'none',
-        builtin_constants = 'bold',
-        builtin_functions = 'none',
-        builtin_types = 'none',
-        builtin_variables = 'none',
-      },
-      plugins = {
-        blink = {
-          match = 'bold',
-          match_fuzzy = 'bold',
+    modname = 'vague',
+    config = function()
+      require 'vague'.setup {
+        transparent = true,
+        bold = true,
+        italic = true,
+        style = {
+          -- 'none' == default
+          comments = 'italic',
+          strings = 'italic',
+          keywords = 'none',
+          keyword_return = 'italic',
+          keywords_loop = 'none',
+          keywords_label = 'bold',
+          keywords_exception = 'none',
+          builtin_constants = 'bold',
+          builtin_functions = 'none',
+          builtin_types = 'none',
+          builtin_variables = 'none',
         },
-        lsp = {
-          diagnostic_error = 'bold',
-          diagnostic_hint = 'italic',
-          diagnostic_info = 'italic',
-          diagnostic_warn = 'bold',
+        plugins = {
+          blink = {
+            match = 'bold',
+            match_fuzzy = 'bold',
+          },
+          lsp = {
+            diagnostic_error = 'bold',
+            diagnostic_hint = 'italic',
+            diagnostic_info = 'italic',
+            diagnostic_warn = 'bold',
+          },
         },
-      },
-      -- very weak
-      on_highlights = function(hi, col)
-        hi.Pmenu = { bg = 'NONE' }
-        hi.CursorLine = { bg = 'NONE' }
-        hi.NormalFloat = { bg = 'NONE' }
-        hi.FloatBorder = { bg = 'NONE' }
-        hi.StatusLine = { bg = 'NONE' }
-        hi.TabLineFill = { bg = 'NONE' }
-      end,
-      colors = {
-        bg = '#141415',
-        inactiveBg = '#1c1c24',
-        fg = '#cdcdcd',
-        floatBorder = '#878787',
-        line = '#252530',
-        comment = '#606079',
-        builtin = '#b4d4cf',
-        func = '#c48282',
-        string = '#e8b589',
-        number = '#e0a363',
-        property = '#c3c3d5',
-        constant = '#aeaed1',
-        parameter = '#bb9dbd',
-        visual = '#333738',
-        error = '#d8647e',
-        warning = '#f3be7c',
-        hint = '#7e98e8',
-        operator = '#90a0b5',
-        keyword = '#6e94b2',
-        type = '#9bb4bc',
-        search = '#405065',
-        plus = '#7fa563',
-        delta = '#f3be7c',
-      },
-    },
-    config = function(opts)
-      require 'vague'.setup(opts)
+        -- very weak
+        on_highlights = function(hi, col)
+          hi.Pmenu = { bg = 'NONE' }
+          hi.CursorLine = { bg = 'NONE' }
+          hi.NormalFloat = { bg = 'NONE' }
+          hi.FloatBorder = { bg = 'NONE' }
+          hi.StatusLine = { bg = 'NONE' }
+          hi.TabLineFill = { bg = 'NONE' }
+        end,
+        colors = {
+          bg = '#141415',
+          inactiveBg = '#1c1c24',
+          fg = '#cdcdcd',
+          floatBorder = '#878787',
+          line = '#252530',
+          comment = '#606079',
+          builtin = '#b4d4cf',
+          func = '#c48282',
+          string = '#e8b589',
+          number = '#e0a363',
+          property = '#c3c3d5',
+          constant = '#aeaed1',
+          parameter = '#bb9dbd',
+          visual = '#333738',
+          error = '#d8647e',
+          warning = '#f3be7c',
+          hint = '#7e98e8',
+          operator = '#90a0b5',
+          keyword = '#6e94b2',
+          type = '#9bb4bc',
+          search = '#405065',
+          plus = '#7fa563',
+          delta = '#f3be7c',
+        },
+      }
 
       vim.defer_fn(function()
         local bg = vim.api.nvim_get_hl(0, { name = 'IncSearch' }).bg
@@ -142,6 +140,7 @@ return {
   {
     'webhooked/kanso.nvim',
     enabled = false,
+    modname = 'kanso',
     opts = {
       compile = false,
       bold = true,
@@ -191,15 +190,13 @@ return {
       theme = 'mist',
       background = { dark = 'mist', light = 'mist' },
     },
-    config = function(opts)
-      require 'kanso'.setup(opts)
-    end
   },
 
   {
     'catppuccin/nvim',
     -- enabled = false,
     name = 'catppuccin',
+    modname = 'catppuccin',
     ---@type CatppuccinOptions
     opts = {
       flavour = 'frappe',
@@ -271,10 +268,6 @@ return {
       term_colors = true,
       dim_inactive = { enabled = false },
     },
-
-    config = function(opts)
-      require 'catppuccin'.setup(opts)
-    end
   },
 
   {
@@ -395,6 +388,7 @@ return {
   {
     'folke/tokyonight.nvim',
     enabled = false,
+    modname = 'tokyonight',
     opts = {
       style = 'night',
       transparent = true,
@@ -459,9 +453,6 @@ return {
         hi['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
       end,
     },
-    config = function(opts)
-      require 'tokyonight'.setup(opts)
-    end
   },
 
 }

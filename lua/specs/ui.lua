@@ -22,9 +22,23 @@ local function set_entry(icon, desc, key, dir, select)
   }
 end
 
+local function get_startup_entry()
+  local total = 0
+  for _ in pairs(NeoVim.specs) do total = total + 1 end
+  local count = 0
+  for _ in pairs(NeoVim.loaded) do count = count + 1 end
+  return {
+    align = 'center',
+    text = { '⚡ Neovim loaded ' .. tostring(count) .. '/' .. tostring(total) .. ' plugins', hl = 'footer' },
+    padding = 1,
+  }
+end
+
 return {
   {
     'nvim-lualine/lualine.nvim',
+    modname = 'lualine',
+    event = 'VeryLazy',
 
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
@@ -93,23 +107,15 @@ return {
 
           lualine_x = {
             {
-              function()
-                local ok, noice = pcall(require, 'noice')
-                if not ok then return '' end
-                return noice.api.status.command.get() or ''
-              end,
+              require 'noice'.api.status.command.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
-              color = function() return { fg = '#ffa066' } end,
+              color = function() return { fg = Snacks.util.color 'Statement' or '' } end,
             },
 
             {
-              function()
-                local ok, noice = pcall(require, 'noice')
-                if not ok then return '' end
-                return noice.api.status.mode.get() or ''
-              end,
+              require 'noice'.api.status.mode.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
-              color = function() return { fg = '#957fb8' } end,
+              color = function() return { fg = Snacks.util.color 'Constant' or '' } end,
             },
 
             {
@@ -171,13 +177,12 @@ return {
 
       return opts
     end,
-    config = function(opts)
-      require 'lualine'.setup(opts)
-    end
   },
 
   {
     'folke/snacks.nvim',
+    lazy = false,
+    modname = 'snacks',
     keys = {
       {
         '<leader>dd',
@@ -373,6 +378,7 @@ return {
             -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
             set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },
+          get_startup_entry,
         },
 
         formats = {
@@ -386,7 +392,7 @@ return {
     config = function(opts)
       local notify = vim.notify
       require 'snacks'.setup(opts)
-      local ok, _ = require 'utils.plugins'.plugin_exists('noice.nvim')
+      local ok = pcall(require, 'noice')
       if ok then
         vim.notify = notify
       end
@@ -396,7 +402,60 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost' },
-    opts = function()
+    modname = 'gitsigns',
+    opts = {
+      signs = {
+        add = { text = '▎' },
+        change = { text = '▎' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '▎' },
+        untracked = { text = '▎' },
+      },
+      signs_staged = {
+        add = { text = '▎' },
+        change = { text = '▎' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '▎' },
+      },
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+
+        map('n', ']h', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gs.nav_hunk 'next'
+          end
+        end, 'Next Hunk')
+        map('n', '[h', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gs.nav_hunk 'prev'
+          end
+        end, 'Prev Hunk')
+        map('n', ']H', function() gs.nav_hunk 'last' end, 'Last Hunk')
+        map('n', '[H', function() gs.nav_hunk 'first' end, 'First Hunk')
+        map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<cr>', 'Stage Hunk')
+        map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<cr>', 'Reset Hunk')
+        map('n', '<leader>ghS', gs.stage_buffer, 'Stage Buffer')
+        map('n', '<leader>ghu', gs.undo_stage_hunk, 'Undo Stage Hunk')
+        map('n', '<leader>ghR', gs.reset_buffer, 'Reset Buffer')
+        map('n', '<leader>ghp', gs.preview_hunk_inline, 'Preview Hunk Inline')
+        map('n', '<leader>ghb', function() gs.blame_line { full = true } end, 'Blame Line')
+        map('n', '<leader>ghB', function() gs.blame() end, 'Blame Buffer')
+        map('n', '<leader>ghd', gs.diffthis, 'Diff This')
+        map('n', '<leader>ghD', function() gs.diffthis '~' end, 'Diff This ~')
+        map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>', 'GitSigns Select Hunk')
+      end,
+    },
+    config = function(opts)
       Snacks.toggle {
         name = 'Git Signs',
         get = function()
@@ -406,64 +465,14 @@ return {
           require 'gitsigns'.toggle_signs(state)
         end,
       }:map '<leader>uG'
-      return {
-        signs = {
-          add = { text = '▎' },
-          change = { text = '▎' },
-          delete = { text = '' },
-          topdelete = { text = '' },
-          changedelete = { text = '▎' },
-          untracked = { text = '▎' },
-        },
-        signs_staged = {
-          add = { text = '▎' },
-          change = { text = '▎' },
-          delete = { text = '' },
-          topdelete = { text = '' },
-          changedelete = { text = '▎' },
-        },
-        on_attach = function(buffer)
-          local gs = package.loaded.gitsigns
-
-          local function map(mode, l, r, desc)
-            vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-          end
-
-          map('n', ']h', function()
-            if vim.wo.diff then
-              vim.cmd.normal { ']c', bang = true }
-            else
-              gs.nav_hunk 'next'
-            end
-          end, 'Next Hunk')
-          map('n', '[h', function()
-            if vim.wo.diff then
-              vim.cmd.normal { '[c', bang = true }
-            else
-              gs.nav_hunk 'prev'
-            end
-          end, 'Prev Hunk')
-          map('n', ']H', function() gs.nav_hunk 'last' end, 'Last Hunk')
-          map('n', '[H', function() gs.nav_hunk 'first' end, 'First Hunk')
-          map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<cr>', 'Stage Hunk')
-          map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<cr>', 'Reset Hunk')
-          map('n', '<leader>ghS', gs.stage_buffer, 'Stage Buffer')
-          map('n', '<leader>ghu', gs.undo_stage_hunk, 'Undo Stage Hunk')
-          map('n', '<leader>ghR', gs.reset_buffer, 'Reset Buffer')
-          map('n', '<leader>ghp', gs.preview_hunk_inline, 'Preview Hunk Inline')
-          map('n', '<leader>ghb', function() gs.blame_line { full = true } end, 'Blame Line')
-          map('n', '<leader>ghB', function() gs.blame() end, 'Blame Buffer')
-          map('n', '<leader>ghd', gs.diffthis, 'Diff This')
-          map('n', '<leader>ghD', function() gs.diffthis '~' end, 'Diff This ~')
-          map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>', 'GitSigns Select Hunk')
-        end,
-      }
+      require 'gitsigns'.setup(opts)
     end,
   },
 
   {
     'nvim-mini/mini.icons',
-    lazy = true,
+    event = 'VeryLazy',
+    modname = 'mini.icons',
     deps = {
       { 'nvim-tree/nvim-web-devicons', },
     },

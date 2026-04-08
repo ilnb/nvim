@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "b4b7cbb52bab6c716b317433fa9348a070cccee5",
+      "rev": "456d38d1cd3743926f329204c2340f3e7840aad6",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "catppuccin": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "0d797daee85366bc242580e352a4f62d67557b84",
+      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "kanagawa.nvim": {
@@ -33,7 +33,7 @@
       "src": "https://github.com/ray-x/lsp_signature.nvim"
     },
     "lualine.nvim": {
-      "rev": "8811f3f3f4dc09d740c67e9ce399e7a541e2e5b2",
+      "rev": "f5d2a8570f8b736ddb9bb4be504355bcd6e15ec8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "luasnip": {
@@ -54,7 +54,7 @@
     },
     "mini.indentscope": {
       "rev": "e0601f75aa5137a5a13bb92a988c9a300f5bd3de",
-      "src": "https://github.com/echasnovski/mini.indentscope"
+      "src": "https://github.com/nvim-mini/mini.indentscope"
     },
     "mini.pairs": {
       "rev": "42387c7fe68fc0b6e95eaf37f1bb76e7bffaa0d9",
@@ -92,6 +92,10 @@
       "rev": "95b7a002d5dba1a42eb58f5fac5c565a485eefd0",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
+    "promise-async": {
+      "rev": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
+      "src": "https://github.com/kevinhwang91/promise-async"
+    },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
@@ -100,12 +104,8 @@
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
     },
-    "vague.nvim": {
-      "rev": "43b3a07e9ebb30750ede323886f15e60e2c638ce",
-      "src": "https://github.com/vague-theme/vague.nvim"
-    },
     "wezterm-types": {
-      "rev": "880c18529f0b2dd9deb10b84407dc511012946c9",
+      "rev": "cd00c5f53ec080c1c64f097e393a831b1b977ca3",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {

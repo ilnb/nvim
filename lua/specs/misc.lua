@@ -1,6 +1,8 @@
 return {
   {
-    'echasnovski/mini.surround',
+    'nvim-mini/mini.surround',
+    modname = 'mini.surround',
+    event = { 'BufNewFile', 'BufReadPost' },
     keys = {
       { 'gsa', '', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
       { 'gsd', '', desc = 'Delete Surrounding' },
@@ -27,8 +29,9 @@ return {
   },
 
   {
-    'echasnovski/mini.pairs',
+    'nvim-mini/mini.pairs',
     event = { 'InsertEnter', 'CmdLineEnter' },
+    modname = 'mini.pairs',
     opts = {
       modes = { insert = true, command = true, terminal = false },
       -- skip autopair when next character is one of these
@@ -41,13 +44,12 @@ return {
       -- better deal with markdown code blocks
       markdown = true,
     },
-    config = function(opts)
-      require 'mini.pairs'.setup(opts)
-    end
   },
 
   {
     'folke/flash.nvim',
+    modname = 'flash',
+    event = 'VeryLazy',
     ---@type Flash.Config
     ---@diagnostic disable-next-line: missing-fields
     opts = {
@@ -81,7 +83,8 @@ return {
 
   {
     'folke/which-key.nvim',
-    opts_extend = { 'spec' },
+    modname = 'which-key',
+    event = 'VeryLazy',
     opts = {
       preset = 'helix',
       spec = {
@@ -145,13 +148,12 @@ return {
         desc = 'Buffer Hydra Mode',
       }
     },
-    config = function(opts)
-      require 'which-key'.setup(opts)
-    end,
   },
 
   {
     'folke/noice.nvim',
+    modname = 'noice',
+    event = 'VeryLazy',
     deps = {
       { 'MunifTanjim/nui.nvim' },
     },
@@ -224,14 +226,12 @@ return {
         },
       },
     },
-
-    config = function(opts)
-      require 'noice'.setup(opts)
-    end
   },
 
   {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
+    modname = 'mini.ai',
+    event = 'VeryLazy',
     deps = { 'folke/which-key.nvim' },
     opts = function()
       local ai = require 'mini.ai'

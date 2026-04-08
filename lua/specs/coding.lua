@@ -1,6 +1,7 @@
 return {
   {
     'saghen/blink.cmp',
+    modname = 'blink.cmp',
     deps = {
       -- {
       --   'archie-judd/blink-cmp-words',
@@ -172,13 +173,17 @@ return {
   {
     'L3MON4D3/LuaSnip',
     name = 'luasnip',
+    modname = 'luasnip',
     lazy = true,
   },
 
   {
     'kevinhwang91/nvim-ufo',
     event = { 'BufReadPost', 'BufNewFile' },
-    deps = { 'kevinhwang91/promise-async' },
+    deps = {
+      { 'kevinhwang91/promise-async', lazy = true }
+    },
+    modname = 'ufo',
 
     keys = {
       {
@@ -246,6 +251,7 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter',
+    modname = 'nvim-treesitter',
     event = { 'BufReadPre', 'BufNewFile' },
     deps = {
       {
@@ -331,6 +337,7 @@ return {
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    modname = 'todo-comments',
     keys = {
       { ']t',         function() require 'todo-comments'.jump_next() end,                               desc = 'Next Todo Comment' },
       { '[t',         function() require 'todo-comments'.jump_prev() end,                               desc = 'Previous Todo Comment' },
@@ -341,9 +348,10 @@ return {
 
   {
     'nvim-mini/mini.indentscope',
+    modname = 'mini.indentscope',
     event = { 'BufReadPost', 'BufNewFile' },
-    config = function(_)
-      require 'mini.indentscope'.setup {
+    opts = function()
+      return {
         char = '┊', -- ╎
         draw = {
           delay = 0,
@@ -359,6 +367,7 @@ return {
   {
     'ray-x/lsp_signature.nvim',
     ft = NeoVim.lsp.ft,
+    modname = 'lsp_signature',
   },
 
 }

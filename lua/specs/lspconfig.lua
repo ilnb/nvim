@@ -1,6 +1,8 @@
 return {
   {
     'SmiteshP/nvim-navic',
+    ft = NeoVim.lsp.ft,
+    modname = 'nvim-navic',
 
     opts = {
       separator = ' ',
@@ -8,7 +10,7 @@ return {
       depth_limit = 5,
       icons = NeoVim.icons.kind,
       lazy_update_context = true,
-    }
+    },
   },
 
   {
@@ -16,8 +18,9 @@ return {
     ft = 'lua',
     cmd = { 'LazyDev' },
     deps = {
-      { 'DrKJeff16/wezterm-types' },
+      { 'DrKJeff16/wezterm-types', lazy = true },
     },
+    modname = 'lazydev',
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },

@@ -48,6 +48,7 @@ return {
 
   {
     'folke/flash.nvim',
+    event = 'VeryLazy',
     ---@type Flash.Config
     ---@diagnostic disable-next-line: missing-fields
     opts = {
@@ -81,6 +82,7 @@ return {
 
   {
     'folke/which-key.nvim',
+    event = 'VeryLazy',
     opts_extend = { 'spec' },
     opts = {
       preset = 'helix',
@@ -152,6 +154,7 @@ return {
 
   {
     'folke/noice.nvim',
+    event = 'VeryLazy',
     dependencies = {
       { 'MunifTanjim/nui.nvim' },
     },
@@ -232,6 +235,7 @@ return {
 
   {
     'echasnovski/mini.ai',
+    event = 'VeryLazy',
     dependencies = { 'folke/which-key.nvim' },
     opts = function()
       local ai = require 'mini.ai'

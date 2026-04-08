@@ -1,6 +1,24 @@
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
 NeoVim.specs = {}
+NeoVim.loaded = {}
+local mod_to_spec = {}
+
+local load_plugin
+
+do
+  local origin = require
+  _G.require = function(modname)
+    if package.loaded[modname] then
+      return package.loaded[modname]
+    end
+    local spec = mod_to_spec[modname]
+    if spec and not NeoVim.loaded[spec.name] then
+      load_plugin(spec)
+    end
+    return origin(modname)
+  end
+end
 
 ---@param str string
 local function to_git(str)
@@ -12,61 +30,82 @@ local function make_name(spec)
   return spec.name or vim.split(spec[1], '/')[2]
 end
 
-local added = {}
-local loaded = {}
-
----@param spec table
-local function load_plugin(spec)
-  if loaded[spec.name] then return end
-  loaded[spec.name] = true
-  local ok, _ = pcall(vim.cmd.packadd, spec.name)
-  if not ok then return end
-  if type(spec.config) == 'function' then
-    if type(spec.opts) == 'function' then
-      spec.opts = spec.opts()
+local function run_setup(spec)
+  local opts = spec.opts or {}
+  if type(opts) == 'function' then opts = opts() end
+  local modname = spec.modname
+  local config = spec.config
+  if modname then
+    local ok, mod = pcall(require, modname)
+    if not ok then
+      vim.notify(string.format('Invalid `modname` %s for plugin %s', modname, spec.name), vim.log.levels.ERROR)
+      NeoVim.loaded[spec.name] = nil
+      return
     end
-    spec.config(spec.opts or {})
+    mod.setup(opts)
+  elseif config then
+    if type(config) ~= 'function' then
+      vim.notify(string.format('`config` for %s is not a function', spec.name), vim.log.levels.ERROR)
+      NeoVim.loaded[spec.name] = nil
+      return
+    end
+    config(opts)
+  elseif not vim.tbl_isempty(opts) then
+    vim.notify(
+      string.format('`opts` for %s is not empty, but neither `modname` nor `config` to setup', spec.name),
+      vim.log.levels.ERROR)
+    return
   end
 end
 
-local function add(spec)
+---@param spec table
+function load_plugin(spec)
+  if not spec or NeoVim.loaded[spec.name] then return end
+
+  -- handle deps
+  for _, d in ipairs(spec.deps or {}) do
+    local name = type(d) == 'string' and make_name { d } or make_name(d)
+    local s = NeoVim.specs[name]
+    if s then
+      load_plugin(s)
+    else
+      vim.notify(string.format('Spec not found for %s in NeoVim.specs table', name), vim.log.levels.ERROR)
+      return
+    end
+  end
+
+  NeoVim.loaded[spec.name] = true
+  local ok, _ = pcall(vim.cmd.packadd, spec.name)
+  if not ok then
+    vim.notify('Failed to packadd ' .. spec.name, vim.log.levels.ERROR)
+    return
+  end
+  run_setup(spec)
+end
+
+---@param spec table
+---@param is_dep boolean
+local function add(spec, is_dep)
   local enabled = spec.enabled
 
-  if type(enabled) == 'boolean' and not enabled then return end
+  if enabled ~= nil and not enabled then return end
   if not spec or not spec[1] then
-    vim.notify("Found invalid spec", 3)
+    vim.notify('Found invalid spec', 3)
     return
   end
 
-  if added[spec.name] then return end
-  added[spec.name] = true
-
+  if NeoVim.specs[spec.name] then return end
   NeoVim.specs[spec.name] = spec
 
+  if spec.modname then
+    mod_to_spec[spec.modname] = spec
+  end
+
   for _, d in ipairs(spec.deps or {}) do
-    local t
-    if type(d) == 'string' then
-      t = { d }
-    else
-      t = d
-    end
-
+    local t = type(d) == 'string' and { d } or d
     if not t or not t[1] then goto continue end
-
     t.name = make_name(t)
-    add(t)
-    local ok, _ = pcall(vim.cmd.packadd, t.name)
-    if not ok then
-      vim.notify("Failed to packadd dependency: " .. t.name .. ' for plugin ' .. spec.name, vim.log.levels.DEBUG)
-      return
-    end
-    if type(t.config) == 'function' then
-      local options = t.opts
-      if type(options) == 'function' then
-        options = options()
-      end
-      t.config(options or {})
-    end
+    add(t, true)
 
     ::continue::
   end
@@ -82,7 +121,22 @@ local function add(spec)
     spec.init()
   end
 
-  if not spec.lazy then
+  local is_lazy = spec.lazy
+  if is_lazy == nil then
+    local has_triggers = (false
+      or spec.keys
+      or spec.ft
+      or spec.event
+    -- or spec.cmd
+    ) ~= nil
+    if is_dep then
+      is_lazy = true
+    else
+      is_lazy = has_triggers
+    end
+  end
+
+  if not is_lazy then
     load_plugin(spec)
   end
 end
@@ -100,12 +154,21 @@ end
 
 ---@param spec table
 local function on_ev(spec)
-  vim.api.nvim_create_autocmd(spec.event, {
-    once = true,
-    callback = function()
-      load_plugin(spec)
+  local events = type(spec.event) == 'string' and { spec.event } or spec.event
+  for _, e in ipairs(events) do
+    local p
+    if e == 'VeryLazy' then
+      e = 'User'
+      p = 'VeryLazy'
     end
-  })
+    vim.api.nvim_create_autocmd(e, {
+      pattern = p,
+      once = true,
+      callback = function()
+        load_plugin(spec)
+      end
+    })
+  end
 end
 
 ---@param spec table
@@ -134,6 +197,7 @@ local function on_key(spec)
   end
 end
 
+-- TODO: fix this function
 ---@param spec table
 local function on_cmd(spec)
   for _, cmd in ipairs(spec.cmd) do
@@ -153,7 +217,7 @@ local function on_cmd(spec)
 end
 
 ---@param spec table
-local function setup(spec)
+local function register(spec)
   add(spec)
 
   if spec.keys then
@@ -199,11 +263,13 @@ end
 
 for _, spec in ipairs(specs) do
   spec.name = make_name(spec)
-  -- if not spec.config then vim.notify('No config for ' .. spec.name, 'info') end
-  if type(spec.enabled) == 'boolean' and not spec.enabled then
+  if type(spec.event) == 'string' then
+    spec.event = { spec.event }
+  end
+  if spec.enabled ~= nil and not spec.enabled then
     pcall(vim.pack.del, { spec.name })
   else
-    setup(spec)
+    register(spec)
   end
 end
 
@@ -249,3 +315,16 @@ local binary = plugin_path .. '/target/release/libblink_cmp_fuzzy.so'
 if vim.fn.filereadable(binary) == 0 then
   builds['blink.cmp'] { data = { path = plugin_path } }
 end
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function() end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy' })
+    end)
+  end
+})

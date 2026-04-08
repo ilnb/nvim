@@ -1,6 +1,7 @@
 return {
   {
     'ibhagwan/fzf-lua',
+    modname = 'fzf-lua',
     cmd = { 'FzfLua' },
     keys = {
       { '<c-j>',      '<c-j>',                                                ft = 'fzf',                        mode = 't',               nowait = true },
@@ -240,7 +241,8 @@ return {
   },
 
   {
-    'echasnovski/mini.files',
+    'nvim-mini/mini.files',
+    modname = 'mini.files',
     opts = {
       content = {
         filter = function(fs_entry)
@@ -325,12 +327,12 @@ return {
         end,
       })
 
-      -- vim.api.nvim_create_autocmd('User', {
-      --   pattern = 'MiniFilesActionRename',
-      --   callback = function(event)
-      --     Snacks.rename.on_rename_file(event.data.from, event.data.to)
-      --   end,
-      -- })
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesActionRename',
+        callback = function(event)
+          Snacks.rename.on_rename_file(event.data.from, event.data.to)
+        end,
+      })
     end,
   },
 
