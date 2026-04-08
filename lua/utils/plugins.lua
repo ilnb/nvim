@@ -191,15 +191,6 @@ function M.symbols_filter(entry, ctx)
   return vim.tbl_contains(ctx.symbols_filter, entry.kind)
 end
 
-function M.plugin_exists(name)
-  for _, pack in ipairs(vim.pack.get()) do
-    if pack.spec.name == name then
-      return true, pack
-    end
-  end
-  return false, nil
-end
-
 --- Returns a function which matches a filepath against the given glob/wildcard patterns.
 --- Also works with zipfile:/tarfile: buffers (via `strip_archive_subpath`).
 function M.root_pattern(...)
