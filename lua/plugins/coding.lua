@@ -1,7 +1,7 @@
 return {
   {
     'saghen/blink.cmp',
-    deps = {
+    dependencies = {
       -- {
       --   'archie-judd/blink-cmp-words',
       --   event = 'InsertEnter',
@@ -177,7 +177,7 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     event = { 'BufReadPost', 'BufNewFile' },
-    deps = { 'kevinhwang91/promise-async' },
+    dependencies = { 'kevinhwang91/promise-async' },
 
     keys = {
       {
@@ -246,7 +246,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     event = { 'BufReadPre', 'BufNewFile' },
-    deps = {
+    dependencies = {
       {
         'nvim-treesitter/nvim-treesitter-textobjects',
         event = { 'BufReadPre', 'BufNewFile' },

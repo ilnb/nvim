@@ -464,7 +464,7 @@ return {
   {
     'nvim-mini/mini.icons',
     lazy = true,
-    deps = {
+    dependencies = {
       { 'nvim-tree/nvim-web-devicons', },
     },
     opts = {

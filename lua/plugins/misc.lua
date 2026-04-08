@@ -152,7 +152,7 @@ return {
 
   {
     'folke/noice.nvim',
-    deps = {
+    dependencies = {
       { 'MunifTanjim/nui.nvim' },
     },
     keys = {
@@ -232,7 +232,7 @@ return {
 
   {
     'echasnovski/mini.ai',
-    deps = { 'folke/which-key.nvim' },
+    dependencies = { 'folke/which-key.nvim' },
     opts = function()
       local ai = require 'mini.ai'
       return {
