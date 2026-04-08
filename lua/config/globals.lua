@@ -74,3 +74,30 @@ NeoVim.snippets = {
   },
   lang_done = {},
 }
+
+NeoVim.lsp = {
+  servers = {
+    asm_lsp       = { 'asm' },
+    basedpyright  = { 'python' },
+    -- ccls         = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    clangd        = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    gopls         = { 'go' },
+    -- pyright = { 'python' },
+    lua_ls        = { 'lua' },
+    nimlangserver = { 'nim' },
+    ['serve-d']   = { 'd' },
+    qmlls6        = { 'qml', 'qmljs' },
+    zls           = { 'zig' },
+  },
+  ft = {
+    'asm',
+    'python',
+    'c', 'cpp', 'objc', 'objcpp', 'cuda',
+    'go',
+    'lua',
+    'nim',
+    'd',
+    'qml', 'qmljs',
+    'zig',
+  }
+}

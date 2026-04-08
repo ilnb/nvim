@@ -172,6 +172,7 @@ return {
   {
     'L3MON4D3/LuaSnip',
     name = 'luasnip',
+    lazy = true,
   },
 
   {
@@ -330,7 +331,6 @@ return {
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    opts = {},
     keys = {
       { ']t',         function() require 'todo-comments'.jump_next() end,                               desc = 'Next Todo Comment' },
       { '[t',         function() require 'todo-comments'.jump_prev() end,                               desc = 'Previous Todo Comment' },
@@ -342,7 +342,7 @@ return {
   {
     'nvim-mini/mini.indentscope',
     event = { 'BufReadPost', 'BufNewFile' },
-    config = function(opts)
+    config = function(_)
       require 'mini.indentscope'.setup {
         char = '┊', -- ╎
         draw = {
@@ -358,6 +358,7 @@ return {
 
   {
     'ray-x/lsp_signature.nvim',
+    ft = NeoVim.lsp.ft,
   },
 
 }
