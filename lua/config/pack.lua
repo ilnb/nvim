@@ -83,14 +83,7 @@ local function add(spec)
   end
 
   if not spec.lazy then
-    local ok, _ = pcall(vim.cmd.packadd, spec.name)
-    if not ok then return end
-    if type(spec.config) == 'function' then
-      if type(spec.opts) == 'function' then
-        spec.opts = spec.opts()
-      end
-      spec.config(spec.opts or {})
-    end
+    load_plugin(spec)
   end
 end
 
