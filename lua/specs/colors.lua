@@ -2,127 +2,129 @@
 return {
   {
     'rebelot/kanagawa.nvim',
-    config = function(opts)
-      require 'kanagawa'.setup {
-        compile = false,
-        undercurl = true,
-        commentStyle = { italic = true },
-        functionStyle = {},
-        keywordStyle = { italic = false },
-        statementStyle = { bold = true },
-        typeStyle = {},
-        transparent = true,
-        dimInactive = false,
-        terminalColors = true,
+    opts = {
+      compile = false,
+      undercurl = true,
+      commentStyle = { italic = true },
+      functionStyle = {},
+      keywordStyle = { italic = false },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      transparent = true,
+      dimInactive = false,
+      terminalColors = true,
 
-        colors = {
-          palette = {},
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = 'NONE',
-                float = {
-                  bg = 'NONE',
-                  bg_border = 'NONE',
-                },
+      colors = {
+        palette = {},
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = 'NONE',
+              float = {
+                bg = 'NONE',
+                bg_border = 'NONE',
               },
             },
           },
         },
+      },
 
-        ---@type fun(colors: KanagawaColorsSpec): table<string, table>
-        overrides = function(colors)
-          return {
-            NavicText = { fg = colors.palette.fujiWhite },
-            CursorLine = { bg = 'NONE' },
-            MiniFilesCursorLine = { link = 'PmenuSel' },
-            MiniFilesTitleFocused = { fg = '#F9E2AF' },
-            StatusLine = { bg = 'NONE' },
-            TabLineFill = { bg = 'NONE' },
-            UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
-            UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
-            Whitespace = { fg = '#33334A' },
-            BlinkCmpSource = { link = 'Special' },
-            String = { italic = true },
-            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
-          }
-        end,
+      ---@type fun(colors: KanagawaColorsSpec): table<string, table>
+      overrides = function(colors)
+        return {
+          NavicText = { fg = colors.palette.fujiWhite },
+          CursorLine = { bg = 'NONE' },
+          MiniFilesCursorLine = { link = 'PmenuSel' },
+          MiniFilesTitleFocused = { fg = '#F9E2AF' },
+          StatusLine = { bg = 'NONE' },
+          TabLineFill = { bg = 'NONE' },
+          UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
+          UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
+          Whitespace = { fg = '#33334A' },
+          BlinkCmpSource = { link = 'Special' },
+          String = { italic = true },
+          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
+        }
+      end,
 
-        theme = 'wave',
-        background = { dark = 'wave', light = 'wave' },
-      }
+      theme = 'wave',
+      background = { dark = 'wave', light = 'wave' },
+    },
+    config = function(opts)
+      require 'kanagawa'.setup(opts)
     end
   },
 
   {
     'vague-theme/vague.nvim',
-    -- enabled = false,
+    enabled = false,
+    opts = {
+      transparent = true,
+      bold = true,
+      italic = true,
+      style = {
+        -- 'none' == default
+        comments = 'italic',
+        strings = 'italic',
+        keywords = 'none',
+        keyword_return = 'italic',
+        keywords_loop = 'none',
+        keywords_label = 'bold',
+        keywords_exception = 'none',
+        builtin_constants = 'bold',
+        builtin_functions = 'none',
+        builtin_types = 'none',
+        builtin_variables = 'none',
+      },
+      plugins = {
+        blink = {
+          match = 'bold',
+          match_fuzzy = 'bold',
+        },
+        lsp = {
+          diagnostic_error = 'bold',
+          diagnostic_hint = 'italic',
+          diagnostic_info = 'italic',
+          diagnostic_warn = 'bold',
+        },
+      },
+      -- very weak
+      on_highlights = function(hi, col)
+        hi.Pmenu = { bg = 'NONE' }
+        hi.CursorLine = { bg = 'NONE' }
+        hi.NormalFloat = { bg = 'NONE' }
+        hi.FloatBorder = { bg = 'NONE' }
+        hi.StatusLine = { bg = 'NONE' }
+        hi.TabLineFill = { bg = 'NONE' }
+      end,
+      colors = {
+        bg = '#141415',
+        inactiveBg = '#1c1c24',
+        fg = '#cdcdcd',
+        floatBorder = '#878787',
+        line = '#252530',
+        comment = '#606079',
+        builtin = '#b4d4cf',
+        func = '#c48282',
+        string = '#e8b589',
+        number = '#e0a363',
+        property = '#c3c3d5',
+        constant = '#aeaed1',
+        parameter = '#bb9dbd',
+        visual = '#333738',
+        error = '#d8647e',
+        warning = '#f3be7c',
+        hint = '#7e98e8',
+        operator = '#90a0b5',
+        keyword = '#6e94b2',
+        type = '#9bb4bc',
+        search = '#405065',
+        plus = '#7fa563',
+        delta = '#f3be7c',
+      },
+    },
     config = function(opts)
-      require 'vague'.setup {
-        transparent = true,
-        bold = true,
-        italic = true,
-        style = {
-          -- 'none' == default
-          comments = 'italic',
-          strings = 'italic',
-          keywords = 'none',
-          keyword_return = 'italic',
-          keywords_loop = 'none',
-          keywords_label = 'bold',
-          keywords_exception = 'none',
-          builtin_constants = 'bold',
-          builtin_functions = 'none',
-          builtin_types = 'none',
-          builtin_variables = 'none',
-        },
-        plugins = {
-          blink = {
-            match = 'bold',
-            match_fuzzy = 'bold',
-          },
-          lsp = {
-            diagnostic_error = 'bold',
-            diagnostic_hint = 'italic',
-            diagnostic_info = 'italic',
-            diagnostic_warn = 'bold',
-          },
-        },
-        -- very weak
-        on_highlights = function(hi, col)
-          hi.Pmenu = { bg = 'NONE' }
-          hi.CursorLine = { bg = 'NONE' }
-          hi.NormalFloat = { bg = 'NONE' }
-          hi.FloatBorder = { bg = 'NONE' }
-          hi.StatusLine = { bg = 'NONE' }
-          hi.TabLineFill = { bg = 'NONE' }
-        end,
-        colors = {
-          bg = '#141415',
-          inactiveBg = '#1c1c24',
-          fg = '#cdcdcd',
-          floatBorder = '#878787',
-          line = '#252530',
-          comment = '#606079',
-          builtin = '#b4d4cf',
-          func = '#c48282',
-          string = '#e8b589',
-          number = '#e0a363',
-          property = '#c3c3d5',
-          constant = '#aeaed1',
-          parameter = '#bb9dbd',
-          visual = '#333738',
-          error = '#d8647e',
-          warning = '#f3be7c',
-          hint = '#7e98e8',
-          operator = '#90a0b5',
-          keyword = '#6e94b2',
-          type = '#9bb4bc',
-          search = '#405065',
-          plus = '#7fa563',
-          delta = '#f3be7c',
-        },
-      }
+      require 'vague'.setup(opts)
 
       vim.defer_fn(function()
         local bg = vim.api.nvim_get_hl(0, { name = 'IncSearch' }).bg
@@ -140,56 +142,57 @@ return {
   {
     'webhooked/kanso.nvim',
     enabled = false,
-    config = function(opts)
-      require 'kanso'.setup {
-        compile = false,
-        bold = true,
-        italics = true,
-        undercurl = true,
-        commentStyle = { italic = true },
-        functionStyle = {},
-        keywordStyle = { italic = true },
-        statementStyle = { bold = true },
-        typeStyle = {},
-        transparent = true,
-        dimInactive = false,
-        terminalColors = true,
+    opts = {
+      compile = false,
+      bold = true,
+      italics = true,
+      undercurl = true,
+      commentStyle = { italic = true },
+      functionStyle = {},
+      keywordStyle = { italic = true },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      transparent = true,
+      dimInactive = false,
+      terminalColors = true,
 
-        colors = {
-          palette = {},
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = 'NONE',
-                float = { bg_border = 'NONE', },
-              },
+      colors = {
+        palette = {},
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = 'NONE',
+              float = { bg_border = 'NONE', },
             },
           },
         },
+      },
 
-        ---@type fun(colors: KansoColorsSpec): table<string, table>
-        overrides = function(colors)
-          return {
-            NavicText = { fg = colors.palette.pearlWhite0 },
-            Pmenu = { bg = 'NONE' },
-            CursorLine = { bg = 'NONE' },
-            NormalFloat = { bg = 'NONE' },
-            FloatBorder = { bg = 'NONE' },
-            MiniFilesCursorLine = { link = 'PmenuSel' },
-            StatusLine = { bg = 'NONE' },
-            TabLineFill = { bg = 'NONE' },
-            UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
-            UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
-            Whitespace = { fg = '#33334A' },
-            BlinkCmpSource = { link = 'Special' },
-            String = { italic = true },
-            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
-          }
-        end,
+      ---@type fun(colors: KansoColorsSpec): table<string, table>
+      overrides = function(colors)
+        return {
+          NavicText = { fg = colors.palette.pearlWhite0 },
+          Pmenu = { bg = 'NONE' },
+          CursorLine = { bg = 'NONE' },
+          NormalFloat = { bg = 'NONE' },
+          FloatBorder = { bg = 'NONE' },
+          MiniFilesCursorLine = { link = 'PmenuSel' },
+          StatusLine = { bg = 'NONE' },
+          TabLineFill = { bg = 'NONE' },
+          UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
+          UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
+          Whitespace = { fg = '#33334A' },
+          BlinkCmpSource = { link = 'Special' },
+          String = { italic = true },
+          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
+        }
+      end,
 
-        theme = 'mist',
-        background = { dark = 'mist', light = 'mist' },
-      }
+      theme = 'mist',
+      background = { dark = 'mist', light = 'mist' },
+    },
+    config = function(opts)
+      require 'kanso'.setup(opts)
     end
   },
 
@@ -269,130 +272,123 @@ return {
       dim_inactive = { enabled = false },
     },
 
-    spec = {
-      {
-        'akinsho/bufferline.nvim',
-        optional = true,
-        opts = function(_, opts)
-          if (vim.g.colors_name or ''):find 'catppuccin' then
-            opts.highlights = require 'catppuccin.groups.integrations.bufferline'.get()
-          end
-        end,
-      },
-    }
+    config = function(opts)
+      require 'catppuccin'.setup(opts)
+    end
   },
 
   {
     'marko-cerovac/material.nvim',
     enabled = false,
+    opts = {
+      contrast = {
+        terminal = false,
+        sidebars = false,
+        floating_windows = false,
+        cursor_line = false,
+        lsp_virtual_text = false,
+        non_current_windows = false,
+        filetypes = {},
+      },
+
+      styles = {
+        comments = { italic = true, },
+        strings = {},
+        keywords = { italic = true, },
+        functions = {},
+        variables = {},
+        operators = {},
+        types = {},
+      },
+
+      plugins = {
+        -- Available plugins:
+        'blink',
+        -- 'coc',
+        -- 'colorful-winsep',
+        'dap',
+        -- 'dashboard',
+        -- 'eyeliner',
+        -- 'fidget',
+        'flash',
+        'gitsigns',
+        -- 'harpoon',
+        -- 'hop',
+        -- 'illuminate',
+        -- 'indent-blankline',
+        -- 'lspsaga',
+        'mini',
+        -- 'neogit',
+        -- 'neotest',
+        -- 'neo-tree',
+        -- 'neorg',
+        'noice',
+        -- 'nvim-cmp',
+        'nvim-navic',
+        -- 'nvim-tree',
+        -- 'nvim-web-devicons',
+        -- 'rainbow-delimiters',
+        -- 'sneak',
+        -- 'telescope',
+        -- 'trouble',
+        'which-key',
+        -- 'nvim-notify',
+      },
+
+      disable = {
+        colored_cursor = true,
+        background = true,
+        borders = false,     -- Disable borders between vertically split windows
+        term_colors = false, -- Prevent the theme from setting terminal colors
+        eob_lines = false,   -- Hide the end-of-buffer lines
+      },
+
+      high_visibility = {
+        lighter = true,
+        darker = true,
+      },
+
+      lualine_style = 'default', -- Lualine style ( can be 'stealth' or 'default' )
+
+      async_loading = true,
+
+      custom_colors = function(colors)
+        colors.syntax.comments     = '#707070'
+        colors.editor.border       = '#7D7D7D'
+        colors.editor.line_numbers = '#555555'
+        colors.git.added           = '#00A000'
+        colors.git.removed         = '#BA0000'
+        colors.git.modified        = '#0000FF'
+      end,
+
+      custom_highlights = function()
+        local groups = require 'material.highlights.plugins.nvim-navic'.load()
+        local t = {}
+        for group, cfg in pairs(groups) do
+          t[group] = cfg
+          if t[group].bg then
+            t[group].bg = 'NONE'
+          end
+        end
+        return vim.tbl_deep_extend('force', t, {
+          Pmenu = { bg = 'NONE' },
+          StatusLine = { bg = 'NONE' },
+          TabLineSel = { bold = true },
+          ['@attribute.c'] = { link = 'Constant' },
+          Search = { bg = '#404040' },
+          IncSearch = { bg = '#404040' },
+          CurSearch = { bg = '#797960', fg = '#212C64' },
+          Whitespace = { fg = '#2C2C43' },
+          CursorLine = { bg = 'NONE' },
+          MiniFilesCursorLine = { bg = '#404040' },
+          BlinkCmpSource = { link = 'Special' },
+          ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
+        })
+      end,
+    },
     config = function(opts)
       vim.g.material_style = 'deep ocean'
-      require 'material'.setup {
-        contrast = {
-          terminal = false,
-          sidebars = false,
-          floating_windows = false,
-          cursor_line = false,
-          lsp_virtual_text = false,
-          non_current_windows = false,
-          filetypes = {},
-        },
-
-        styles = {
-          comments = { italic = true, },
-          strings = {},
-          keywords = { italic = true, },
-          functions = {},
-          variables = {},
-          operators = {},
-          types = {},
-        },
-
-        plugins = {
-          -- Available plugins:
-          'blink',
-          -- 'coc',
-          -- 'colorful-winsep',
-          'dap',
-          -- 'dashboard',
-          -- 'eyeliner',
-          -- 'fidget',
-          'flash',
-          'gitsigns',
-          -- 'harpoon',
-          -- 'hop',
-          -- 'illuminate',
-          -- 'indent-blankline',
-          -- 'lspsaga',
-          'mini',
-          -- 'neogit',
-          -- 'neotest',
-          -- 'neo-tree',
-          -- 'neorg',
-          'noice',
-          -- 'nvim-cmp',
-          'nvim-navic',
-          -- 'nvim-tree',
-          -- 'nvim-web-devicons',
-          -- 'rainbow-delimiters',
-          -- 'sneak',
-          -- 'telescope',
-          -- 'trouble',
-          'which-key',
-          -- 'nvim-notify',
-        },
-
-        disable = {
-          colored_cursor = true,
-          background = true,
-          borders = false,     -- Disable borders between vertically split windows
-          term_colors = false, -- Prevent the theme from setting terminal colors
-          eob_lines = false,   -- Hide the end-of-buffer lines
-        },
-
-        high_visibility = {
-          lighter = true,
-          darker = true,
-        },
-
-        lualine_style = 'default', -- Lualine style ( can be 'stealth' or 'default' )
-
-        async_loading = true,
-
-        custom_colors = function(colors)
-          colors.syntax.comments     = '#707070'
-          colors.editor.border       = '#7D7D7D'
-          colors.editor.line_numbers = '#555555'
-          colors.git.added           = '#00A000'
-          colors.git.removed         = '#BA0000'
-          colors.git.modified        = '#0000FF'
-        end,
-
-        custom_highlights = function()
-          local groups = require 'material.highlights.plugins.nvim-navic'.load()
-          local t = {}
-          for group, cfg in pairs(groups) do
-            t[group] = cfg
-            if t[group].bg then
-              t[group].bg = 'NONE'
-            end
-          end
-          return vim.tbl_deep_extend('force', t, {
-            Pmenu = { bg = 'NONE' },
-            StatusLine = { bg = 'NONE' },
-            TabLineSel = { bold = true },
-            ['@attribute.c'] = { link = 'Constant' },
-            Search = { bg = '#404040' },
-            IncSearch = { bg = '#404040' },
-            CurSearch = { bg = '#797960', fg = '#212C64' },
-            Whitespace = { fg = '#2C2C43' },
-            CursorLine = { bg = 'NONE' },
-            MiniFilesCursorLine = { bg = '#404040' },
-            BlinkCmpSource = { link = 'Special' },
-            ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
-          })
-        end,
-      }
+      require 'material'.setup(opts)
     end
   },
 
@@ -463,6 +459,9 @@ return {
         hi['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' }
       end,
     },
+    config = function(opts)
+      require 'tokyonight'.setup(opts)
+    end
   },
 
 }
