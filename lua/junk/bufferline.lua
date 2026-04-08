@@ -43,6 +43,10 @@ return {
     },
   },
   config = function(_, opts)
+    if (vim.g.colors_name or ''):find 'catppuccin' then
+      local ok, catbuf = pcall(require, 'catppuccin.groups.integrations.bufferline')
+      if ok then opts.highlights = catbuf.get() end
+    end
     require 'bufferline'.setup(opts)
     -- Fix bufferline when restoring a session
     vim.api.nvim_create_autocmd({ 'BufAdd', 'BufDelete' }, {
