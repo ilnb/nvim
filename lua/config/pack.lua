@@ -12,11 +12,13 @@ local function make_name(spec)
   return spec.name or vim.split(spec[1], '/')[2]
 end
 
+local added = {}
 local loaded = {}
 
 ---@param spec table
 local function load_plugin(spec)
   if loaded[spec.name] then return end
+  loaded[spec.name] = true
   local ok, _ = pcall(vim.cmd.packadd, spec.name)
   if not ok then return end
   if type(spec.config) == 'function' then
@@ -36,8 +38,8 @@ local function add(spec)
     return
   end
 
-  if loaded[spec.name] then return end
-  loaded[spec.name] = true
+  if added[spec.name] then return end
+  added[spec.name] = true
 
   NeoVim.specs[spec.name] = spec
 
@@ -240,7 +242,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 local plugin_path = vim.fn.stdpath 'data' .. '/site/pack/core/opt/blink.cmp'
-local binary = plugin_path .. '/target/release/libblink_fuzzy_lib.so'
+local binary = plugin_path .. '/target/release/libblink_cmp_fuzzy.so'
 if vim.fn.filereadable(binary) == 0 then
   builds['blink.cmp'] { data = { path = plugin_path } }
 end
