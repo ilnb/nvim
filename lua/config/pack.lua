@@ -141,12 +141,12 @@ local function on_cmd(spec)
       vim.api.nvim_del_user_command(cmd)
       load_plugin(spec)
       vim.schedule(function()
-        local bang = opts.bang and "!" or ""
-        local args = opts.args or ""
-        vim.cmd(cmd .. bang .. " " .. args)
+        local bang = opts.bang and '!' or ''
+        local args = opts.args or ''
+        vim.cmd(cmd .. bang .. ' ' .. args)
       end)
     end, {
-      nargs = "*",
+      nargs = '*',
       bang = true,
     })
   end
@@ -229,7 +229,6 @@ local builds = {
       vim.notify('Blink build successful!', vim.log.levels.INFO);
     end
   end,
-
 }
 
 vim.api.nvim_create_autocmd('PackChanged', {
