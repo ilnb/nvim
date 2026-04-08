@@ -44,17 +44,30 @@ local function add(spec)
   NeoVim.specs[spec.name] = spec
 
   for _, d in ipairs(spec.deps or {}) do
-    if not d or not d[1] then goto continue end
-    d.name = make_name(d)
-    add(d)
-    local ok, _ = pcall(vim.cmd.packadd, d.name)
-    if not ok then return end
-    if type(d.config) == 'function' then
-      if type(d.opts) == 'function' then
-        d.opts = d.opts()
-      end
-      d.config(d.opts or {})
+    local t
+    if type(d) == 'string' then
+      t = { d }
+    else
+      t = d
     end
+
+    if not t or not t[1] then goto continue end
+
+    t.name = make_name(t)
+    add(t)
+    local ok, _ = pcall(vim.cmd.packadd, t.name)
+    if not ok then
+      vim.notify("Failed to packadd dependency: " .. t.name .. ' for plugin ' .. spec.name, vim.log.levels.DEBUG)
+      return
+    end
+    if type(t.config) == 'function' then
+      local options = t.opts
+      if type(options) == 'function' then
+        options = options()
+      end
+      t.config(options or {})
+    end
+
     ::continue::
   end
 
