@@ -1,6 +1,7 @@
 return {
   {
     'saghen/blink.cmp',
+    build = 'cargo build --release',
     dependencies = {
       -- {
       --   'archie-judd/blink-cmp-words',
@@ -148,7 +149,7 @@ return {
     },
 
     ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
-    config = function(opts)
+    config = function(_, opts)
       -- snippets
       vim.api.nvim_create_autocmd('FileType', {
         pattern = NeoVim.snippets.langs,
@@ -264,7 +265,7 @@ return {
         'zig', 'desktop',
       },
     },
-    config = function(opts)
+    config = function(_, opts)
       local ok, ts = pcall(require, 'nvim-treesitter')
       if not ok then return end
       ts.setup(opts)
@@ -342,7 +343,7 @@ return {
   {
     'nvim-mini/mini.indentscope',
     event = { 'BufReadPost', 'BufNewFile' },
-    config = function(opts)
+    config = function(_, opts)
       require 'mini.indentscope'.setup {
         char = '┊', -- ╎
         draw = {

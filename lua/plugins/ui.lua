@@ -25,6 +25,7 @@ end
 return {
   {
     'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
 
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
@@ -93,15 +94,15 @@ return {
 
           lualine_x = {
             {
-              require 'noice'.api.status.command.get(),
+              require 'noice'.api.status.command.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
-              color = function() return { fg = '#ffa066' } end,
+              color = function() return { fg = Snacks.util.color 'Statement' } end,
             },
 
             {
-              require 'noice'.api.status.mode.get(),
+              require 'noice'.api.status.mode.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
-              color = function() return { fg = '#957fb8' } end,
+              color = function() return { fg = Snacks.util.color 'Constant' } end,
             },
 
             {
@@ -169,14 +170,12 @@ return {
 
       return opts
     end,
-    config = function(opts)
-      require 'lualine'.setup(opts)
-    end
   },
 
   {
     'folke/snacks.nvim',
-    enabled = false,
+    priority = 10000,
+    lazy = false,
     keys = {
       {
         '<leader>dd',
@@ -184,7 +183,7 @@ return {
           for _, win in ipairs(vim.api.nvim_list_wins()) do
             local buf = vim.api.nvim_win_get_buf(win)
             if vim.bo[buf].ft == 'snacks_dashboard' then
-              if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+              if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_koaded(buf) then
                 vim.api.nvim_buf_delete(buf, { force = true })
               end
               return
@@ -383,11 +382,10 @@ return {
       },
     },
 
-    config = function(opts)
+    config = function(_, opts)
       local notify = vim.notify
       require 'snacks'.setup(opts)
-      local ok, _ = require 'utils.plugins'.plugin_exists('noice.nvim')
-      if ok then
+      if package.loaded['noice.nvim'] then
         vim.notify = notify
       end
     end,

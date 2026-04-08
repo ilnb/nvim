@@ -20,7 +20,7 @@ return {
       },
       n_lines = 40,
     },
-    config = function(opts)
+    config = function(_, opts)
       require 'mini.surround'.setup(opts)
       vim.keymap.set('n', 'gsn', '<cmd>lua MiniSurround.update_n_lines()<cr>')
     end
@@ -41,7 +41,7 @@ return {
       -- better deal with markdown code blocks
       markdown = true,
     },
-    config = function(opts)
+    config = function(_, opts)
       require 'mini.pairs'.setup(opts)
     end
   },
@@ -145,7 +145,7 @@ return {
         desc = 'Buffer Hydra Mode',
       }
     },
-    config = function(opts)
+    config = function(_, opts)
       require 'which-key'.setup(opts)
     end,
   },
@@ -225,7 +225,7 @@ return {
       },
     },
 
-    config = function(opts)
+    config = function(_, opts)
       require 'noice'.setup(opts)
     end
   },
@@ -256,7 +256,7 @@ return {
         },
       }
     end,
-    config = function(opts)
+    config = function(_, opts)
       require 'mini.ai'.setup(opts)
       local objects = {
         { ' ', desc = 'whitespace' },

@@ -2,7 +2,7 @@
 return {
   {
     'rebelot/kanagawa.nvim',
-    config = function(opts)
+    config = function(_, opts)
       require 'kanagawa'.setup {
         compile = false,
         undercurl = true,
@@ -57,7 +57,7 @@ return {
   {
     'vague-theme/vague.nvim',
     -- enabled = false,
-    config = function(opts)
+    config = function(_, opts)
       require 'vague'.setup {
         transparent = true,
         bold = true,
@@ -140,7 +140,7 @@ return {
   {
     'webhooked/kanso.nvim',
     enabled = false,
-    config = function(opts)
+    config = function(_, opts)
       require 'kanso'.setup {
         compile = false,
         bold = true,
@@ -285,7 +285,7 @@ return {
   {
     'marko-cerovac/material.nvim',
     enabled = false,
-    config = function(opts)
+    config = function(_, opts)
       vim.g.material_style = 'deep ocean'
       require 'material'.setup {
         contrast = {

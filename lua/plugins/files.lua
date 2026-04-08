@@ -204,7 +204,7 @@ return {
       }
     end,
 
-    config = function(opts)
+    config = function(_, opts)
       if opts[1] == 'default-title' then
         -- use the same prompt for all pickers for profile `default-title` and
         -- profiles that use `default-title` as base profile
@@ -281,7 +281,7 @@ return {
       },
     },
 
-    config = function(opts)
+    config = function(_, opts)
       require 'mini.files'.setup(opts)
 
       local show_dotfiles = false -- initial state
