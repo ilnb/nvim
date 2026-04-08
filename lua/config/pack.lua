@@ -207,8 +207,6 @@ for _, spec in ipairs(specs) do
   end
 end
 
-vim.cmd.packadd 'nvim.undotree'
-
 local builds = {
   ['nvim-treesitter'] = function(ev)
     if not ev.data.active then

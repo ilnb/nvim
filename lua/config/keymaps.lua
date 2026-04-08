@@ -64,6 +64,7 @@ map('i', '.', '.<c-g>u')
 map('i', ';', ';<c-g>u')
 
 -- undo tree
+vim.cmd.packadd 'nvim.undotree'
 map({ 'n', 'v' }, '<leader>U', '<esc>:Undotree<cr>', { desc = 'Undotree' })
 
 --keywordprg
