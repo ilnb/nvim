@@ -355,7 +355,7 @@ return {
       end,
 
       custom_highlights = function()
-        local groups = require 'material.highlights.plugins.nvim-navic'.load()
+        local groups = Pack.proxy 'material.highlights.plugins.nvim-navic'.load()
         local t = {}
         for group, cfg in pairs(groups) do
           t[group] = cfg

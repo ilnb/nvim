@@ -3,6 +3,7 @@ local M = {}
 M.mod_to_spec = {}
 M.specs = {}
 M.loaded = {}
+M.proxies = {}
 
 ---@param modname string
 function M.require(modname)
@@ -14,6 +15,28 @@ function M.require(modname)
     M.load_plugin(spec)
   end
   return require(modname)
+end
+
+function M.proxy(modname)
+  if M.proxies[modname] then
+    return M.proxies[modname]
+  end
+
+  local p = {}
+  setmetatable(p, {
+    __index = function(t, k)
+      local mod = M.require(modname)
+      local v = mod[k]
+      t[k] = v
+      return v
+    end,
+    __call = function(_, ...)
+      local mod = M.require(modname)
+      return mod(...)
+    end
+  })
+  M.proxies[modname] = p
+  return p
 end
 
 ---@param str string

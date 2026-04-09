@@ -9,7 +9,7 @@ return {
       { '<leader>:',  ':FzfLua command_history<cr>',                          desc = 'Command history',          mode = { 'n', 'v', 'x' }, silent = true },
       { '<leader>F',  ':FzfLua<cr>',                                          desc = 'FzfLua',                   silent = true },
       { '<leader>fb', ':FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers',                  silent = true },
-      { '<leader>ff', function() require 'fzf-lua'.files() end,               desc = 'Files (cwd)',              silent = true },
+      { '<leader>ff', function() Pack.proxy 'fzf-lua'.files() end,            desc = 'Files (cwd)',              silent = true },
       { '<leader>fg', ':FzfLua git_files<cr>',                                desc = 'Files (git-files)',        silent = true },
       { '<leader>fh', ':e ~/.zsh_history<cr>',                                desc = 'Terminal history',         silent = true },
       { '<leader>fr', ':FzfLua oldfiles<cr>',                                 desc = 'Old files',                silent = true },
@@ -34,8 +34,8 @@ return {
         '<leader>sg',
         function()
           local mode = vim.api.nvim_get_mode().mode
-          local opt = { cwd = require 'utils.plugins'.get_root() }
-          require 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
+          local opt = { cwd = Pack.proxy 'utils.plugins'.get_root() }
+          Pack.proxy 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
         end,
         desc = 'Grep (root dir)',
         mode = { 'n', 'v' },
@@ -47,7 +47,7 @@ return {
         function()
           local mode = vim.api.nvim_get_mode().mode
           local opt = { cwd = vim.uv.cwd() }
-          require 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
+          Pack.proxy 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
         end,
         desc = 'Grep (cwd)',
         mode = { 'n', 'v' },
@@ -57,7 +57,7 @@ return {
       {
         '<leader><space>',
         function()
-          require 'fzf-lua'.files { cwd = require 'utils.plugins'.get_root() }
+          Pack.proxy 'fzf-lua'.files { cwd = Pack.proxy 'utils.plugins'.get_root() }
         end,
         desc = 'Files (root dir)',
         silent = true,
@@ -66,13 +66,13 @@ return {
       {
         '<leader>fc',
         function()
-          require 'fzf-lua'.files {
+          Pack.proxy 'fzf-lua'.files {
             cwd = vim.fn.stdpath 'config',
             actions = {
               default = function(selected, opts)
                 if selected and #selected > 0 then
                   vim.cmd('tcd' .. vim.fn.stdpath 'config')
-                  require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
+                  Pack.proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
                 end
               end
             }
@@ -85,7 +85,7 @@ return {
     },
 
     opts = function()
-      local fzf = require 'fzf-lua'
+      local fzf = Pack.proxy 'fzf-lua'
       local config = fzf.config
       local actions = fzf.actions
       local keymap = config.defaults.keymap
@@ -147,7 +147,7 @@ return {
               -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
               height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
               width = 0.5,
-              preview = not vim.tbl_isempty(require 'utils.lsp'.get_clients { bufnr = 0, name = 'vtsls' }) and {
+              preview = not vim.tbl_isempty(Pack.proxy 'utils.lsp'.get_clients { bufnr = 0, name = 'vtsls' }) and {
                 layout = 'vertical',
                 vertical = 'down:15,border-top',
                 hidden = 'hidden',
@@ -221,7 +221,7 @@ return {
         opts = vim.tbl_deep_extend('force', fix(require 'fzf-lua.profiles.default-title'), opts)
         opts[1] = nil
       end
-      require 'fzf-lua'.setup(opts)
+      Pack.proxy 'fzf-lua'.setup(opts)
     end,
 
     init = function()
@@ -230,7 +230,7 @@ return {
         callback = function()
           vim.ui.select = function(...)
             local spec = Pack.specs['fzf-lua']
-            Pack.require 'fzf-lua'.register_ui_select(opts.ui_select)
+            Pack.proxy 'fzf-lua'.register_ui_select(opts.ui_select)
             return vim.ui.select(...)
           end
         end
@@ -268,14 +268,14 @@ return {
           else
             t = vim.fn.fnamemodify(path, ':h')
           end
-          require 'mini.files'.open(t, true)
+          Pack.proxy 'mini.files'.open(t, true)
         end,
         desc = 'Open mini.files (%:h)',
       },
       {
         '<leader>fM',
         function()
-          require 'mini.files'.open(vim.uv.cwd(), true)
+          Pack.proxy 'mini.files'.open(vim.uv.cwd(), true)
         end,
         desc = 'Open mini.files (cwd)',
       },

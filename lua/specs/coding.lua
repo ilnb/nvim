@@ -154,7 +154,7 @@ return {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = NeoVim.snippets.langs,
         callback = function(args)
-          local ls = Pack.require 'luasnip'
+          local ls = Pack.proxy 'luasnip'
           for _, lang in ipairs(NeoVim.snippets.langs) do
             if args.match == lang and not NeoVim.snippets.lang_done[lang] then
               ls.add_snippets(lang, require('snippets.' .. lang))
@@ -189,7 +189,7 @@ return {
       {
         'zR',
         function()
-          require 'ufo'.openAllFolds()
+          Pack.proxy 'ufo'.openAllFolds()
         end,
         desc = 'Open all folds',
       },
@@ -197,7 +197,7 @@ return {
       {
         'zM',
         function()
-          require 'ufo'.closeAllFolds()
+          Pack.proxy 'ufo'.closeAllFolds()
         end,
         desc = 'Close all folds',
       },
@@ -205,7 +205,7 @@ return {
       {
         'zp',
         function()
-          local winid = require 'ufo'.peekFoldedLinesUnderCursor()
+          local winid = Pack.proxy 'ufo'.peekFoldedLinesUnderCursor()
           if not winid then
             vim.lsp.buf.hover()
           end
@@ -229,14 +229,14 @@ return {
       provider_selector = function(_, filetype, buftype)
         local function handleFallbackException(bufnr, err, providerName)
           if type(err) == 'string' and err:match 'UfoFallbackException' then
-            return require 'ufo'.getFolds(bufnr, providerName)
+            return Pack.proxy 'ufo'.getFolds(bufnr, providerName)
           else
-            return require 'promise'.reject(err)
+            return Pack.proxy 'promise'.reject(err)
           end
         end
         return (filetype == '' or buftype == 'nofile') and 'indent' -- only use indent until a file is opened
             or function(bufnr)
-              return require 'ufo'
+              return Pack.proxy 'ufo'
                   .getFolds(bufnr, 'lsp')
                   :catch(function(err)
                     return handleFallbackException(bufnr, err, 'treesitter')
@@ -339,10 +339,10 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     modname = 'todo-comments',
     keys = {
-      { ']t',         function() require 'todo-comments'.jump_next() end,                               desc = 'Next Todo Comment' },
-      { '[t',         function() require 'todo-comments'.jump_prev() end,                               desc = 'Previous Todo Comment' },
-      { '<leader>st', function() require 'todo-comments.fzf'.todo() end,                                desc = 'Todo' },
-      { '<leader>sT', function() require 'todo-comments.fzf'.todo { keywords = { 'TODO', 'FIX' } } end, desc = 'Todo/Fix' },
+      { ']t',         function() Pack.proxy 'todo-comments'.jump_next() end,                               desc = 'Next Todo Comment' },
+      { '[t',         function() Pack.proxy 'todo-comments'.jump_prev() end,                               desc = 'Previous Todo Comment' },
+      { '<leader>st', function() Pack.proxy 'todo-comments.fzf'.todo() end,                                desc = 'Todo' },
+      { '<leader>sT', function() Pack.proxy 'todo-comments.fzf'.todo { keywords = { 'TODO', 'FIX' } } end, desc = 'Todo/Fix' },
     },
   },
 
@@ -355,7 +355,7 @@ return {
         char = '┊', -- ╎
         draw = {
           delay = 0,
-          animation = require 'mini.indentscope'.gen_animation.quadratic { easing = 'out', duration = 20, unit = 'step' },
+          animation = Pack.proxy 'mini.indentscope'.gen_animation.quadratic { easing = 'out', duration = 20, unit = 'step' },
         },
         options = {
           try_as_border = true,

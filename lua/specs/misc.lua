@@ -60,16 +60,16 @@ return {
       -- },
     },
     keys = {
-      { 's',     mode = { 'n', 'x', 'o' }, function() require 'flash'.jump() end,              desc = 'Flash' },
-      { 'S',     mode = { 'n', 'o', 'x' }, function() require 'flash'.treesitter() end,        desc = 'Flash Treesitter' },
-      { 'r',     mode = 'o',               function() require 'flash'.remote() end,            desc = 'Remote Flash' },
-      { 'R',     mode = { 'o', 'x' },      function() require 'flash'.treesitter_search() end, desc = 'Treesitter Search' },
-      { '<c-s>', mode = { 'c' },           function() require 'flash'.toggle() end,            desc = 'Toggle Flash Search' },
+      { 's',     mode = { 'n', 'x', 'o' }, function() Pack.proxy 'flash'.jump() end,              desc = 'Flash' },
+      { 'S',     mode = { 'n', 'o', 'x' }, function() Pack.proxy 'flash'.treesitter() end,        desc = 'Flash Treesitter' },
+      { 'r',     mode = 'o',               function() Pack.proxy 'flash'.remote() end,            desc = 'Remote Flash' },
+      { 'R',     mode = { 'o', 'x' },      function() Pack.proxy 'flash'.treesitter_search() end, desc = 'Treesitter Search' },
+      { '<c-s>', mode = { 'c' },           function() Pack.proxy 'flash'.toggle() end,            desc = 'Toggle Flash Search' },
       {
         '<c-space>',
         mode = { 'n', 'o', 'x' },
         function()
-          require 'flash'.treesitter {
+          Pack.proxy 'flash'.treesitter {
             actions = {
               ['<c-space>'] = 'next',
               ['<bs>'] = 'prev'
@@ -109,7 +109,7 @@ return {
             '<leader>b',
             group = 'buffer',
             expand = function()
-              return require 'which-key.extras'.expand.buf()
+              return Pack.proxy 'which-key.extras'.expand.buf()
             end,
           },
           {
@@ -117,7 +117,7 @@ return {
             group = 'windows',
             proxy = '<c-w>',
             expand = function()
-              return require 'which-key.extras'.expand.win()
+              return Pack.proxy 'which-key.extras'.expand.win()
             end,
           },
           -- better descriptions
@@ -129,21 +129,21 @@ return {
       {
         '<leader>?',
         function()
-          require 'which-key'.show { global = true }
+          Pack.proxy 'which-key'.show { global = true }
         end,
         desc = 'Buffer Keymaps (which-key)',
       },
       {
         '<c-w><space>',
         function()
-          require 'which-key'.show { keys = '<c-w>', loop = true }
+          Pack.proxy 'which-key'.show { keys = '<c-w>', loop = true }
         end,
         desc = 'Window Hydra Mode',
       },
       {
         '<space>b<space>',
         function()
-          require 'which-key'.show { keys = '<space>b', loop = true }
+          Pack.proxy 'which-key'.show { keys = '<space>b', loop = true }
         end,
         desc = 'Buffer Hydra Mode',
       }
@@ -158,15 +158,15 @@ return {
       { 'MunifTanjim/nui.nvim' },
     },
     keys = {
-      { '<leader>sn',  '',                                       desc = '+noice' },
-      -- { '<leader>snl', function() require 'noice'.cmd 'last' end,    desc = 'Noice Last Message' },
-      -- { '<leader>snh', function() require 'noice'.cmd 'history' end, desc = 'Noice History' },
-      { '<leader>sna', function() require 'noice'.cmd 'all' end, desc = 'Noice All' },
-      -- { '<leader>snd', function() require 'noice'.cmd 'dismiss' end, desc = 'Dismiss All' },
-      -- { '<leader>snt', function() require 'noice'.cmd 'pick' end,    desc = 'Noice Picker (Telescope/FzfLua)' },
+      { '<leader>sn',  '',                                          desc = '+noice' },
+      -- { '<leader>snl', function() Pack.proxy 'noice'.cmd 'last' end,    desc = 'Noice Last Message' },
+      -- { '<leader>snh', function() Pack.proxy 'noice'.cmd 'history' end, desc = 'Noice History' },
+      { '<leader>sna', function() Pack.proxy 'noice'.cmd 'all' end, desc = 'Noice All' },
+      -- { '<leader>snd', function() Pack.proxy 'noice'.cmd 'dismiss' end, desc = 'Dismiss All' },
+      -- { '<leader>snt', function() Pack.proxy 'noice'.cmd 'pick' end,    desc = 'Noice Picker (Telescope/FzfLua)' },
       {
         '<c-f>',
-        function() if not require 'noice.lsp'.scroll(4) then return '<c-f>' end end,
+        function() if not Pack.proxy 'noice.lsp'.scroll(4) then return '<c-f>' end end,
         silent = true,
         expr = true,
         desc = 'Scroll Forward',
@@ -174,7 +174,7 @@ return {
       },
       {
         '<c-b>',
-        function() if not require 'noice.lsp'.scroll(-4) then return '<c-b>' end end,
+        function() if not Pack.proxy 'noice.lsp'.scroll(-4) then return '<c-b>' end end,
         silent = true,
         expr = true,
         desc = 'Scroll Backward',
@@ -234,7 +234,7 @@ return {
     event = 'VeryLazy',
     deps = { 'folke/which-key.nvim' },
     opts = function()
-      local ai = require 'mini.ai'
+      local ai = Pack.proxy 'mini.ai'
       return {
         n_lines = 500,
         custom_textobjects = {
@@ -250,7 +250,7 @@ return {
             { '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
             '^().*()$',
           },
-          g = require 'utils.plugins'.ai_buffer,
+          g = Pack.proxy 'utils.plugins'.ai_buffer,
           u = ai.gen_spec.function_call(),
           U = ai.gen_spec.function_call { name_pattern = '[%w_]' },
         },
