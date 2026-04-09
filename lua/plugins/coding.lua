@@ -275,7 +275,7 @@ return {
       end, opts.ensure)
 
       local have = ts.get_installed()
-      local they_have = ts.get_available()
+      local available = ts.get_available()
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
@@ -288,7 +288,7 @@ return {
       end
 
       local to_install = vim.tbl_filter(function(l)
-        return not vim.tbl_contains(have, l) and vim.tbl_contains(they_have, l)
+        return not vim.tbl_contains(have, l) and vim.tbl_contains(available, l)
       end, langs)
 
       if #to_install > 0 then

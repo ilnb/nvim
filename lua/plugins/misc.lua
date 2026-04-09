@@ -41,9 +41,6 @@ return {
       -- better deal with markdown code blocks
       markdown = true,
     },
-    config = function(_, opts)
-      require 'mini.pairs'.setup(opts)
-    end
   },
 
   {
@@ -147,9 +144,6 @@ return {
         desc = 'Buffer Hydra Mode',
       }
     },
-    config = function(_, opts)
-      require 'which-key'.setup(opts)
-    end,
   },
 
   {
@@ -227,10 +221,6 @@ return {
         },
       },
     },
-
-    config = function(_, opts)
-      require 'noice'.setup(opts)
-    end
   },
 
   {
