@@ -1,6 +1,7 @@
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
 _G.Pack = require 'config.pack-setup'
+local log = vim.log.levels
 
 local specs = {}
 
@@ -16,7 +17,7 @@ local order = {
 for _, file in ipairs(order) do
   local ok, mod = pcall(require, 'specs.' .. file)
   if not ok then
-    vim.notify('Error when trying to load ' .. file, vim.log.levels.WARN)
+    vim.notify('Error when trying to load ' .. file, log.WARN)
     goto continue
   end
   if vim.islist(mod) then
@@ -57,10 +58,10 @@ local builds = {
 
     if res.code ~= 0 then
       vim.schedule(function()
-        vim.notify('Blink build failed', vim.log.levels.ERROR)
+        vim.notify('Blink build failed', log.ERROR)
       end)
     else
-      vim.notify('Blink build successful!', vim.log.levels.INFO);
+      vim.notify('Blink build successful!', log.INFO);
     end
   end,
 }

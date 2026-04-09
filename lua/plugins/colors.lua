@@ -2,7 +2,7 @@
 return {
   {
     'rebelot/kanagawa.nvim',
-    config = function(_, opts)
+    config = function()
       require 'kanagawa'.setup {
         compile = false,
         undercurl = true,
@@ -57,7 +57,7 @@ return {
   {
     'vague-theme/vague.nvim',
     -- enabled = false,
-    config = function(_, opts)
+    config = function()
       require 'vague'.setup {
         transparent = true,
         bold = true,
@@ -140,7 +140,7 @@ return {
   {
     'webhooked/kanso.nvim',
     enabled = false,
-    config = function(_, opts)
+    config = function()
       require 'kanso'.setup {
         compile = false,
         bold = true,
@@ -197,6 +197,7 @@ return {
     'catppuccin/nvim',
     -- enabled = false,
     name = 'catppuccin',
+    lazy = false,
     ---@type CatppuccinOptions
     opts = {
       flavour = 'frappe',

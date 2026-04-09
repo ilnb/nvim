@@ -5,6 +5,8 @@ M.specs = {}
 M.loaded = {}
 M.proxies = {}
 
+local log = vim.log.levels
+
 ---@param modname string
 function M.require(modname)
   if package.loaded[modname] then
@@ -56,7 +58,7 @@ function M.run_setup(spec)
   local modname = spec.modname
   if config then
     if type(config) ~= 'function' then
-      vim.notify(string.format('`config` for %s is not a function', spec.name), vim.log.levels.ERROR)
+      vim.notify(string.format('`config` for %s is not a function', spec.name), log.ERROR)
       M.loaded[spec.name] = nil
       return
     end
@@ -64,7 +66,7 @@ function M.run_setup(spec)
   elseif modname then
     local ok, mod = pcall(require, modname)
     if not ok then
-      vim.notify(string.format('Invalid `modname` %s for plugin %s', modname, spec.name), vim.log.levels.ERROR)
+      vim.notify(string.format('Invalid `modname` %s for plugin %s', modname, spec.name), log.ERROR)
       M.loaded[spec.name] = nil
       return
     end
@@ -72,7 +74,7 @@ function M.run_setup(spec)
   elseif not vim.tbl_isempty(opts) then
     vim.notify(
       string.format('`opts` for %s is not empty, but neither `modname` nor `config` to setup', spec.name),
-      vim.log.levels.ERROR)
+      log.ERROR)
     return
   end
 end
@@ -88,7 +90,7 @@ function M.load_plugin(spec)
     if s then
       M.load_plugin(s)
     else
-      vim.notify(string.format('Spec not found for %s in M.specs table', name), vim.log.levels.ERROR)
+      vim.notify(string.format('Spec not found for %s in M.specs table', name), log.ERROR)
       return
     end
   end
@@ -96,7 +98,7 @@ function M.load_plugin(spec)
   M.loaded[spec.name] = true
   local ok, _ = pcall(vim.cmd.packadd, spec.name)
   if not ok then
-    vim.notify('Failed to packadd ' .. spec.name, vim.log.levels.ERROR)
+    vim.notify('Failed to packadd ' .. spec.name, log.ERROR)
     return
   end
   M.run_setup(spec)
