@@ -153,6 +153,13 @@ end, { desc = 'Newline below' })
 del('n', '<c-w><c-d>')
 del('n', '<c-w>d')
 
+-- native lsp keymaps
+for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'rt', 'rx', 'O' } do
+  del('n', 'g' .. key)
+end
+del({ 'i', 's' }, '<c-s>')
+del('x', 'gra')
+
 -- pasting in visual mode doesn't reset the register
 map('x', '<leader>p', '"_dP', { remap = false, silent = true })
 

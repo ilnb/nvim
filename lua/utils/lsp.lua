@@ -72,13 +72,6 @@ M.on_attach = function(client, buffer)
     vim.defer_fn(vim.lsp.buf.signature_help, 1)
   end, 'Signature Help')
 
-  -- remove native lsp keymaps
-  for _, key in ipairs { 'ra', 'ri', 'rn', 'rr', 'rt', 'O' } do
-    del('n', 'g' .. key)
-  end
-  del({ 'i', 's' }, '<c-s>')
-  del('x', 'gra')
-
   local excludes = {
     format = {
       'qmlls6',
