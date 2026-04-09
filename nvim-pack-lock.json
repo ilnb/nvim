@@ -13,7 +13,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "9f0432fdd7825ab163520045831a40b6df82ea28",
+      "rev": "4deeecf611c0beba6455e6cf06e2c051a6169dd4",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -42,11 +42,11 @@
     },
     "mini.ai": {
       "rev": "43eb2074843950a3a25aae56a5f41362ec043bfa",
-      "src": "https://github.com/echasnovski/mini.ai"
+      "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
       "rev": "ced297546b8fdb8e215d416d4753a735514a2fe0",
-      "src": "https://github.com/echasnovski/mini.files"
+      "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
       "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
@@ -58,11 +58,11 @@
     },
     "mini.pairs": {
       "rev": "42387c7fe68fc0b6e95eaf37f1bb76e7bffaa0d9",
-      "src": "https://github.com/echasnovski/mini.pairs"
+      "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "mini.surround": {
       "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
-      "src": "https://github.com/echasnovski/mini.surround"
+      "src": "https://github.com/nvim-mini/mini.surround"
     },
     "noice.nvim": {
       "rev": "7bfd942445fb63089b59f97ca487d605e715f155",
@@ -89,7 +89,7 @@
       "src": "https://github.com/kevinhwang91/nvim-ufo"
     },
     "nvim-web-devicons": {
-      "rev": "95b7a002d5dba1a42eb58f5fac5c565a485eefd0",
+      "rev": "6e76c5e47e957fbf080b1fdac165c66dbd2e7cfb",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "promise-async": {
@@ -105,7 +105,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "cd00c5f53ec080c1c64f097e393a831b1b977ca3",
+      "rev": "1a385cb07e9bf4e66aeef1359fb9b988e7191084",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {
