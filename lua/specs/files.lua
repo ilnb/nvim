@@ -225,18 +225,16 @@ return {
     end,
 
     init = function()
-      -- Store the original select function to avoid recursion
-      local origin = vim.ui.select
-      vim.ui.select = function(...)
-        -- Check if plugin is on disk/rtp
-        local spec = NeoVim.specs['fzf-lua']
-        if not package.loaded['fzf-lua'] then
-          load_plugin(spec)
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          vim.ui.select = function(...)
+            local spec = Pack.specs['fzf-lua']
+            Pack.require 'fzf-lua'.register_ui_select(opts.ui_select)
+            return vim.ui.select(...)
+          end
         end
-        -- Hand over to fzf-lua
-        require('fzf-lua').register_ui_select()
-        return vim.ui.select(...)
-      end
+      })
     end
   },
 

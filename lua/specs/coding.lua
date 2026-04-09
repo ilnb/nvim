@@ -154,7 +154,7 @@ return {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = NeoVim.snippets.langs,
         callback = function(args)
-          local ls = require 'luasnip'
+          local ls = Pack.require 'luasnip'
           for _, lang in ipairs(NeoVim.snippets.langs) do
             if args.match == lang and not NeoVim.snippets.lang_done[lang] then
               ls.add_snippets(lang, require('snippets.' .. lang))
@@ -281,7 +281,7 @@ return {
       end, opts.ensure)
 
       local have = ts.get_installed()
-      local they_have = ts.get_available()
+      local available = ts.get_available()
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
@@ -294,7 +294,7 @@ return {
       end
 
       local to_install = vim.tbl_filter(function(l)
-        return not vim.tbl_contains(have, l) and vim.tbl_contains(they_have, l)
+        return not vim.tbl_contains(have, l) and vim.tbl_contains(available, l)
       end, langs)
 
       if #to_install > 0 then

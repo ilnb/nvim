@@ -7,7 +7,7 @@ local function set_entry(icon, desc, key, dir, select)
   local s = function(selected, opts)
     if selected and #selected > 0 then
       vim.cmd('tcd ' .. dir)
-      require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
+      Pack.require 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
     end
   end
   return {
@@ -17,16 +17,16 @@ local function set_entry(icon, desc, key, dir, select)
     action = function()
       local opts = { cwd = dir }
       opts.actions = select and { default = s }
-      require 'fzf-lua'.files(opts)
+      Pack.require 'fzf-lua'.files(opts)
     end
   }
 end
 
 local function get_startup_entry()
   local total = 0
-  for _ in pairs(NeoVim.specs) do total = total + 1 end
+  for _ in pairs(Pack.specs) do total = total + 1 end
   local count = 0
-  for _ in pairs(NeoVim.loaded) do count = count + 1 end
+  for _ in pairs(Pack.loaded) do count = count + 1 end
   return {
     align = 'center',
     text = { '⚡ Neovim loaded ' .. tostring(count) .. '/' .. tostring(total) .. ' plugins', hl = 'footer' },
@@ -95,7 +95,7 @@ return {
 
             {
               function()
-                return require 'nvim-navic'.get_location()
+                return Pack.require 'nvim-navic'.get_location()
               end,
               cond = function()
                 local ok, navic = pcall(require, 'nvim-navic')
@@ -107,13 +107,13 @@ return {
 
           lualine_x = {
             {
-              require 'noice'.api.status.command.get,
+              Pack.require 'noice'.api.status.command.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.command.has() end,
               color = function() return { fg = Snacks.util.color 'Statement' or '' } end,
             },
 
             {
-              require 'noice'.api.status.mode.get,
+              Pack.require 'noice'.api.status.mode.get,
               cond = function() return package.loaded.noice and require 'noice'.api.status.mode.has() end,
               color = function() return { fg = Snacks.util.color 'Constant' or '' } end,
             },
@@ -355,11 +355,10 @@ return {
               desc = 'Find file',
               key = 'f',
               action = function()
-                require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
+                Pack.require 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
               end
             },
-            -- { icon = ' ', desc = 'Grep', key = 'g', action = ':FzfLua live_grep<cr>' },
-            { icon = '󰒲 ', desc = 'Lazy', key = 'l', action = ':Lazy' },
+            { icon = ' ', desc = 'Grep', key = 'g', action = ':FzfLua live_grep<cr>' },
             { icon = ' ', desc = 'Exit', key = 'q', action = ':q' },
           },
 
@@ -392,8 +391,7 @@ return {
     config = function(opts)
       local notify = vim.notify
       require 'snacks'.setup(opts)
-      local ok = pcall(require, 'noice')
-      if ok then
+      if package.loaded.noice then
         vim.notify = notify
       end
     end,
