@@ -19,6 +19,7 @@ function M.require(modname)
   return require(modname)
 end
 
+---@param modname string
 function M.proxy(modname)
   if M.proxies[modname] then
     return M.proxies[modname]
@@ -51,6 +52,7 @@ function M.make_name(spec)
   return spec.name or vim.split(spec[1], '/')[2]
 end
 
+---@param spec table
 function M.run_setup(spec)
   local opts = spec.opts or {}
   if type(opts) == 'function' then opts = opts() end
@@ -105,7 +107,7 @@ function M.load_plugin(spec)
 end
 
 ---@param spec table
----@param is_dep boolean
+---@param is_dep boolean?
 function M.add(spec, is_dep)
   local enabled = spec.enabled
 

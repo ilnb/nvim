@@ -229,7 +229,6 @@ return {
         pattern = 'VeryLazy',
         callback = function()
           vim.ui.select = function(...)
-            local spec = Pack.specs['fzf-lua']
             Pack.proxy 'fzf-lua'.register_ui_select(opts.ui_select)
             return vim.ui.select(...)
           end
