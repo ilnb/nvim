@@ -36,5 +36,4 @@ return {
     },
     single_file_support = true,
   },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
 }

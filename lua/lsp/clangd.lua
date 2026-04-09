@@ -36,5 +36,4 @@ return {
     completeUnimported = true,
     clangdFileStatus = true,
   },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
 }
