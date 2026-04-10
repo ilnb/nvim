@@ -197,6 +197,7 @@ return {
     -- enabled = false,
     name = 'catppuccin',
     modname = 'catppuccin',
+    event = 'VeryLazy',
     ---@type CatppuccinOptions
     opts = {
       flavour = 'frappe',

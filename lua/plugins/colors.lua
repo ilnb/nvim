@@ -197,7 +197,7 @@ return {
     'catppuccin/nvim',
     -- enabled = false,
     name = 'catppuccin',
-    lazy = false,
+    event = 'VeryLazy',
     ---@type CatppuccinOptions
     opts = {
       flavour = 'frappe',
