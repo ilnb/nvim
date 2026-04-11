@@ -78,9 +78,6 @@ map('v', '>', '>gv')
 map('n', 'gco', 'o<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment below', silent = true })
 map('n', 'gcO', 'O<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment above', silent = true })
 
--- lazy
-map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy', silent = true })
-
 -- new file
 map('n', '<leader>fn', ':enew<cr>', { desc = 'New File', silent = true })
 
