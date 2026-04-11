@@ -16,7 +16,12 @@ function M.require(modname)
   if spec and not M.loaded[spec.name] then
     M.load_plugin(spec)
   end
-  return require(modname)
+  local ok, mod = pcall(require, modname)
+  if not ok then
+    vim.notify('Failed to require ' .. modname, log.ERROR)
+    return nil
+  end
+  return mod
 end
 
 ---@param modname string
@@ -27,14 +32,21 @@ function M.proxy(modname)
 
   local p = {}
   setmetatable(p, {
-    __index = function(t, k)
+    __index = function(_, k)
       local mod = M.require(modname)
-      local v = mod[k]
-      t[k] = v
-      return v
+      if not mod then
+        vim.notify('Failed to load module: ' .. modname, log.ERROR)
+        return nil
+      end
+      M.proxies[modname] = mod
+      return mod[k]
     end,
     __call = function(_, ...)
       local mod = M.require(modname)
+      if not mod then
+        vim.notify('Failed to load module: ' .. modname, log.ERROR)
+        return nil
+      end
       return mod(...)
     end
   })
@@ -47,15 +59,57 @@ function M.to_git(str)
   return 'https://github.com/' .. str
 end
 
----@param spec table
-function M.make_name(spec)
-  return spec.name or vim.split(spec[1], '/')[2]
+---@param x table|string
+function M.make_name(x)
+  if type(x) == 'table' then
+    return x.name or vim.split(x[1], '/')[2]
+  elseif type(x) == 'string' then
+    return vim.split(x, '/')[2]
+  end
+  vim.notify('Invalid argument to make_name: ' .. tostring(x), log.ERROR)
+end
+
+---@param x table|string
+function M.get_opts(x)
+  local name
+  if type(x) == 'table' then
+    name = x.name or x.modname
+  elseif type(x) == 'string' then
+    name = x
+  else
+    name = 'invalid'
+  end
+
+  local spec
+  if type(x) == 'table' then
+    spec = x
+  elseif type(x) == 'string' then
+    spec = M.mod_to_spec[x] or M.specs[x]
+  end
+  if not spec then
+    vim.notify('Spec not found for ' .. name, log.ERROR)
+    return {}
+  end
+
+  if spec._opts then return spec._opts end
+
+  local opts = spec.opts or {}
+  if type(opts) == 'function' then
+    local ok, res = pcall(opts)
+    if not ok then
+      vim.notify('opts() failed for ' .. name, log.ERROR)
+      return {}
+    end
+    opts = res
+  end
+
+  spec._opts = opts
+  return opts
 end
 
 ---@param spec table
 function M.run_setup(spec)
-  local opts = spec.opts or {}
-  if type(opts) == 'function' then opts = opts() end
+  local opts = M.get_opts(spec)
   local config = spec.config
   local modname = spec.modname
   if config then
@@ -87,22 +141,21 @@ function M.load_plugin(spec)
 
   -- handle deps
   for _, d in ipairs(spec.deps or {}) do
-    local name = type(d) == 'string' and M.make_name { d } or M.make_name(d)
-    local s = M.specs[name]
-    if s then
-      M.load_plugin(s)
-    else
-      vim.notify(string.format('Spec not found for %s in M.specs table', name), log.ERROR)
+    local s = M.specs[d.name]
+    M.load_plugin(s)
+    if not M.loaded[s.name] then
+      vim.notify('Dependency failed: ' .. s.name, log.ERROR)
       return
     end
   end
 
-  M.loaded[spec.name] = true
   local ok, _ = pcall(vim.cmd.packadd, spec.name)
   if not ok then
     vim.notify('Failed to packadd ' .. spec.name, log.ERROR)
     return
   end
+
+  M.loaded[spec.name] = true
   M.run_setup(spec)
 end
 
@@ -124,14 +177,17 @@ function M.add(spec, is_dep)
     M.mod_to_spec[spec.modname] = spec
   end
 
+  local ndeps = {}
   for _, d in ipairs(spec.deps or {}) do
     local t = type(d) == 'string' and { d } or d
     if not t or not t[1] then goto continue end
     t.name = M.make_name(t)
+    table.insert(ndeps, t)
     M.add(t, true)
 
     ::continue::
   end
+  spec.deps = ndeps
 
   vim.pack.add({
     {

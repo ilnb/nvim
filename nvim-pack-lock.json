@@ -13,7 +13,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "4deeecf611c0beba6455e6cf06e2c051a6169dd4",
+      "rev": "657c1bbb7357c61e26a20d868b53a460b05c18c0",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -89,7 +89,7 @@
       "src": "https://github.com/kevinhwang91/nvim-ufo"
     },
     "nvim-web-devicons": {
-      "rev": "6e76c5e47e957fbf080b1fdac165c66dbd2e7cfb",
+      "rev": "c72328a5494b4502947a022fe69c0c47e53b6aa6",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "promise-async": {
@@ -105,7 +105,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "1a385cb07e9bf4e66aeef1359fb9b988e7191084",
+      "rev": "4b19c593c0dd81d4dd2de7831802ec7c2d1b99ec",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {
