@@ -97,3 +97,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end)
   end
 })
+
+vim.keymap.set('n', '<leader>lu', function()
+  vim.notify('Wait for update buffer..')
+  vim.pack.update()
+end, { silent = true, desc = 'Pack update' })
