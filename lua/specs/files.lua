@@ -228,8 +228,11 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()
-          local opts = Pack.get_opts 'fzf-lua'
-          Pack.proxy 'fzf-lua'.register_ui_select(opts.ui_select)
+          vim.ui.select = function(...)
+            local opts = Pack.get_opts 'fzf-lua'
+            Pack.proxy 'fzf-lua'.register_ui_select(opts.ui_select)
+            return vim.ui.select(...)
+          end
         end
       })
     end
