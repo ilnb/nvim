@@ -471,9 +471,6 @@ return {
     'nvim-mini/mini.icons',
     event = 'VeryLazy',
     modname = 'mini.icons',
-    deps = {
-      { 'nvim-tree/nvim-web-devicons', },
-    },
     opts = {
       file = {
         ['.keep'] = { glyph = '󰊢', hl = 'MiniIconsGrey' },
