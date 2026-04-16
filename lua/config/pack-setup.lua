@@ -313,4 +313,130 @@ function M.register(spec)
   -- end
 end
 
+---@param path string
+function M.get_readme(path)
+  if type(path) ~= 'string' or path == '' then return '' end
+
+  for _, f in ipairs { 'README.md', 'README', 'Readme.md' } do
+    local p = path .. '/' .. f
+    if vim.fn.filereadable(p) then
+      return p
+    end
+  end
+  return path
+end
+
+function M.update()
+  local lock_file = vim.fn.stdpath 'config' .. '/nvim-pack-lock.json'
+  if vim.fn.filereadable(lock_file) == 0 then
+    vim.notify('lockfile not found', log.INFO)
+    return
+  end
+
+  local lock_data = vim.json.decode(table.concat(vim.fn.readfile(lock_file), '\n'))
+  if not lock_data or not lock_data.plugins then
+    vim.notify('corrupted lockfile', log.ERROR)
+    return
+  end
+
+  local pack_info = {}
+  for _, p in ipairs(vim.pack.get()) do
+    pack_info[p.spec.name] = p
+  end
+
+  local entries, e_to_n = {}, {}
+
+  local fzf = Pack.proxy 'fzf-lua'
+  local utils = Pack.proxy 'fzf-lua.utils'
+
+  for name, info in pairs(lock_data.plugins) do
+    local p = pack_info[name] or {}
+
+    local need_up = false
+    if p.info and p.info.rev and info.rev then
+      need_up = p.info.rev ~= info.rev
+    end
+
+    local status = need_up and utils.ansi_codes.yellow '󰚰  ' or '  '
+    local rev = utils.ansi_codes.green((info.rev or ''):sub(1, 7))
+    local disp = utils.ansi_codes.blue(name)
+    local entry = string.format('%s:1:1:%s[%s]  %s', M.get_readme(p.path), status, rev, disp)
+    table.insert(entries, entry)
+    e_to_n[utils.strip_ansi_coloring(entry)] = name
+  end
+
+  if #entries == 0 then
+    vim.notify('no plugins to display', log.INFO)
+    return
+  end
+
+  local function get_name(sel)
+    if not sel or not sel[1] then
+      return nil
+    end
+    return e_to_n[utils.strip_ansi_coloring(sel[1])]
+  end
+
+  fzf.fzf_exec(entries, {
+    prompt = 'vim.pack> ',
+    previewer = 'builtin',
+    fzf_opts = {
+      ['--delimiter'] = ':',
+      ['--with-nth'] = '4..',
+      ['--tiebreak'] = 'begin',
+    },
+    actions = {
+      default = function(sel)
+        local name = get_name(sel)
+        local p = name and pack_info[name]
+        if p and p.path and p.path ~= '' then
+          vim.cmd('edit ' .. vim.fn.fnameescape(p.path))
+        end
+      end,
+      ['ctrl-u'] = function(sel)
+        local name = get_name(sel)
+        if name then
+          vim.notify('updating ' .. name)
+          vim.system({ 'nvim', '--headless', '-c',
+              string.format("lua vim.pack.update {'%s'} vim.cmd('wq')", name), '+q' },
+            { text = true },
+            function(obj)
+              vim.schedule(function()
+                if obj.code == 0 then
+                  vim.notify('updated ' .. name, log.INFO)
+                else
+                  vim.notify('update failed for ' .. name .. ': ' .. (obj.stderr or ''), log.ERROR)
+                end
+              end)
+            end)
+        end
+        fzf.resume()
+      end,
+      ['ctrl-x'] = function(sel)
+        local name = get_name(sel)
+        if not name then
+          return
+        end
+
+        local p = vim.iter(vim.pack.get()):find(function(x)
+          return x.spec.name == name
+        end)
+
+        if not p then
+          vim.notify('plugin not found on disk ' .. name, log.WARN)
+        elseif p.active then
+          vim.notify('cannot delete active plugin ' .. name, log.ERROR)
+        else
+          vim.pack.del { name }
+          vim.notify('deleted ' .. name, log.INFO)
+        end
+      end,
+    }
+  })
+end
+
+vim.api.nvim_create_user_command('PackUpdate', function()
+  Pack.update()
+end, {})
+
 return M
