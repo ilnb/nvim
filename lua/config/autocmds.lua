@@ -36,10 +36,9 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   callback = function(event)
     local exclude = { 'gitcommit' }
     local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
       return
     end
-    vim.b[buf].lazyvim_last_loc = true
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
     if mark[1] > 0 and mark[1] <= lcount then
@@ -143,13 +142,13 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- diagnostics config
 vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
   callback = function()
     vim.diagnostic.config {
       float = { border = 'rounded' },
-      underline = { severity = 'ERROR' },
       update_in_insert = false,
       virtual_text = {
-        current_line = false,
+        current_line = nil,
         spacing = 4,
         source = 'if_many',
         prefix = '●',
@@ -159,6 +158,25 @@ vim.api.nvim_create_autocmd('User', {
         text = NeoVim.icons.diagnostics,
       },
     }
+
+    local hl = vim.api.nvim_set_hl
+    local get = vim.api.nvim_get_hl
+    local uc = { 'DiagnosticUnderlineWarn', 'DiagnosticUnderlineInfo', 'DiagnosticUnderlineHint' }
+    local ul = { 'DiagnosticUnderlineError' }
+
+    for _, name in ipairs(uc) do
+      local ex = get(0, { name = name, link = false })
+      ex.undercurl = true
+      ex.underline = nil
+      hl(0, name, ex --[[@as table]])
+    end
+
+    for _, name in ipairs(ul) do
+      local ex = get(0, { name = name, link = false })
+      ex.underline = true
+      ex.undercurl = nil
+      hl(0, name, ex --[[@as table]])
+    end
   end
 })
 
