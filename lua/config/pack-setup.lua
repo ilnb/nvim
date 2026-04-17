@@ -349,15 +349,24 @@ function M.update()
   local fzf = Pack.proxy 'fzf-lua'
   local utils = Pack.proxy 'fzf-lua.utils'
 
+  ---@param path string
+  local function get_rev(path)
+    if not path or path == '' then return nil end
+    local f = io.popen('git -C ' .. vim.fn.shellescape(path) .. ' rev-parse origin/HEAD 2>/dev/null')
+    if not f then return nil end
+    local rev = f:read '*a':gsub('\n', '')
+    f:close()
+    return rev ~= '' and rev or nil
+  end
+
   for name, info in pairs(lock_data.plugins) do
     local p = pack_info[name] or {}
 
-    local need_up = false
-    if p.info and p.info.rev and info.rev then
-      need_up = p.info.rev ~= info.rev
-    end
+    local cur_rev = get_rev(p.path)
+    local lock_rev = info.rev
+    local need_up = cur_rev and lock_rev and cur_rev ~= lock_rev
 
-    local status = need_up and utils.ansi_codes.yellow '󰚰  ' or '  '
+    local status = need_up and utils.ansi_codes.yellow '󰚰  ' or '   '
     local rev = utils.ansi_codes.green((info.rev or ''):sub(1, 7))
     local disp = utils.ansi_codes.blue(name)
     local entry = string.format('%s:1:1:%s[%s]  %s', M.get_readme(p.path), status, rev, disp)
