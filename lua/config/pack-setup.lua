@@ -54,11 +54,6 @@ function M.proxy(modname)
   return p
 end
 
----@param str string
-function M.to_git(str)
-  return 'https://github.com/' .. str
-end
-
 ---@param x table|string
 function M.make_name(x)
   if type(x) == 'table' then
@@ -189,9 +184,14 @@ function M.add(spec, is_dep)
   end
   spec.deps = ndeps
 
+  ---@param str string
+  local function to_git(str)
+    return 'https://github.com/' .. str
+  end
+
   vim.pack.add({
     {
-      src = M.to_git(spec[1]),
+      src = to_git(spec[1]),
       name = spec.name,
     }
   }, { load = false })
