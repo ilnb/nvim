@@ -321,16 +321,22 @@ return {
 
       local move = require 'nvim-treesitter-textobjects.move'
       local move_tbl = { f = '@function.outer', c = '@class.outer', a = '@parameter.inner' }
+      local strs = { f = 'function', c = 'class', a = 'parameter' }
       for key, capture in pairs(move_tbl) do
-        map('n', ']' .. key, function() move.goto_next_start(capture, 'textobjects') end)
-        map('n', ']' .. key:upper(), function() move.goto_next_end(capture, 'textobjects') end)
-        map('n', '[' .. key, function() move.goto_previous_start(capture, 'textobjects') end)
-        map('n', '[' .. key:upper(), function() move.goto_previous_end(capture, 'textobjects') end)
+        local str = strs[key]
+        map('n', ']' .. key, function() move.goto_next_start(capture, 'textobjects') end,
+          { desc = 'Next ' .. str .. ' start' })
+        map('n', ']' .. key:upper(), function() move.goto_next_end(capture, 'textobjects') end,
+          { desc = 'Next ' .. str .. ' end' })
+        map('n', '[' .. key, function() move.goto_previous_start(capture, 'textobjects') end,
+          { desc = 'Prev ' .. str .. ' start' })
+        map('n', '[' .. key:upper(), function() move.goto_previous_end(capture, 'textobjects') end,
+          { desc = 'Prev ' .. str .. ' end' })
       end
 
       local swap = require 'nvim-treesitter-textobjects.swap'
-      map('n', '<a-l>', function() swap.swap_next '@parameter.inner' end)
-      map('n', '<a-h>', function() swap.swap_previous '@parameter.inner' end)
+      map('n', '<a-l>', function() swap.swap_next '@parameter.inner' end, { desc = 'Swap inner parameter' })
+      map('n', '<a-h>', function() swap.swap_previous '@parameter.inner' end, { desc = 'Swap outer parameter' })
     end,
   },
 
