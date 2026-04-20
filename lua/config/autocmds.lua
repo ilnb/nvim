@@ -36,9 +36,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   callback = function(event)
     local exclude = { 'gitcommit' }
     local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].last_loc_restored then
       return
     end
+    vim.b[buf].last_loc_restored = true
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
     if mark[1] > 0 and mark[1] <= lcount then
@@ -125,7 +126,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 -- enable snacks indent guides for new files
 vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function()
-    local ok, idt = pcall(require, 'snacks.indent')
+    local ok, idt = pcall(Pack.proxy, 'snacks.indent')
     if ok then
       idt.enable()
     end
