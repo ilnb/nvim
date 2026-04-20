@@ -215,6 +215,8 @@ function M.add(spec, is_dep)
     end
   end
 
+  is_lazy = is_lazy or spec.pfile == 'colors'
+
   if not is_lazy then
     M.load_plugin(spec)
   end

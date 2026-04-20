@@ -21,9 +21,11 @@ for _, file in ipairs(order) do
   end
   if vim.islist(mod) then
     for _, m in ipairs(mod) do
+      m.pfile = file
       table.insert(specs, m)
     end
   else
+    mod.pfile = file
     table.insert(specs, mod)
   end
   ::continue::

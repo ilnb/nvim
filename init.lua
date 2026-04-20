@@ -15,9 +15,11 @@ end
 
 require 'config.autocmds'
 
--- local cs = 'catppuccin'
-local ok = cs and pcall(vim.cmd.colorscheme, cs)
-if not ok then vim.cmd [[colo kanagawa]] end
+local default = 'kanagawa'
+-- local override = 'catppuccin'
+local cs = override or default
+Pack.load_plugin(Pack.mod_to_spec[cs])
+vim.cmd.colo(cs)
 
 require 'config.keymaps'
 require 'lsp'
