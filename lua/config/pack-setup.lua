@@ -349,7 +349,7 @@ function M.update()
   local fzf = Pack.proxy 'fzf-lua'
   local utils = Pack.proxy 'fzf-lua.utils'
 
-  ---@param path string
+  ---@param path string?
   local function get_rev(path)
     if not path or path == '' then return nil end
     local f = io.popen('git -C ' .. vim.fn.shellescape(path) .. ' rev-parse origin/HEAD 2>/dev/null')

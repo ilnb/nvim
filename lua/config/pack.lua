@@ -1,6 +1,5 @@
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
-_G.Pack = require 'config.pack-setup'
 local log = vim.log.levels
 
 local specs = {}
