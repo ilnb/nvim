@@ -16,7 +16,7 @@ end
 require 'config.autocmds'
 
 -- local cs = 'catppuccin'
-local ok, _ = pcall(vim.cmd.colorscheme, cs or '')
+local ok = cs and pcall(vim.cmd.colorscheme, cs)
 if not ok then vim.cmd [[colo kanagawa]] end
 
 require 'config.keymaps'
