@@ -36,6 +36,12 @@ for _, spec in ipairs(specs) do
   if type(spec.event) == 'string' then
     spec.event = { spec.event }
   end
+  if type(spec.cmd) == 'string' then
+    spec.cmd = { spec.cmd }
+  end
+  if type(spec.ft) == 'string' then
+    spec.ft = { spec.ft }
+  end
   if spec.enabled ~= nil and not spec.enabled then
     pcall(vim.pack.del, { spec.name })
   else

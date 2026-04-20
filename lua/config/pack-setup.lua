@@ -1,7 +1,7 @@
 local M = {}
 
-M.mod_to_spec = {}
-M.specs = {}
+M.mod_to_spec = {} ---@type PackSpec[]
+M.specs = {} ---@type table<string, PackSpec>
 M.loaded = {}
 M.proxies = {}
 
@@ -54,7 +54,7 @@ function M.proxy(modname)
   return p
 end
 
----@param x table|string
+---@param x PackSpec|string
 function M.make_name(x)
   if type(x) == 'table' then
     return x.name or vim.split(x[1], '/')[2]
@@ -64,7 +64,7 @@ function M.make_name(x)
   vim.notify('Invalid argument to make_name: ' .. tostring(x), log.ERROR)
 end
 
----@param x table|string
+---@param x PackSpec|string
 function M.get_opts(x)
   local name
   if type(x) == 'table' then
@@ -75,7 +75,7 @@ function M.get_opts(x)
     name = 'invalid'
   end
 
-  local spec
+  local spec ---@type PackSpec?
   if type(x) == 'table' then
     spec = x
   elseif type(x) == 'string' then
@@ -86,7 +86,9 @@ function M.get_opts(x)
     return {}
   end
 
-  if spec._opts then return spec._opts end
+  if spec._opts then
+    return spec._opts ---@type table
+  end
 
   local opts = spec.opts or {}
   if type(opts) == 'function' then
@@ -102,7 +104,7 @@ function M.get_opts(x)
   return opts
 end
 
----@param spec table
+---@param spec PackSpec
 function M.run_setup(spec)
   local opts = M.get_opts(spec)
   local config = spec.config
@@ -130,7 +132,7 @@ function M.run_setup(spec)
   end
 end
 
----@param spec table
+---@param spec PackSpec
 function M.load_plugin(spec)
   if not spec or M.loaded[spec.name] then return end
 
@@ -154,7 +156,7 @@ function M.load_plugin(spec)
   M.run_setup(spec)
 end
 
----@param spec table
+---@param spec PackSpec
 ---@param is_dep boolean?
 function M.add(spec, is_dep)
   local enabled = spec.enabled
@@ -222,7 +224,7 @@ function M.add(spec, is_dep)
   end
 end
 
----@param spec table
+---@param spec PackSpec
 function M.on_ft(spec)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = spec.ft,
@@ -233,14 +235,12 @@ function M.on_ft(spec)
   })
 end
 
----@param spec table
+---@param spec PackSpec
 function M.on_ev(spec)
-  local events = type(spec.event) == 'string' and { spec.event } or spec.event
-  for _, e in ipairs(events) do
+  for _, e in ipairs(spec.event) do
     local p
     if e == 'VeryLazy' then
-      e = 'User'
-      p = 'VeryLazy'
+      e, p = 'User', 'VeryLazy'
     end
     vim.api.nvim_create_autocmd(e, {
       pattern = p,
@@ -252,7 +252,7 @@ function M.on_ev(spec)
   end
 end
 
----@param spec table
+---@param spec PackSpec
 function M.on_key(spec)
   for _, key in ipairs(spec.keys) do
     local lhs = key[1]
@@ -279,7 +279,7 @@ function M.on_key(spec)
 end
 
 -- TODO: fix this function
----@param spec table
+---@param spec PackSpec
 function M.on_cmd(spec)
   for _, cmd in ipairs(spec.cmd) do
     vim.api.nvim_create_user_command(cmd, function(opts)
@@ -297,7 +297,7 @@ function M.on_cmd(spec)
   end
 end
 
----@param spec table
+---@param spec PackSpec
 function M.register(spec)
   M.add(spec)
 
