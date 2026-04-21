@@ -18,7 +18,9 @@ require 'config.autocmds'
 local default = 'kanagawa'
 -- local override = 'catppuccin'
 local cs = override or default
-Pack.load_plugin(Pack.mod_to_spec[cs])
+if pack_mode then
+  Pack.load_plugin(Pack.mod_to_spec[cs])
+end
 vim.cmd.colo(cs)
 
 require 'config.keymaps'

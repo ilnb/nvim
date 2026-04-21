@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 -- enable snacks indent guides for new files
 vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function()
-    local ok, idt = pcall(Pack.proxy, 'snacks.indent')
+    local ok, idt = pcall(require, 'snacks.indent')
     if ok then
       idt.enable()
     end
