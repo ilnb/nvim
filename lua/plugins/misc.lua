@@ -1,6 +1,7 @@
 return {
   {
     'echasnovski/mini.surround',
+    event = { 'BufNew', 'BufNewFile', 'BufReadPost' },
     keys = {
       { 'gsa', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
       { 'gsd', desc = 'Delete Surrounding' },

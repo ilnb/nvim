@@ -2,7 +2,7 @@ return {
   {
     'nvim-mini/mini.surround',
     modname = 'mini.surround',
-    event = { 'BufNewFile', 'BufReadPost' },
+    event = { 'BufNew', 'BufNewFile', 'BufReadPost' },
     keys = {
       { 'gsa', '', desc = 'Add Surrounding',       mode = { 'n', 'v' } },
       { 'gsd', '', desc = 'Delete Surrounding' },
