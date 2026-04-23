@@ -3,6 +3,9 @@ return {
     'saghen/blink.cmp',
     build = 'cargo build --release',
     dependencies = {
+      {
+        'saghen/blink.lib'
+      },
       -- {
       --   'archie-judd/blink-cmp-words',
       --   event = 'InsertEnter',
@@ -14,6 +17,9 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      fuzzy = {
+        implementation = 'prefer_rust_with_warning',
+      },
       appearance = {
         kind_icons = NeoVim.icons.kind,
       },

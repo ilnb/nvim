@@ -3,10 +3,13 @@ return {
     'saghen/blink.cmp',
     modname = 'blink.cmp',
     deps = {
+      {
+        'saghen/blink.lib'
+      },
       -- {
       --   'archie-judd/blink-cmp-words',
       --   event = 'InsertEnter',
-      -- }
+      -- },
     },
 
     event = { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' },
@@ -14,6 +17,9 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      fuzzy = {
+        implementation = 'prefer_rust_with_warning',
+      },
       appearance = {
         kind_icons = NeoVim.icons.kind,
       },
@@ -43,8 +49,8 @@ return {
           auto_show = true,
           border = 'rounded',
           draw = {
-            treesitter = { 'lsp' },
-            padding = { 0, 1 },
+            treesitter = { 'markdown' },
+            padding = 1,
             components = {
               source_name = {
                 width = { fill = true },

@@ -1,5 +1,42 @@
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
+local builds = {
+  ['nvim-treesitter'] = function(ev)
+    if not ev.data.active then
+      vim.cmd.packadd 'nvim-treesitter'
+    end
+    vim.cmd 'TSUpdate'
+  end,
+}
+
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name = ev.data.spec.name
+    local kind = ev.data.kind
+    if kind == 'install' or kind == 'update' then
+      local fn = builds[name]
+      if fn then
+        fn(ev)
+      end
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function() end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy' })
+    end)
+  end
+})
+
+vim.keymap.set('n', '<leader>L', Pack.update, { desc = 'Pack update', silent = true })
+
 local log = vim.log.levels
 
 local specs = {}
@@ -48,61 +85,3 @@ for _, spec in ipairs(specs) do
     Pack.register(spec)
   end
 end
-
-local builds = {
-  ['nvim-treesitter'] = function(ev)
-    if not ev.data.active then
-      vim.cmd.packadd 'nvim-treesitter'
-    end
-    vim.cmd 'TSUpdate'
-  end,
-
-  ['blink.cmp'] = function(ev)
-    local res = vim.system(
-      { 'cargo', 'build', '--release' },
-      { cwd = ev.data.path }
-    ):wait()
-
-    if res.code ~= 0 then
-      vim.schedule(function()
-        vim.notify('Blink build failed', log.ERROR)
-      end)
-    else
-      vim.notify('Blink build successful!', log.INFO);
-    end
-  end,
-}
-
-vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    local name = ev.data.spec.name
-    local kind = ev.data.kind
-    if kind == 'install' or kind == 'update' then
-      local fn = builds[name]
-      if fn then
-        fn(ev)
-      end
-    end
-  end,
-})
-
-local plugin_path = vim.fn.stdpath 'data' .. '/site/pack/core/opt/blink.cmp'
-local binary = plugin_path .. '/target/release/libblink_cmp_fuzzy.so'
-if vim.fn.filereadable(binary) == 0 then
-  builds['blink.cmp'] { data = { path = plugin_path } }
-end
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'VeryLazy',
-  callback = function() end,
-})
-
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.schedule(function()
-      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy' })
-    end)
-  end
-})
-
-vim.keymap.set('n', '<leader>L', Pack.update, { desc = 'Pack update', silent = true })
