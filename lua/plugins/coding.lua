@@ -48,8 +48,8 @@ return {
           auto_show = true,
           border = 'rounded',
           draw = {
-            treesitter = { 'lsp' },
-            padding = { 0, 1 },
+            treesitter = { 'markdown' },
+            padding = 1,
             components = {
               source_name = {
                 width = { fill = true },

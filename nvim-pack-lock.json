@@ -1,8 +1,12 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "90d14caca4ae557665ab105080c27d5f289a2e30",
+      "rev": "959bbf79a40403f07d64cfc847b9ab6eaf95c77c",
       "src": "https://github.com/saghen/blink.cmp"
+    },
+    "blink.lib": {
+      "rev": "4b9a304a1d715c180c8a0d1db7b76a8c6868ed8f",
+      "src": "https://github.com/saghen/blink.lib"
     },
     "catppuccin": {
       "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",
@@ -13,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "423533df25c6cbc0f908676760517662996437c7",
+      "rev": "8223eb24a7adf72c4b24e04b751486b492775414",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -101,7 +105,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "ffbef01037fa2a60415c67b8926921a5dcadd63d",
+      "rev": "7900cb362b92ed31c632919d49d927f950ebc557",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {
