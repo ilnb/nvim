@@ -1,5 +1,18 @@
 local log = vim.log.levels
 
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function() end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy' })
+    end)
+  end
+})
+
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
 local builds = {
@@ -39,19 +52,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
       end
     end)
   end,
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'VeryLazy',
-  callback = function() end,
-})
-
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.schedule(function()
-      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy' })
-    end)
-  end
 })
 
 vim.keymap.set('n', '<leader>L', Pack.update, { desc = 'Pack update', silent = true })
