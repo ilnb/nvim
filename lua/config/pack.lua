@@ -1,24 +1,43 @@
+local log = vim.log.levels
+
 vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
 
 local builds = {
+  ---@param ev vim.api.keyset.create_autocmd.callback_args
   ['nvim-treesitter'] = function(ev)
     if not ev.data.active then
       vim.cmd.packadd 'nvim-treesitter'
     end
     vim.cmd 'TSUpdate'
   end,
+
+  ---@param ev vim.api.keyset.create_autocmd.callback_args
+  ['blink.cmp'] = function(ev)
+    vim.pack.add({ 'saghen/blink.lib', 'saghen/blink.cmp' })
+    local cmp = require('blink.cmp')
+    cmp.build():map(function() ---@diagnostic disable-line
+      vim.api.nvim_create_autocmd('UIEnter', {
+        once = true,
+        callback = function()
+          vim.notify('blink.cmp: Build successful', log.INFO)
+        end
+      })
+    end)
+  end,
 }
 
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
-    local name = ev.data.spec.name
-    local kind = ev.data.kind
-    if kind == 'install' or kind == 'update' then
-      local fn = builds[name]
-      if fn then
-        fn(ev)
+    vim.schedule(function()
+      local name = ev.data.spec.name
+      local kind = ev.data.kind
+      if kind == 'install' or kind == 'update' then
+        local fn = builds[name]
+        if fn then
+          fn(ev)
+        end
       end
-    end
+    end)
   end,
 })
 
@@ -36,8 +55,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 vim.keymap.set('n', '<leader>L', Pack.update, { desc = 'Pack update', silent = true })
-
-local log = vim.log.levels
 
 local specs = {}
 

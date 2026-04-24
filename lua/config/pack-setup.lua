@@ -230,7 +230,7 @@ function M.on_ft(spec)
     pattern = spec.ft,
     once = true,
     callback = function()
-      M.load_plugin(spec)
+      vim.schedule(function() M.load_plugin(spec) end)
     end
   })
 end
@@ -246,7 +246,7 @@ function M.on_ev(spec)
       pattern = p,
       once = true,
       callback = function()
-        M.load_plugin(spec)
+        vim.schedule(function() M.load_plugin(spec) end)
       end
     })
   end
