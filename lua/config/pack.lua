@@ -26,16 +26,18 @@ local builds = {
 
   ---@param ev vim.api.keyset.create_autocmd.callback_args
   ['blink.cmp'] = function(ev)
-    vim.pack.add({ 'saghen/blink.lib', 'saghen/blink.cmp' })
-    local cmp = require('blink.cmp')
-    cmp.build():map(function() ---@diagnostic disable-line
-      vim.api.nvim_create_autocmd('UIEnter', {
-        once = true,
-        callback = function()
-          vim.notify('blink.cmp: Build successful', log.INFO)
-        end
-      })
-    end)
+    if not ev.data.active then
+      vim.pack.add { 'saghen/blink.lib', 'saghen/blink.cmp' }
+    end
+    vim.api.nvim_create_autocmd('UIEnter', {
+      once = true,
+      callback = function()
+        -- defer for build notif
+        vim.defer_fn(function()
+          require 'blink.cmp'.build()
+        end, 50)
+      end
+    })
   end,
 }
 
