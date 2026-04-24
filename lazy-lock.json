@@ -1,6 +1,6 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "fd0fe1ad450a407be34d18642784c71d3ee48d19" },
-  "blink.lib": { "branch": "main", "commit": "1c9dfb261b8be35f689c6d83dfd3e92b7f59ecf8" },
+  "blink.cmp": { "branch": "main", "commit": "136acdc2fee92d3d20a6b1a6b35ed84e3fd7447f" },
+  "blink.lib": { "branch": "main", "commit": "e0492a3bbea9aac4c9f6b79d6699e15695f37322" },
   "catppuccin": { "branch": "main", "commit": "426dbebe06b5c69fd846ceb17b42e12f890aedf1" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
   "fzf-lua": { "branch": "main", "commit": "ffa44ee9470743a7697d28df3a1a216fdfe2b09d" },

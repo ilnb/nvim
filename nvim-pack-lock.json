@@ -1,11 +1,11 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "fd0fe1ad450a407be34d18642784c71d3ee48d19",
+      "rev": "0a4caef5829b88fb914e5d82196903aac3d57a69",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "1c9dfb261b8be35f689c6d83dfd3e92b7f59ecf8",
+      "rev": "a9fd427dc45e38cd32b41d5e0a2432b510827f13",
       "src": "https://github.com/saghen/blink.lib"
     },
     "catppuccin": {
