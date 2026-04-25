@@ -9,7 +9,7 @@ return {
       { '<leader>:',  ':FzfLua command_history<cr>',                          desc = 'Command history',          mode = { 'n', 'v', 'x' }, silent = true },
       { '<leader>F',  ':FzfLua<cr>',                                          desc = 'FzfLua',                   silent = true },
       { '<leader>fb', ':FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers',                  silent = true },
-      { '<leader>ff', function() require 'fzf-lua'.files() end,               desc = 'Files (cwd)',              silent = true },
+      { '<leader>ff', ':FzfLua files<cr>',                                    desc = 'Files (cwd)',              silent = true },
       { '<leader>fg', ':FzfLua git_files<cr>',                                desc = 'Files (git-files)',        silent = true },
       { '<leader>fh', ':e ~/.zsh_history<cr>',                                desc = 'Terminal history',         silent = true },
       { '<leader>fr', ':FzfLua oldfiles<cr>',                                 desc = 'Old files',                silent = true },
