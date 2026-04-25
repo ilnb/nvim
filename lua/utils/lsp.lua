@@ -166,7 +166,7 @@ M.on_attach = function(client, buffer)
         if #args == 0 then
           server, fts = k, v
         else
-          server = v; fts = servers[server]
+          server = v; fts = servers[server].ft
         end
         if fts and vim.tbl_contains(fts, ft) then
           NeoVim.lsp.start(server)
@@ -193,8 +193,8 @@ M.on_attach = function(client, buffer)
         cl:stop(true)
       end
 
-      for server, fts in pairs(servers) do
-        if vim.tbl_contains(fts, ft) then
+      for server, v in pairs(servers) do
+        if vim.tbl_contains(v.ft, ft) then
           NeoVim.lsp.start(server)
         end
       end

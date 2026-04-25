@@ -77,17 +77,17 @@ NeoVim.snippets = {
 
 NeoVim.lsp = {
   servers = {
-    asm_lsp       = { 'asm' },
-    basedpyright  = { 'python' },
-    -- ccls         = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    clangd        = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    gopls         = { 'go' },
-    -- pyright = { 'python' },
-    lua_ls        = { 'lua', 'nvim-pack' },
-    nimlangserver = { 'nim' },
-    ['serve-d']   = { 'd' },
-    qmlls6        = { 'qml', 'qmljs' },
-    zls           = { 'zig' },
+    asm_lsp       = { ft = { 'asm' } },
+    basedpyright  = { ft = { 'python' } },
+    -- ccls         = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    clangd        = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    gopls         = { ft = { 'go' } },
+    -- pyright = { ft = { 'python' } },
+    lua_ls        = { ft = { 'lua', 'nvim-pack' } },
+    nimlangserver = { ft = { 'nim' } },
+    ['serve-d']   = { ft = { 'd' } },
+    qmlls6        = { ft = { 'qml', 'qmljs' } },
+    zls           = { ft = { 'zig' } },
   },
 
   ft = {
@@ -104,14 +104,18 @@ NeoVim.lsp = {
 
   ---@param server string
   start = function(server)
-    local ok, cfg = pcall(require, 'lsp.' .. server)
-    cfg = ok and cfg or {}
-    cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
-    cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
-    cfg.name = server
-    cfg.root_markers = cfg.root_markers or { '.git' }
-    cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
-        or vim.fn.getcwd()
-    vim.lsp.start(cfg)
+    local t = NeoVim.lsp.servers[server]
+    if not t.opts then
+      local ok, cfg = pcall(require, 'lsp.' .. server)
+      cfg = ok and cfg or {}
+      cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
+      cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
+      cfg.name = server
+      cfg.root_markers = cfg.root_markers or { '.git' }
+      cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
+          or vim.fn.getcwd()
+      t.opts = cfg
+    end
+    vim.lsp.start(t.opts)
   end
 }
