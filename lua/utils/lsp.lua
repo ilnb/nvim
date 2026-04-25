@@ -116,9 +116,12 @@ M.on_attach = function(client, buffer)
     }, buffer)
   end
 
-  local servers = require 'lsp'
-  if not vim.api.nvim_get_commands {}.LspStop then
-    vim.api.nvim_create_user_command('LspStop', function(opts)
+  local servers = NeoVim.lsp.servers
+  local cmds = vim.api.nvim_get_commands {}
+  local create_cmd = vim.api.nvim_create_user_command
+
+  if not cmds.LspStop then
+    create_cmd('LspStop', function(opts)
       local args = {}
       if opts.args ~= '' then
         for name in string.gmatch(opts.args, '%S+') do
@@ -146,8 +149,8 @@ M.on_attach = function(client, buffer)
     })
   end
 
-  if not vim.api.nvim_get_commands {}.LspStart then
-    vim.api.nvim_create_user_command('LspStart', function(opts)
+  if not cmds.LspStart then
+    create_cmd('LspStart', function(opts)
       local args = {}
       if opts.args ~= '' then
         for name in string.gmatch(opts.args, '%S+') do
@@ -161,21 +164,12 @@ M.on_attach = function(client, buffer)
       for k, v in pairs(tbl) do
         local fts, server
         if #args == 0 then
-          server = k; fts = v
+          server, fts = k, v
         else
           server = v; fts = servers[server]
         end
         if fts and vim.tbl_contains(fts, ft) then
-          local ok, cfg = pcall(require, 'lsp.' .. server)
-          cfg = ok and cfg or {}
-          cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
-          cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
-          cfg.name = server
-          cfg.root_markers = cfg.root_markers or { '.git' }
-          cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
-              or vim.fn.getcwd()
-
-          vim.lsp.start(cfg)
+          NeoVim.lsp.start(server)
         end
       end
     end, {
@@ -190,8 +184,8 @@ M.on_attach = function(client, buffer)
     })
   end
 
-  if not vim.api.nvim_get_commands {}.LspRestart then
-    vim.api.nvim_create_user_command('LspRestart', function()
+  if not cmds.LspRestart then
+    create_cmd('LspRestart', function()
       local ft = vim.bo.filetype
       local clients = vim.lsp.get_clients { bufnr = 0 }
 
@@ -201,16 +195,7 @@ M.on_attach = function(client, buffer)
 
       for server, fts in pairs(servers) do
         if vim.tbl_contains(fts, ft) then
-          local ok, cfg = pcall(require, 'lsp.' .. server)
-          cfg = ok and cfg or {}
-          cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
-          cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
-          cfg.name = server
-          cfg.root_markers = cfg.root_markers or { '.git' }
-          cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
-              or vim.fn.getcwd()
-
-          vim.lsp.start(cfg)
+          NeoVim.lsp.start(server)
         end
       end
     end, { nargs = 0 })
