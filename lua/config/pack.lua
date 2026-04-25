@@ -13,8 +13,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end
 })
 
-vim.opt.packpath:prepend(vim.fn.stdpath 'data' .. '/site')
-
 local builds = {
   ---@param ev vim.api.keyset.create_autocmd.callback_args
   ['nvim-treesitter'] = function(ev)

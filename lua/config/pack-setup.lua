@@ -132,6 +132,11 @@ function M.run_setup(spec)
   end
 end
 
+---@param plugin string
+function M.load(plugin)
+  M.load_plugin(M.mod_to_spec[plugin])
+end
+
 ---@param spec PackSpec
 function M.load_plugin(spec)
   if not spec or M.loaded[spec.name] then return end

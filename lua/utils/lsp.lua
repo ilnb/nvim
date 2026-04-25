@@ -3,20 +3,8 @@ local M = {}
 ---@alias lsp.Client.filter {id?: number, bufnr?: number, name?: string, method?: string, filter?:fun(client: vim.lsp.Client):boolean}
 ---@param opts? lsp.Client.filter
 function M.get_clients(opts)
-  local ret = {} ---@type vim.lsp.Client[]
-  if vim.lsp.get_clients then
-    ret = vim.lsp.get_clients(opts)
-  else
-    ---@diagnostic disable-next-line: deprecated
-    ret = vim.lsp.get_active_clients(opts)
-    if opts and opts.method then
-      ---@param client vim.lsp.Client
-      ret = vim.tbl_filter(function(client)
-        return client:supports_method(opts.method, opts.bufnr)
-      end, ret)
-    end
-  end
-  return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
+  local clients = vim.lsp.get_clients(opts)
+  return opts and opts.filter and vim.tbl_filter(opts.filter, clients) or clients
 end
 
 ---@param client vim.lsp.Client
@@ -36,29 +24,38 @@ M.on_attach = function(client, buffer)
     pcall(vim.keymap.del, mode, key)
   end
 
-  map('gd', function() require 'fzf-lua'.lsp_definitions() end, 'Goto Definition')
-  map('K', function() vim.lsp.buf.hover() end, 'Hover')
-  map('<leader>la', function() vim.lsp.buf.code_action() end, 'Code Action')
-  map('<leader>lr', function() vim.lsp.buf.rename() end, 'Rename')
-  map('<leader>lf', function() vim.lsp.buf.format() end, 'Lsp Format')
-  map('<leader>ld', function() vim.diagnostic.open_float() end, 'Line Diagnostics')
-  map('<leader>ll', function() Snacks.picker.lsp_config() end, 'Lsp Info')
-  map('<leader>sd', function() require 'fzf-lua'.diagnostics_document() end, 'Document Diagnostics')
-  map('<leader>sD', function() require 'fzf-lua'.diagnostics_workspace() end, 'Workspace Diagnostics')
+  if not package.loaded['fzf-lua'] then
+    if NeoVim.pack_mode then
+      Pack.load 'fzf-lua'
+    else
+      require 'lazy'.load { plugins = { 'fzf-lua' } }
+    end
+  end
+
+  map('gd', FzfLua.lsp_definitions, 'Goto Definition')
+  map('K', vim.lsp.buf.hover, 'Hover')
+  map('<leader>la', vim.lsp.buf.code_action, 'Code Action')
+  map('<leader>lr', vim.lsp.buf.rename, 'Rename')
+  map('<leader>lf', vim.lsp.buf.format, 'Lsp Format')
+  map('<leader>ld', vim.diagnostic.open_float, 'Line Diagnostics')
+  map('<leader>ll', Snacks.picker.lsp_config, 'Lsp Info')
+  map('<leader>sd', FzfLua.diagnostics_document, 'Document Diagnostics')
+  map('<leader>sD', FzfLua.diagnostics_workspace, 'Workspace Diagnostics')
   del('n', '[d')
   del('n', ']d')
   map({ 'n', 'v' }, '[d', function() vim.diagnostic.jump { count = -1, float = false } end, 'Previous Diagnostic')
   map({ 'n', 'v' }, ']d', function() vim.diagnostic.jump { count = 1, float = false } end, 'Next Diagnostic')
-  map({ 'n', 'v' }, '[e', function() vim.diagnostic.jump { count = -1, float = false, severity = 'ERROR' } end,
+  local sv = vim.diagnostic.severity
+  map({ 'n', 'v' }, '[e', function() vim.diagnostic.jump { count = -1, float = false, severity = sv.ERROR } end,
     'Previous Error')
-  map({ 'n', 'v' }, ']e', function() vim.diagnostic.jump { count = 1, float = false, severity = 'ERROR' } end,
+  map({ 'n', 'v' }, ']e', function() vim.diagnostic.jump { count = 1, float = false, severity = sv.ERROR } end,
     'Next Error')
   local filter = require 'utils.plugins'.symbols_filter
   map('<leader>ss', function()
-    require 'fzf-lua'.lsp_document_symbols { regex_filter = filter }
+    FzfLua.lsp_document_symbols { regex_filter = filter }
   end, 'Goto Symbol')
   map('<leader>sS', function()
-    require 'fzf-lua'.lsp_live_workspace_symbols { regex_filter = filter }
+    FzfLua.lsp_live_workspace_symbols { regex_filter = filter }
   end, 'Goto Symbol')
   map('[[', function() Snacks.words.jump(-vim.v.count1) end, 'Prev Reference')
   map(']]', function() Snacks.words.jump(vim.v.count1) end, 'Next Reference')
