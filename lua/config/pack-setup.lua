@@ -274,7 +274,6 @@ function M.on_key(spec)
   end
 end
 
--- TODO: fix this function
 ---@param spec PackSpec
 function M.on_cmd(spec)
   for _, cmd in ipairs(spec.cmd) do
@@ -306,9 +305,9 @@ function M.register(spec)
   if spec.ft then
     M.on_ft(spec)
   end
-  -- if spec.cmd then
-  --   M.on_cmd(spec)
-  -- end
+  if spec.cmd then
+    M.on_cmd(spec)
+  end
 end
 
 ---@param path string
