@@ -34,7 +34,7 @@ NeoVim.icons = {
     String        = ' ',
     Struct        = '󰆼 ',
     Supermaven    = ' ',
-    Text          = '󰉿 ', -- 
+    Text          = ' ', -- 󰉿
     TypeParameter = ' ',
     Unit          = ' ',
     Value         = ' ',
@@ -89,6 +89,7 @@ NeoVim.lsp = {
     qmlls6        = { 'qml', 'qmljs' },
     zls           = { 'zig' },
   },
+
   ft = {
     'asm',
     'python',
@@ -100,6 +101,7 @@ NeoVim.lsp = {
     'qml', 'qmljs',
     'zig',
   },
+
   ---@param server string
   start = function(server)
     local ok, cfg = pcall(require, 'lsp.' .. server)
@@ -110,7 +112,6 @@ NeoVim.lsp = {
     cfg.root_markers = cfg.root_markers or { '.git' }
     cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
         or vim.fn.getcwd()
-
     vim.lsp.start(cfg)
   end
 }
