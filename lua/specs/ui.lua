@@ -29,7 +29,7 @@ local function get_startup_entry()
   for _ in pairs(Pack.loaded) do count = count + 1 end
   return {
     align = 'center',
-    text = { '⚡ Neovim loaded ' .. tostring(count) .. '/' .. tostring(total) .. ' plugins', hl = 'footer' },
+    text = { '⚡ Neovim loaded ' .. count .. '/' .. total .. ' plugins', hl = 'footer' },
     padding = 1,
   }
 end

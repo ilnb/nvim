@@ -210,7 +210,7 @@ M.on_attach = function(client, buffer)
           cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
           cfg.name = server
           cfg.root_markers = cfg.root_markers or { '.git' }
-          cfg.root_dir = require('utils.plugins').root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
+          cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
               or vim.fn.getcwd()
 
           vim.lsp.start(cfg)

@@ -1,11 +1,11 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "0a4caef5829b88fb914e5d82196903aac3d57a69",
+      "rev": "e1dbca9ea1d8dc7a83e27a52bbd990bd717e54a6",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "a9fd427dc45e38cd32b41d5e0a2432b510827f13",
+      "rev": "dda2666685a5ac3598166577d2e34f1fff6b1637",
       "src": "https://github.com/saghen/blink.lib"
     },
     "catppuccin": {
@@ -49,7 +49,7 @@
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
-      "rev": "e8db416c9f5dbce70f5501da28263d45c0a4df6b",
+      "rev": "34299f5dc9433b3e2f8efd316fff70982d4e0072",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
