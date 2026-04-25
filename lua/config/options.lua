@@ -39,6 +39,7 @@ opt.listchars = {
   tab = '> ',
   nbsp = '+'
 }
+opt.loadplugins = false   -- dont load plugin/ files
 opt.mouse = 'a'           -- Enable mouse mode
 opt.mousescroll = 'ver:' .. (string.find(vim.uv.os_getenv 'TERM' or '', 'ghostty') and 1 or 3)
 opt.number = true         -- Print line number

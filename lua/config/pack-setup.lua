@@ -146,6 +146,8 @@ function M.load_plugin(spec)
     end
   end
 
+  vim.cmd.packadd(spec.name)
+
   M.loaded[spec.name] = true
   M.run_setup(spec)
 end
