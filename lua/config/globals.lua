@@ -94,7 +94,7 @@ NeoVim.lsp = {
     'python',
     'c', 'cpp', 'objc', 'objcpp', 'cuda',
     'go',
-    'lua',
+    'lua', 'nvim-pack',
     'nim',
     'd',
     'qml', 'qmljs',

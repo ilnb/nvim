@@ -1,6 +1,7 @@
 return {
   {
     'SmiteshP/nvim-navic',
+    ft = NeoVim.lsp.ft,
 
     opts = {
       separator = ' ',
@@ -22,9 +23,9 @@ return {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         { path = 'snacks.nvim',        words = { 'Snacks', 'snacks.nvim' } },
+        { path = 'fzf-lua',            words = { 'FzfLua', 'fzf-lua' } },
         { path = 'wezterm-types',      words = { 'wezterm' } },
         { path = 'tokyonight.nvim',    words = { 'tokyonight.nvim' } },
-        { path = 'wisteria.nvim',      words = { 'Wisteria', 'wisteria.nvim' } },
       },
     },
   },

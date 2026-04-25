@@ -9,7 +9,7 @@ return {
       { '<leader>:',  ':FzfLua command_history<cr>',                          desc = 'Command history',          mode = { 'n', 'v', 'x' }, silent = true },
       { '<leader>F',  ':FzfLua<cr>',                                          desc = 'FzfLua',                   silent = true },
       { '<leader>fb', ':FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers',                  silent = true },
-      { '<leader>ff', function() Pack.proxy 'fzf-lua'.files() end,            desc = 'Files (cwd)',              silent = true },
+      { '<leader>ff', function() require 'fzf-lua'.files() end,               desc = 'Files (cwd)',              silent = true },
       { '<leader>fg', ':FzfLua git_files<cr>',                                desc = 'Files (git-files)',        silent = true },
       { '<leader>fh', ':e ~/.zsh_history<cr>',                                desc = 'Terminal history',         silent = true },
       { '<leader>fr', ':FzfLua oldfiles<cr>',                                 desc = 'Old files',                silent = true },
@@ -34,8 +34,8 @@ return {
         '<leader>sg',
         function()
           local mode = vim.api.nvim_get_mode().mode
-          local opt = { cwd = Pack.proxy 'utils.plugins'.get_root() }
-          Pack.proxy 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
+          local opt = { cwd = require 'utils.plugins'.get_root() }
+          FzfLua[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
         end,
         desc = 'Grep (root dir)',
         mode = { 'n', 'v' },
@@ -47,7 +47,7 @@ return {
         function()
           local mode = vim.api.nvim_get_mode().mode
           local opt = { cwd = vim.uv.cwd() }
-          Pack.proxy 'fzf-lua'[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
+          FzfLua[mode:match '[vV\022]' and 'grep_visual' or 'live_grep'](opt)
         end,
         desc = 'Grep (cwd)',
         mode = { 'n', 'v' },
@@ -57,7 +57,7 @@ return {
       {
         '<leader><space>',
         function()
-          Pack.proxy 'fzf-lua'.files { cwd = Pack.proxy 'utils.plugins'.get_root() }
+          FzfLua.files { cwd = require 'utils.plugins'.get_root() }
         end,
         desc = 'Files (root dir)',
         silent = true,
@@ -66,13 +66,13 @@ return {
       {
         '<leader>fc',
         function()
-          Pack.proxy 'fzf-lua'.files {
+          FzfLua.files {
             cwd = vim.fn.stdpath 'config',
             actions = {
               default = function(selected, opts)
                 if selected and #selected > 0 then
                   vim.cmd('tcd' .. vim.fn.stdpath 'config')
-                  Pack.proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
+                  FzfLua.actions.file_edit_or_qf(selected, opts)
                 end
               end
             }
