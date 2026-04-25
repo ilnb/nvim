@@ -146,12 +146,6 @@ function M.load_plugin(spec)
     end
   end
 
-  local ok, _ = pcall(vim.cmd.packadd, spec.name)
-  if not ok then
-    vim.notify('Failed to packadd ' .. spec.name, log.ERROR)
-    return
-  end
-
   M.loaded[spec.name] = true
   M.run_setup(spec)
 end
