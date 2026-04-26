@@ -27,15 +27,21 @@ local builds = {
     if not ev.data.active then
       vim.pack.add { 'saghen/blink.lib', 'saghen/blink.cmp' }
     end
-    vim.api.nvim_create_autocmd('UIEnter', {
-      once = true,
-      callback = function()
-        -- defer for build notif
-        vim.defer_fn(function()
-          require 'blink.cmp'.build()
-        end, 50)
-      end
-    })
+
+    local build_fn = function()
+      vim.defer_fn(function()
+        require 'blink.cmp'.build()
+      end, 50)
+    end
+
+    if vim.v.vim_did_enter == 1 then
+      build_fn()
+    else
+      vim.api.nvim_create_autocmd('UIEnter', {
+        once = true,
+        callback = build_fn
+      })
+    end
   end,
 }
 
