@@ -277,7 +277,7 @@ return {
         'markdown', 'markdown_inline', 'python',
         'query', 'regex', 'toml', 'typescript',
         'typst', 'vim', 'vimdoc', 'xml', 'yaml',
-        'zig', 'desktop',
+        'zig', 'desktop', 'd', 'zsh',
       },
     },
     config = function(_, opts)
@@ -376,10 +376,6 @@ return {
         },
       }
     end
-  },
-
-  {
-    'ray-x/lsp_signature.nvim',
   },
 
 }

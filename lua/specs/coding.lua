@@ -274,7 +274,7 @@ return {
         'markdown', 'markdown_inline', 'python',
         'query', 'regex', 'toml', 'typescript',
         'typst', 'vim', 'vimdoc', 'xml', 'yaml',
-        'zig', 'desktop', 'd'
+        'zig', 'desktop', 'd', 'zsh',
       },
     },
     config = function(opts)
@@ -374,12 +374,6 @@ return {
         },
       }
     end
-  },
-
-  {
-    'ray-x/lsp_signature.nvim',
-    ft = NeoVim.lsp.ft,
-    modname = 'lsp_signature',
   },
 
 }
