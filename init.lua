@@ -8,6 +8,7 @@ require 'config.options'
 
 if NeoVim.pack_mode then
   _G.Pack = require 'config.pack-setup'
+  require 'config.pack-stats'.init()
   require 'config.pack'
 else
   require 'config.lazy'
