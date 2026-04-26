@@ -23,7 +23,7 @@ local function set_entry(icon, desc, key, dir, select)
 end
 
 local function get_startup_entry()
-  local stats = require 'config.pack-stats'.stats()
+  local stats = Pack.stats
 
   local ms = stats.startuptime > 0
       and string.format(' in %.2fms', stats.startuptime)

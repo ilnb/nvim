@@ -1,3 +1,6 @@
+_G.Pack = require 'config.pack.setup'
+Pack.stats.init()
+
 local log = vim.log.levels
 
 vim.api.nvim_create_autocmd('User', {

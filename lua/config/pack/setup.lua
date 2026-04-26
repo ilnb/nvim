@@ -4,6 +4,7 @@ M.mod_to_spec = {} ---@type PackSpec[]
 M.specs = {} ---@type table<string, PackSpec>
 M.loaded = {}
 M.proxies = {}
+M.stats = require 'config.pack.stats'
 
 local log = vim.log.levels
 
@@ -179,7 +180,7 @@ function M.add(spec, is_dep)
   for _, d in ipairs(spec.deps or {}) do
     local t = type(d) == 'string' and { d } or d
     if not t or not t[1] then goto continue end
-    t.name = M.make_name(t)
+    t.name = t.name or M.make_name(t)
     table.insert(ndeps, t)
     M.add(t, true)
 
