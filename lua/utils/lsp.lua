@@ -33,7 +33,7 @@ M.on_attach = function(client, buffer)
   end
 
   map('gd', FzfLua.lsp_definitions, 'Goto Definition')
-  map('K', vim.lsp.buf.hover, 'Hover')
+  map('K', function() vim.lsp.buf.hover() end, 'Hover')
   map('<leader>la', vim.lsp.buf.code_action, 'Code Action')
   map('<leader>lr', vim.lsp.buf.rename, 'Rename')
   map('<leader>lf', vim.lsp.buf.format, 'Lsp Format')
