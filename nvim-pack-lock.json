@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "e1dbca9ea1d8dc7a83e27a52bbd990bd717e54a6",
+      "rev": "6f5538d0ac8a154a489036db4b8f0436a7a70771",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "1ae863c83e0823225b4e041845f10c918d5fb882",
+      "rev": "33321eba594f530e23a6b8970ba0b5fd695c8bba",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -31,10 +31,6 @@
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
-    },
-    "lsp_signature.nvim": {
-      "rev": "a65b38f260cc3470a05b4afb84c8d868617d476d",
-      "src": "https://github.com/ray-x/lsp_signature.nvim"
     },
     "lualine.nvim": {
       "rev": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c",
@@ -105,7 +101,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "7900cb362b92ed31c632919d49d927f950ebc557",
+      "rev": "520c6fabf8461d7df2e9b4cbddf8e06bc71368a4",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {

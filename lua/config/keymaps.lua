@@ -33,8 +33,9 @@ map('n', '<S-l>', ':bn<cr>', { desc = 'Next buffer', silent = true })
 map('n', '<leader>bb', ':e #<cr>', { desc = 'Switch to other buffer', silent = true })
 map('n', '<leader>bh', ':bp<cr>', { desc = 'Prev buffer', silent = true })
 map('n', '<leader>bl', ':bn<cr>', { desc = 'Next buffer', silent = true })
-map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer', silent = true })
-map('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers', silent = true })
+map('n', '<leader>bd', function() require 'snacks'.bufdelete() end, { desc = 'Delete buffer', silent = true })
+map('n', '<leader>bo', function() require 'snacks'.bufdelete.other() end,
+  { desc = 'Delete other buffers', silent = true })
 map('n', '<leader>bD', ':bd<cr>', { desc = 'Delete buffer and window', silent = true })
 
 -- Clear search highlight
@@ -82,27 +83,28 @@ map('n', 'gcO', 'O<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment ab
 map('n', '<leader>fn', ':enew<cr>', { desc = 'New File', silent = true })
 
 -- toggle options
-Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
-Snacks.toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
-Snacks.toggle.diagnostics():map '<leader>ud'
-Snacks.toggle.line_number():map '<leader>ul'
-Snacks.toggle.option('showtabline',
+require 'snacks'.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+require 'snacks'.toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
+require 'snacks'.toggle.diagnostics():map '<leader>ud'
+require 'snacks'.toggle.line_number():map '<leader>ul'
+require 'snacks'.toggle.option('showtabline',
   { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
     :map '<leader>uA'
-Snacks.toggle.treesitter():map '<leader>uT'
-Snacks.toggle.animate():map '<leader>ua'
-Snacks.toggle.indent():map '<leader>ug'
-Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
-Snacks.toggle.scroll():map '<leader>uS'
+require 'snacks'.toggle.treesitter():map '<leader>uT'
+require 'snacks'.toggle.animate():map '<leader>ua'
+require 'snacks'.toggle.indent():map '<leader>ug'
+require 'snacks'.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
+require 'snacks'.toggle.scroll():map '<leader>uS'
 
-map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git blame line', silent = true })
-map({ 'n', 'x' }, '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git browse (open)', silent = true })
+map('n', '<leader>gb', function() require 'snacks'.picker.git_log_line() end, { desc = 'Git blame line', silent = true })
+map({ 'n', 'x' }, '<leader>gB', function() require 'snacks'.gitbrowse() end,
+  { desc = 'Git browse (open)', silent = true })
 map({ 'n', 'x' }, '<leader>gY', function()
-  Snacks.gitbrowse { open = function(url) vim.fn.setreg('+', url) end, notify = false }
+  require 'snacks'.gitbrowse { open = function(url) vim.fn.setreg('+', url) end, notify = false }
 end, { desc = 'Git browse (copy)' })
 
 -- floating terminal
-map('n', '<leader>ft', function() Snacks.terminal() end, { desc = 'Terminal (cwd)', silent = true })
+map('n', '<leader>ft', function() require 'snacks'.terminal() end, { desc = 'Terminal (cwd)', silent = true })
 
 -- quit
 map('n', '<leader>qq', ':qa<cr>', { desc = 'Quit all', silent = true })

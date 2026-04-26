@@ -23,13 +23,19 @@ local function set_entry(icon, desc, key, dir, select)
 end
 
 local function get_startup_entry()
-  local total = 0
-  for _ in pairs(Pack.specs) do total = total + 1 end
-  local count = 0
-  for _ in pairs(Pack.loaded) do count = count + 1 end
+  local stats = require 'config.pack-stats'.stats()
+
+  local ms = stats.startuptime > 0
+      and string.format(' in %.2fms', stats.startuptime)
+      or ''
+
   return {
     align = 'center',
-    text = { '⚡ Neovim loaded ' .. count .. '/' .. total .. ' plugins', hl = 'footer' },
+    text = {
+      { '⚡ Neovim loaded ', hl = 'footer' },
+      { stats.loaded .. '/' .. stats.count, hl = 'special' },
+      { ' plugins' .. ms, hl = 'footer' },
+    },
     padding = 1,
   }
 end
