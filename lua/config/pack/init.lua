@@ -1,5 +1,6 @@
 _G.Pack = require 'config.pack.setup'
 Pack.stats.init()
+require 'config.pack.options'
 
 local log = vim.log.levels
 
@@ -111,3 +112,7 @@ for _, spec in ipairs(specs) do
     Pack.register(spec)
   end
 end
+
+local opt = vim.opt
+opt.loadplugins = false
+vim.g.editorconfig = false

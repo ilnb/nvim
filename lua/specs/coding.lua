@@ -274,7 +274,7 @@ return {
         'markdown', 'markdown_inline', 'python',
         'query', 'regex', 'toml', 'typescript',
         'typst', 'vim', 'vimdoc', 'xml', 'yaml',
-        'zig', 'desktop', 'd', 'zsh',
+        'zig', 'desktop', 'd',
       },
     },
     config = function(opts)
