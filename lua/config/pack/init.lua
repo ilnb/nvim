@@ -106,13 +106,9 @@ for _, spec in ipairs(specs) do
   if type(spec.ft) == 'string' then
     spec.ft = { spec.ft }
   end
-  if spec.enabled ~= nil and not spec.enabled then
+  if spec.enabled == false then
     pcall(vim.pack.del, { spec.name })
   else
     Pack.register(spec)
   end
 end
-
-local opt = vim.opt
-opt.loadplugins = false
-vim.g.editorconfig = false

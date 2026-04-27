@@ -17,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "33321eba594f530e23a6b8970ba0b5fd695c8bba",
+      "rev": "2e29d5f233defe3c5587df0e4dd29af2bd95a5a7",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {

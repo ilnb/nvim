@@ -163,7 +163,7 @@ end
 function M.add(spec, is_dep)
   local enabled = spec.enabled
 
-  if enabled ~= nil and not enabled then return end
+  if enabled == false then return end
   if not spec or not spec[1] then
     vim.notify('Found invalid spec', 3)
     return
@@ -180,7 +180,7 @@ function M.add(spec, is_dep)
   for _, d in ipairs(spec.deps or {}) do
     local t = type(d) == 'string' and { d } or d
     if not t or not t[1] then goto continue end
-    t.name = t.name or M.make_name(t)
+    t.name = M.make_name(t)
     table.insert(ndeps, t)
     M.add(t, true)
 
@@ -233,7 +233,7 @@ function M.on_ft(spec)
     pattern = spec.ft,
     once = true,
     callback = function()
-      vim.schedule(function() M.load_plugin(spec) end)
+      M.load_plugin(spec)
     end
   })
 end
@@ -249,7 +249,7 @@ function M.on_ev(spec)
       pattern = p,
       once = true,
       callback = function()
-        vim.schedule(function() M.load_plugin(spec) end)
+        M.load_plugin(spec)
       end
     })
   end
@@ -287,11 +287,9 @@ function M.on_cmd(spec)
     vim.api.nvim_create_user_command(cmd, function(opts)
       vim.api.nvim_del_user_command(cmd)
       M.load_plugin(spec)
-      vim.schedule(function()
-        local bang = opts.bang and '!' or ''
-        local args = opts.args or ''
-        vim.cmd(cmd .. bang .. ' ' .. args)
-      end)
+      local bang = opts.bang and '!' or ''
+      local args = opts.args or ''
+      vim.cmd(cmd .. bang .. ' ' .. args)
     end, {
       nargs = '*',
       bang = true,
@@ -303,18 +301,10 @@ end
 function M.register(spec)
   M.add(spec)
 
-  if spec.keys then
-    M.on_key(spec)
-  end
-  if spec.event then
-    M.on_ev(spec)
-  end
-  if spec.ft then
-    M.on_ft(spec)
-  end
-  if spec.cmd then
-    M.on_cmd(spec)
-  end
+  if spec.keys then M.on_key(spec) end
+  if spec.event then M.on_ev(spec) end
+  if spec.ft then M.on_ft(spec) end
+  if spec.cmd then M.on_cmd(spec) end
 end
 
 ---@param path string
@@ -449,7 +439,7 @@ function M.update()
 end
 
 vim.api.nvim_create_user_command('PackUpdate', function()
-  Pack.update()
+  vim.pack.update()
 end, {})
 
 return M
