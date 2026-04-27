@@ -395,8 +395,11 @@ return {
     },
 
     config = function(opts)
-      local notify = vim.notify
       require 'snacks'.setup(opts)
+      local notify = vim.notify
+      if package.loaded.noice then
+        vim.notify = notify
+      end
       -- toggle options
       local toggle = require 'snacks'.toggle
       toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
@@ -411,10 +414,6 @@ return {
       toggle.indent():map '<leader>ug'
       toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
       toggle.scroll():map '<leader>uS'
-
-      if package.loaded.noice then
-        vim.notify = notify
-      end
     end,
   },
 

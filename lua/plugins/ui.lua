@@ -383,11 +383,25 @@ return {
     },
 
     config = function(_, opts)
-      local notify = vim.notify
       require 'snacks'.setup(opts)
+      local notify = vim.notify
       if package.loaded['noice.nvim'] then
         vim.notify = notify
       end
+      local toggle = require 'snacks'.toggle
+      -- toggle options
+      toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+      toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
+      toggle.diagnostics():map '<leader>ud'
+      toggle.line_number():map '<leader>ul'
+      toggle.option('showtabline',
+        { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
+          :map '<leader>uA'
+      toggle.treesitter():map '<leader>uT'
+      toggle.animate():map '<leader>ua'
+      toggle.indent():map '<leader>ug'
+      toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
+      toggle.scroll():map '<leader>uS'
     end,
   },
 

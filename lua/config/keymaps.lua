@@ -82,22 +82,6 @@ map('n', 'gcO', 'O<esc>Vcx<esc>:normal gcc<cr>fxa<bs>', { desc = 'Add comment ab
 -- new file
 map('n', '<leader>fn', ':enew<cr>', { desc = 'New File', silent = true })
 
-if not NeoVim.pack_mode then
-  -- toggle options
-  require 'snacks'.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
-  require 'snacks'.toggle.option('relativenumber', { name = 'Relative number' }):map '<leader>uL'
-  require 'snacks'.toggle.diagnostics():map '<leader>ud'
-  require 'snacks'.toggle.line_number():map '<leader>ul'
-  require 'snacks'.toggle.option('showtabline',
-    { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
-      :map '<leader>uA'
-  require 'snacks'.toggle.treesitter():map '<leader>uT'
-  require 'snacks'.toggle.animate():map '<leader>ua'
-  require 'snacks'.toggle.indent():map '<leader>ug'
-  require 'snacks'.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
-  require 'snacks'.toggle.scroll():map '<leader>uS'
-end
-
 map('n', '<leader>gb', function() require 'snacks'.picker.git_log_line() end, { desc = 'Git blame line', silent = true })
 map({ 'n', 'x' }, '<leader>gB', function() require 'snacks'.gitbrowse() end,
   { desc = 'Git browse (open)', silent = true })
