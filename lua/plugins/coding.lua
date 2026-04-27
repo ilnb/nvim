@@ -170,12 +170,10 @@ return {
         pattern = NeoVim.snippets.langs,
         callback = function(args)
           local ls = require 'luasnip'
-          for _, lang in ipairs(NeoVim.snippets.langs) do
-            if args.match == lang and not NeoVim.snippets.lang_done[lang] then
-              ls.add_snippets(lang, require('snippets.' .. lang))
-              NeoVim.snippets.lang_done[lang] = true
-              break
-            end
+          local lang = args.match
+          if not NeoVim.snippets.lang_done[lang] then
+            ls.add_snippets(lang, require('snippets.' .. lang))
+            NeoVim.snippets.lang_done[lang] = true
           end
         end,
       })
