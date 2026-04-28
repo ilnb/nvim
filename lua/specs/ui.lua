@@ -22,7 +22,7 @@ local function set_entry(icon, desc, key, dir, select)
   }
 end
 
-local function get_startup_entry()
+local function startup_entry()
   local stats = Pack.stats
 
   local ms = stats.startuptime > 0
@@ -364,7 +364,14 @@ return {
                 Pack.proxy 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
               end
             },
-            { icon = ' ', desc = 'Grep', key = 'g', action = ':FzfLua live_grep<cr>' },
+            {
+              icon = ' ',
+              desc = 'Grep',
+              key = 'g',
+              action = function()
+                Pack.proxy 'fzf-lua'.live_grep()
+              end
+            },
             { icon = ' ', desc = 'Exit', key = 'q', action = ':q' },
           },
 
@@ -379,11 +386,11 @@ return {
             -- set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
             set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
             set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
-            -- set_entry('', 'Lua Codes', 'L', '~/code/lua/', false),
+            -- set_entry('', 'Lua Codes', 'l', '~/code/lua/', false),
             -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
             set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },
-          get_startup_entry,
+          startup_entry,
         },
 
         formats = {
