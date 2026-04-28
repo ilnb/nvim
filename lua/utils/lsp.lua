@@ -9,8 +9,8 @@ end
 
 ---@param client vim.lsp.Client
 ---@param buffer integer
-M.on_attach = function(client, buffer)
-  local map = function(...)
+function M.on_attach(client, buffer)
+  local function map(...)
     local args = { ... }
     if #args == 3 then
       vim.keymap.set('n', args[1], args[2], { buffer = buffer, desc = args[3] })
@@ -20,7 +20,9 @@ M.on_attach = function(client, buffer)
       vim.notify('Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)', vim.log.levels.ERROR)
     end
   end
-  local del = function(mode, key)
+  ---@param mode string|string[]
+  ---@param key string
+  local function del(mode, key)
     pcall(vim.keymap.del, mode, key)
   end
 

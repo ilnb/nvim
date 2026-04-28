@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "03c11da4349d44ea582c363bc9c75fe0b3a5d2ef",
+      "rev": "b381784f40b07347baeb8707d26d5ed270b9c232",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -33,7 +33,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "lualine.nvim": {
-      "rev": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c",
+      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "luasnip": {

@@ -1,5 +1,5 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "03c11da4349d44ea582c363bc9c75fe0b3a5d2ef" },
+  "blink.cmp": { "branch": "main", "commit": "b381784f40b07347baeb8707d26d5ed270b9c232" },
   "blink.lib": { "branch": "main", "commit": "dda2666685a5ac3598166577d2e34f1fff6b1637" },
   "catppuccin": { "branch": "main", "commit": "426dbebe06b5c69fd846ceb17b42e12f890aedf1" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
@@ -8,7 +8,7 @@
   "kanagawa.nvim": { "branch": "master", "commit": "8ad3b4cdcc804b332c32db8f9743667e1bb82b99" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
-  "lualine.nvim": { "branch": "master", "commit": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c" },
+  "lualine.nvim": { "branch": "master", "commit": "131a558e13f9f28b15cd235557150ccb23f89286" },
   "luasnip": { "branch": "master", "commit": "a62e1083a3cfe8b6b206e7d3d33a51091df25357" },
   "mini.ai": { "branch": "main", "commit": "43eb2074843950a3a25aae56a5f41362ec043bfa" },
   "mini.files": { "branch": "main", "commit": "3e247eb12ca8c05622ceb8745f9004f761b22ef8" },
