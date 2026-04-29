@@ -89,9 +89,6 @@ map({ 'n', 'x' }, '<leader>gY', function()
   require 'snacks'.gitbrowse { open = function(url) vim.fn.setreg('+', url) end, notify = false }
 end, { desc = 'Git browse (copy)' })
 
--- floating terminal
-map('n', '<leader>ft', function() require 'snacks'.terminal() end, { desc = 'Terminal (cwd)', silent = true })
-
 -- quit
 map('n', '<leader>qq', ':qa<cr>', { desc = 'Quit all', silent = true })
 map('n', '<leader>qw', ':wqa<cr>', { desc = 'Write and quit all', silent = true })
