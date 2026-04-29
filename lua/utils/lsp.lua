@@ -166,9 +166,9 @@ function M.on_attach(client, buffer)
       for k, v in pairs(tbl) do
         local fts, server
         if #args == 0 then
-          server, fts = k, v
+          server, fts = k, v.ft
         else
-          server = v; fts = servers[server].ft
+          server, fts = v, v.ft
         end
         if fts and vim.tbl_contains(fts, ft) then
           NeoVim.lsp.start(server)
