@@ -1,11 +1,11 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "404ab55beb8b63d4c4be4bfd4e528441745b000a",
+      "rev": "4776d26ed08443c11b661cb6cf57c04ba6674bdf",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "796121278a414eb0b487d115786c603a764ac82a",
+      "rev": "878fbf9c4539aaca04b48039ffc897efb1ef4ae6",
       "src": "https://github.com/saghen/blink.lib"
     },
     "catppuccin": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "b437bafc981a180d609bb4092c56ce8999f7a2c4",
+      "rev": "5b36002c54d647307339714cec47e89c2c2c50c1",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
