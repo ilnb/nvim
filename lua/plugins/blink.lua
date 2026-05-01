@@ -1,7 +1,7 @@
 return {
   "saghen/blink.cmp",
   version = not vim.g.lazyvim_blink_main and "*",
-  build = vim.g.lazyvim_blink_main and "cargo build --release",
+  build = "cargo build --release",
   opts_extend = {
     "sources.default",
   },
