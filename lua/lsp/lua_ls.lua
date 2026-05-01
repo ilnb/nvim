@@ -4,6 +4,12 @@ return {
   root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
   settings = {
     Lua = {
+      format = {
+        enable = true,
+        defaultConfig = {
+          max_line_length = '150',
+        },
+      },
       telemetry = { enable = false },
       diagnostics = {
         globals = {

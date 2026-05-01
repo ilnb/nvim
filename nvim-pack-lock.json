@@ -101,7 +101,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "520c6fabf8461d7df2e9b4cbddf8e06bc71368a4",
+      "rev": "67bfad8e15e23b3832880689b2187feb80804d43",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {
