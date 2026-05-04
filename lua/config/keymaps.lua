@@ -118,7 +118,6 @@ map('n', '<leader>tl', ':tabn<cr>', { desc = 'Next tab', silent = true })
 map('n', '<leader>td', ':tabc<cr>', { desc = 'Close tab', silent = true })
 map('n', '<leader>th', ':tabp<cr>', { desc = 'Previous tab', silent = true })
 
--- Add empty lines (grabbed from /runtime/vim/lua/_defaults.lua)
 del('n', '[<space>')
 del('n', ']<space>')
 map('n', '<leader>o', function()
