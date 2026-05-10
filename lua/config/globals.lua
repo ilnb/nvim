@@ -88,6 +88,7 @@ NeoVim.lsp = {
     ['serve-d']   = { ft = { 'd' } },
     qmlls6        = { ft = { 'qml', 'qmljs' } },
     zls           = { ft = { 'zig' } },
+    odin          = { ft = { 'odin' } },
   },
 
   ft = {
@@ -100,6 +101,7 @@ NeoVim.lsp = {
     'd',
     'qml', 'qmljs',
     'zig',
+    'odin',
   },
 
   ---@param server string
