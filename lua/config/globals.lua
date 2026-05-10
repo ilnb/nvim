@@ -105,6 +105,11 @@ NeoVim.lsp = {
   ---@param server string
   start = function(server)
     local t = NeoVim.lsp.servers[server]
+    local ft = vim.bo[0].filetype
+    if not vim.tbl_contains(t.ft, ft) then
+      vim.notify('Cannot attach server ' .. server .. ' to ft ' .. ft, vim.log.levels.INFO)
+      return
+    end
     if not t.opts then
       local ok, cfg = pcall(require, 'lsp.' .. server)
       cfg = ok and cfg or {}
