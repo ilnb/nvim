@@ -271,7 +271,7 @@ return {
       ensure = {
         'asm', 'bash', 'c', 'cpp', 'css', 'diff',
         'html', 'hyprlang', 'javascript', 'jsdoc',
-        'json', 'lua', 'luadoc', 'luap',
+        'json', 'lua', 'luadoc', 'luap', 'odin',
         'markdown', 'markdown_inline', 'python',
         'query', 'regex', 'toml', 'typescript',
         'typst', 'vim', 'vimdoc', 'xml', 'yaml',
