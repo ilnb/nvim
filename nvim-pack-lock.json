@@ -17,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "44816af2465bb0a17ae0f1f2d8a4f9c3df524fcd",
+      "rev": "97376e364f51f1b5ae3efaa3eb2e929430ca8419",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -41,27 +41,27 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "mini.ai": {
-      "rev": "7e10ce8468c0fce4f527ae2c0e5c484f7667f73d",
+      "rev": "a783ce6e1a5b3bc90519f20b51f4a5f6702734af",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
-      "rev": "3e247eb12ca8c05622ceb8745f9004f761b22ef8",
+      "rev": "f9f0ccbef0fd24eaddc8675accca83fa1f310c3f",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
-      "rev": "bac6317300e205335df425296570d84322730067",
+      "rev": "9c7b1b90b15bdd69c52f6e31889dbc9987c30ec4",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.indentscope": {
-      "rev": "e0601f75aa5137a5a13bb92a988c9a300f5bd3de",
+      "rev": "ace9b4e503cb095b9a3f6442c909d117c4aa8d0e",
       "src": "https://github.com/nvim-mini/mini.indentscope"
     },
     "mini.pairs": {
-      "rev": "42387c7fe68fc0b6e95eaf37f1bb76e7bffaa0d9",
+      "rev": "30cf2f01c4aaa2033db67376b9924fa2442c05d6",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "mini.surround": {
-      "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
+      "rev": "990ce30f724d08e79670107de6b915a3f1bb9a9b",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "noice.nvim": {
@@ -101,7 +101,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "3d66a8377f27af81d247c1961bc617c02fe80ebb",
+      "rev": "c82058e821429ffc70a16767de108ca52bb42692",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {

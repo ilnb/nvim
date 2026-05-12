@@ -64,8 +64,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
   end,
 })
 
-vim.keymap.set('n', '<leader>L', Pack.update, { desc = 'Pack update', silent = true })
-
 local specs = {}
 
 local order = {
