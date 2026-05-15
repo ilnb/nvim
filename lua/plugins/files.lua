@@ -3,9 +3,9 @@ return {
     'ibhagwan/fzf-lua',
     cmd = { 'FzfLua' },
     keys = {
-      { '<c-j>',      '<c-j>',                                                ft = 'fzf',                        mode = 't',               nowait = true },
-      { '<c-k>',      '<c-k>',                                                ft = 'fzf',                        mode = 't',               nowait = true },
-      { '<leader>:',  ':FzfLua command_history<cr>',                          desc = 'Command history',          mode = { 'n', 'v', 'x' }, silent = true },
+      { '<c-j>',      '<c-j>',                                                ft = 'fzf',                        mode = 't',   nowait = true },
+      { '<c-k>',      '<c-k>',                                                ft = 'fzf',                        mode = 't',   nowait = true },
+      { '<leader>:',  function() require 'fzf-lua'.command_history() end,     desc = 'Command history',          silent = true },
       { '<leader>F',  ':FzfLua<cr>',                                          desc = 'FzfLua',                   silent = true },
       { '<leader>fb', ':FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers',                  silent = true },
       { '<leader>ff', ':FzfLua files<cr>',                                    desc = 'Files (cwd)',              silent = true },
