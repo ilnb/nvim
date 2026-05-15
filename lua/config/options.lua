@@ -62,7 +62,7 @@ opt.splitkeep = 'screen'
 opt.splitright = true     -- Put new windows right of current
 local ok, col = pcall(require, 'snacks.statuscolumn')
 if ok then
-  vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+  vim.opt.statuscolumn = "%!v:lua.require'snacks.statuscolumn'.get()"
 end
 opt.swapfile = false     -- swapfiles are annoying
 opt.tabstop = 2          -- Number of spaces tabs count for
