@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "2ef3db111181c5eef22a462aa0122349a6027f28",
+      "rev": "35e3923a09ff3db150ceff80004befcbbfa071a0",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "311a630292310ea3bfe46dd616e17f283e975801",
+      "rev": "71b45a044c4ef6ecb1910880ef642d5a0e1c02e9",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -37,23 +37,23 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "luasnip": {
-      "rev": "a62e1083a3cfe8b6b206e7d3d33a51091df25357",
+      "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "mini.ai": {
-      "rev": "a783ce6e1a5b3bc90519f20b51f4a5f6702734af",
+      "rev": "4ce4c35e411ea329a15d4b15e9c89c2a3089e437",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
-      "rev": "5e0f0d264166e71d37ca35d84c54b1887ea76b40",
+      "rev": "423d6b5afb7a94e658950d470957f830d43dd41e",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
-      "rev": "9c7b1b90b15bdd69c52f6e31889dbc9987c30ec4",
+      "rev": "520995f1d75da0e4cc901ee95080b1ff2bc46b94",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.indentscope": {
-      "rev": "ace9b4e503cb095b9a3f6442c909d117c4aa8d0e",
+      "rev": "ad19b1f02223391f3d40440f7ff10607f0043585",
       "src": "https://github.com/nvim-mini/mini.indentscope"
     },
     "mini.pairs": {
@@ -61,7 +61,7 @@
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "mini.surround": {
-      "rev": "990ce30f724d08e79670107de6b915a3f1bb9a9b",
+      "rev": "c375ea503646fe8393593b5fb8a40406eaa437b2",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "noice.nvim": {
