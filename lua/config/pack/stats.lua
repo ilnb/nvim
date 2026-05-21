@@ -30,12 +30,19 @@ function M._wallclock()
   return (vim.uv.hrtime() - M._start_hr) / 1e6
 end
 
+local count, loaded
 setmetatable(M, {
   __index = function(_, k)
     if k == 'count' then
-      return vim.tbl_count(Pack.specs)
+      if count == nil then
+        count = vim.tbl_count(Pack.specs)
+      end
+      return count
     elseif k == 'loaded' then
-      return vim.tbl_count(Pack.loaded)
+      if loaded == nil then
+        loaded = vim.tbl_count(Pack.loaded)
+      end
+      return loaded
     end
   end
 })
