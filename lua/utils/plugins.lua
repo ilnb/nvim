@@ -108,8 +108,13 @@ function M.os_icon()
     return ''
   elseif distro:match 'Mint' then
     return '󰣭'
+  elseif distro:match 'Artix' then
+    return ''
+  elseif distro:match 'Nix' then
+    return ''
+  else
+    return ''
   end
-  return ''
 end
 
 function M.ai_buffer(ai_type)
