@@ -88,7 +88,7 @@ NeoVim.lsp = {
     ['serve-d']   = { ft = { 'd' } },
     qmlls6        = { ft = { 'qml', 'qmljs' } },
     zls           = { ft = { 'zig' } },
-    odin          = { ft = { 'odin' } },
+    ols           = { ft = { 'odin' } },
   },
 
   ft = {
