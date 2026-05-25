@@ -91,26 +91,24 @@ end
 function M.os_icon()
   local distro = 'Arch'
   local handle = io.popen 'cat /etc/*release 2>/dev/null | grep ^NAME='
-  if not handle then
-    return 'Arch'
-  else
+  if handle then
     distro = handle:read '*a'
     distro = distro:gsub('^NAME="?(.-)"?$', '%1')
     handle:close()
   end
-  if distro:match 'Ubuntu' then
+  if distro:find 'Ubuntu' then
     return ''
-  elseif distro:match 'Arch' then
+  elseif distro:find 'Arch' then
     return ''
-  elseif distro:match 'Fedora' then
+  elseif distro:find 'Fedora' then
     return ''
-  elseif distro:match 'Debian' then
+  elseif distro:find 'Debian' then
     return ''
-  elseif distro:match 'Mint' then
+  elseif distro:find 'Mint' then
     return '󰣭'
-  elseif distro:match 'Artix' then
+  elseif distro:find 'Artix' then
     return ''
-  elseif distro:match 'Nix' then
+  elseif distro:find 'Nix' then
     return ''
   else
     return ''
