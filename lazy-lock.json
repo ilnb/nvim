@@ -23,7 +23,7 @@
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e" },
   "nvim-ufo": { "branch": "main", "commit": "ab3eb124062422d276fae49e0dd63b3ad1062cfc" },
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
-  "snacks.nvim": { "branch": "main", "commit": "0770753c88228f7f15449c6a5b242e3f7cd0d71c" },
+  "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "vague.nvim": { "branch": "main", "commit": "fd58046b9d64259d9785e4aeb6d6f494c6943cad" },
   "wezterm-types": { "branch": "main", "commit": "d3505f689e53d8fda536d265d870a1fee937e69f" },
