@@ -1,4 +1,5 @@
+---@type vim.lsp.Config
 return {
   cmd = { 'asm-lsp' },
-  root_markers = { '.git', '.asm-lsp.toml' },
+  root_markers = { '.asm-lsp.toml' },
 }

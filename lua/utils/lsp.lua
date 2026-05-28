@@ -143,8 +143,8 @@ function M.on_attach(client, buffer)
       nargs = '*',
       complete = function()
         local ret = {}
-        for server, _ in pairs(servers) do
-          ret[#ret + 1] = server
+        for _, c in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
+          ret[#ret + 1] = c.name
         end
         return ret
       end
@@ -161,17 +161,18 @@ function M.on_attach(client, buffer)
       end
       local ft = vim.bo.filetype
 
-      local tbl = #args == 0 and servers or args
+      local tbl = {}
+      if #args == 0 then
+        tbl = servers
+      else
+        for _, s in ipairs(args) do
+          tbl[s] = NeoVim.lsp.servers[s].ft
+        end
+      end
 
       for k, v in pairs(tbl) do
-        local fts, server
-        if #args == 0 then
-          server, fts = k, v.ft
-        else
-          server, fts = v, v.ft
-        end
-        if fts and vim.tbl_contains(fts, ft) then
-          NeoVim.lsp.start(server)
+        if vim.tbl_contains(v, ft) then
+          NeoVim.lsp.start(k)
         end
       end
     end, {
@@ -188,17 +189,12 @@ function M.on_attach(client, buffer)
 
   if not cmds.LspRestart then
     create_cmd('LspRestart', function()
-      local ft = vim.bo.filetype
       local clients = vim.lsp.get_clients { bufnr = 0 }
-
       for _, cl in ipairs(clients) do
         cl:stop(true)
       end
-
-      for server, v in pairs(servers) do
-        if vim.tbl_contains(v.ft, ft) then
-          NeoVim.lsp.start(server)
-        end
+      for _, cl in ipairs(clients) do
+        NeoVim.lsp.start(cl.name)
       end
     end, { nargs = 0 })
   end

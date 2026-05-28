@@ -19,8 +19,9 @@ local capabilities = vim.tbl_deep_extend('force', {},
   }
 )
 
+---@type vim.lsp.Config
 return {
-  root_markers = { 'Makefile', '.clangd', '.clang-format', '.git' },
+  root_markers = { 'Makefile', '.clangd', '.clang-format' },
   capabilities = capabilities,
   cmd = {
     'clangd',

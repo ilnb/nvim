@@ -19,20 +19,21 @@ local capabilities = vim.tbl_deep_extend('force', {},
   }
 )
 
+---@type vim.lsp.Config
 return {
-  root_markers = { 'Makefile', '.clangd', '.clang-format', '.git' },
+  root_markers = { 'Makefile' },
   capabilities = capabilities,
   cmd = { 'ccls' },
   init_options = {
-    compilationDatabaseDirectory = "build",
+    compilationDatabaseDirectory = 'build',
     index = {
       threads = 0,
     },
     clang = {
-      excludeArgs = { "-frounding-math" },
+      excludeArgs = { '-frounding-math' },
     },
     cache = {
-      directory = ".ccls-cache",
+      directory = '.ccls-cache',
     },
     single_file_support = true,
   },
