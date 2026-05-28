@@ -55,41 +55,39 @@ return {
 
       vim.cmd 'botright copen'
     end,
-    ---@param client vim.lsp.Client
-    ---@param buf integer
-    on_attach = function(client, buf)
-      vim.api.nvim_buf_create_user_command(buf, 'LspTypescriptSourceAction', function()
-        local source_actions = vim.tbl_filter(function(action)
-          return vim.startswith(action, 'source.')
-        end, client.server_capabilities.codeActionProvider.codeActionKinds)
-
-        vim.lsp.buf.code_action({
-          context = {
-            only = source_actions,
-            diagnostics = {},
-          }
-        })
-      end, {})
-
-      vim.api.nvim_buf_create_user_command(buf, 'LspTypescriptGoToSourceDefinition', function()
-        local win = vim.api.nvim_get_current_win()
-        local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
-        client:exec_cmd({
-          command = '_typescript.goToSourceDefinition',
-          title = 'Go to source definition',
-          arguments = { params.textDocument.uri, params.position },
-        }, { bufnr = buf }, function(err, res)
-          if err then
-            vim.notify('Go to source definiton failed: ' .. err.message, vim.log.levels.ERROR)
-            return
-          end
-          if not res or vim.tbl_isempty(res) then
-            vim.notify('No source definition found', vim.log.levels.INFO)
-            return
-          end
-          vim.lsp.util.show_document(res[1], client.offset_encoding, { focus = true })
-        end)
-      end, { desc = 'Go to source definition' })
-    end,
   },
+  on_attach = function(client, buf)
+    vim.api.nvim_buf_create_user_command(buf, 'LspTypescriptSourceAction', function()
+      local source_actions = vim.tbl_filter(function(action)
+        return vim.startswith(action, 'source.')
+      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+
+      vim.lsp.buf.code_action({
+        context = {
+          only = source_actions,
+          diagnostics = {},
+        }
+      })
+    end, {})
+
+    vim.api.nvim_buf_create_user_command(buf, 'LspTypescriptGoToSourceDefinition', function()
+      local win = vim.api.nvim_get_current_win()
+      local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
+      client:exec_cmd({
+        command = '_typescript.goToSourceDefinition',
+        title = 'Go to source definition',
+        arguments = { params.textDocument.uri, params.position },
+      }, { bufnr = buf }, function(err, res)
+        if err then
+          vim.notify('Go to source definiton failed: ' .. err.message, vim.log.levels.ERROR)
+          return
+        end
+        if not res or vim.tbl_isempty(res) then
+          vim.notify('No source definition found', vim.log.levels.INFO)
+          return
+        end
+        vim.lsp.util.show_document(res[1], client.offset_encoding, { focus = true })
+      end)
+    end, { desc = 'Go to source definition' })
+  end,
 }
