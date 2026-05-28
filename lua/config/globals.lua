@@ -118,8 +118,10 @@ NeoVim.lsp = {
       cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
       cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
       cfg.name = server
-      cfg.root_markers = cfg.root_markers or { '.git' }
-      cfg.root_dir = require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
+      if not cfg.root_dir then
+        cfg.root_markers = cfg.root_markers or { '.git' }
+      end
+      cfg.root_dir = cfg.root_dir or require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
           or vim.fn.getcwd()
       t.opts = cfg
     end

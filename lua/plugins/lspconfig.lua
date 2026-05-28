@@ -1,7 +1,7 @@
 return {
   {
     'SmiteshP/nvim-navic',
-    ft = NeoVim.lsp.ft,
+    ft = NeoVim.lsp.ft or NeoVim.lsp.gen_ft(),
 
     opts = {
       separator = ' ',
