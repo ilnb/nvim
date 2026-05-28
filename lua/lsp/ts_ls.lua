@@ -14,7 +14,7 @@ return {
     if deno_lock and (not proj_root or #deno_root > #proj_root) then
       return
     end
-    on_dir(proj_root or vim.fn.getcwd())
+    on_dir(proj_root or vim.uv.cwd())
   end,
   handlers = {
     ['_typescript.rename'] = function(_, res, ctx)
