@@ -82,11 +82,11 @@ NeoVim.lsp = {
     -- ccls         = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
     clangd        = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
     gopls         = { ft = { 'go' } },
-    -- pyright = { ft = { 'python' } },
+    -- pyright       = { ft = { 'python' } },
     lua_ls        = { ft = { 'lua', 'nvim-pack' } },
     nimlangserver = { ft = { 'nim' } },
     ols           = { ft = { 'odin' } },
-    ['serve-d']   = { ft = { 'd' } },
+    serve_d       = { ft = { 'd' } },
     ts_ls         = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     qmlls6        = { ft = { 'qml', 'qmljs' } },
     zls           = { ft = { 'zig' } },
@@ -113,12 +113,21 @@ NeoVim.lsp = {
     end
     if not t.opts then
       local ok, cfg = pcall(require, 'lsp.' .. server)
-      cfg = ok and cfg or {}
-      cfg.on_attach = cfg.on_attach or require 'utils.lsp'.on_attach
-      cfg.capabilities = cfg.capabilities or require 'utils.lsp'.capabilities
+      cfg = ok and cfg or {} --[[@as vim.lsp.Config]]
+      local f = cfg.on_attach --[[@as function]]
+      if f then
+        cfg.on_attach = function(client, buf)
+          f(client, buf); require 'utils.lsp'.on_attach(client, buf)
+        end
+      else
+        cfg.on_attach = require 'utils.lsp'.on_attach
+      end
+      cfg.capabilities = vim.tbl_deep_extend('force', require 'utils.lsp'.capabilities, cfg.capabilities or {})
       cfg.name = server
       if not cfg.root_dir then
-        cfg.root_markers = cfg.root_markers or { '.git' }
+        if not vim.tbl_contains(cfg.root_markers or {}, '.git') then
+          cfg.root_markers = vim.list_extend(cfg.root_markers or {}, { '.git' })
+        end
       end
       cfg.root_dir = cfg.root_dir or vim.fs.root(0, cfg.root_markers) or vim.uv.cwd()
       t.opts = cfg
