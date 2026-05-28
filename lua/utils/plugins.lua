@@ -225,20 +225,28 @@ function M.strip_archive_subpath(path)
 end
 
 function M.get_root()
-  local path = vim.api.nvim_buf_get_name(0)
-  if path == '' then return vim.uv.cwd() end
-  local root = M.root_pattern('Makefile', '.git', 'lua')(path)
-  if root then return root end
-  local dir = vim.fs.dirname(path)
-  local home = vim.env.HOME
-  local parts = vim.split(dir, '/', { plain = true })
-  local depth = math.max(#parts - 2, 1)
-  local curr = dir
-  for _ = 1, #parts - depth do
-    if curr == home or curr == '/' then break end
-    curr = vim.fs.dirname(curr)
+  ---@param dir string
+  ---@param depth integer
+  local dfs = function(dir, depth)
+    local home = vim.env.HOME
+    local curr = dir
+    for _ = 1, depth do
+      if curr == home or curr == '/' then break end
+      curr = vim.fs.dirname(curr)
+    end
+    return curr or vim.uv.cwd()
   end
-  return curr or vim.uv.cwd()
+
+  local path = vim.api.nvim_buf_get_name(0)
+  local cwd = vim.uv.cwd()
+  local groot = vim.fs.root(path, '.git')
+  if groot then return groot end
+  if path ~= '' then
+    local root = vim.fs.root(path, { 'Makefile', 'lua' })
+    if root then return root end
+    return dfs(path, 2)
+  end
+  return dfs(cwd --[[@as string]], 2)
 end
 
 return M

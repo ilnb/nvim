@@ -120,8 +120,7 @@ NeoVim.lsp = {
       if not cfg.root_dir then
         cfg.root_markers = cfg.root_markers or { '.git' }
       end
-      cfg.root_dir = cfg.root_dir or require 'utils.plugins'.root_pattern(cfg.root_markers)(vim.api.nvim_buf_get_name(0))
-          or vim.uv.cwd()
+      cfg.root_dir = cfg.root_dir or vim.fs.root(0, cfg.root_markers) or vim.uv.cwd()
       t.opts = cfg
     end
     vim.lsp.start(t.opts)
