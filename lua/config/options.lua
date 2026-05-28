@@ -60,7 +60,7 @@ opt.spelllang = { 'en' }
 opt.splitbelow = true     -- Put new windows below current
 opt.splitkeep = 'screen'
 opt.splitright = true     -- Put new windows right of current
-local ok, col = pcall(require, 'snacks.statuscolumn')
+local ok, _ = pcall(require, 'snacks.statuscolumn')
 if ok then
   vim.opt.statuscolumn = "%!v:lua.require'snacks.statuscolumn'.get()"
 end
