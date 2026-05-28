@@ -85,10 +85,11 @@ NeoVim.lsp = {
     -- pyright = { ft = { 'python' } },
     lua_ls        = { ft = { 'lua', 'nvim-pack' } },
     nimlangserver = { ft = { 'nim' } },
+    ols           = { ft = { 'odin' } },
     ['serve-d']   = { ft = { 'd' } },
+    ts_ls         = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     qmlls6        = { ft = { 'qml', 'qmljs' } },
     zls           = { ft = { 'zig' } },
-    ols           = { ft = { 'odin' } },
   },
 
   gen_ft = function()
