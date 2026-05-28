@@ -91,18 +91,16 @@ NeoVim.lsp = {
     ols           = { ft = { 'odin' } },
   },
 
-  ft = {
-    'asm',
-    'python',
-    'c', 'cpp', 'objc', 'objcpp', 'cuda',
-    'go',
-    'lua', 'nvim-pack',
-    'nim',
-    'd',
-    'qml', 'qmljs',
-    'zig',
-    'odin',
-  },
+  gen_ft = function()
+    local ret = {}
+    for _, v in pairs(NeoVim.lsp.servers) do
+      for _, x in ipairs(v.ft) do
+        table.insert(ret, x)
+      end
+    end
+    NeoVim.lsp.ft = ret
+    return ret
+  end,
 
   ---@param server string
   start = function(server)
