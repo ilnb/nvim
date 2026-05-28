@@ -280,16 +280,19 @@ return {
       if not ok then return end
       ts.setup(opts)
 
-      local langs = vim.tbl_filter(function(l)
-        return not vim.tbl_contains(opts.ignore or {}, l)
-      end, opts.ensure)
-
+      local langs = opts.ensure
       local have = ts.get_installed()
-      local available = ts.get_available()
+      local available = vim.tbl_filter(function(l)
+        return not vim.tbl_contains(opts.ignore or {}, l)
+      end, ts.get_available())
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
-        if ft == '' or not vim.tbl_contains(langs, ft) then return end
+        if ft == ''
+            or not vim.tbl_contains(langs, ft)
+        then
+          return
+        end
 
         pcall(vim.treesitter.start, buf)
         if vim.bo[buf].indentexpr == '' then
@@ -300,7 +303,6 @@ return {
       local to_install = vim.tbl_filter(function(l)
         return not vim.tbl_contains(have, l) and vim.tbl_contains(available, l)
       end, langs)
-
       if #to_install > 0 then
         ts.install(to_install):await(function()
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
