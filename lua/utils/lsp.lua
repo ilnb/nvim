@@ -163,10 +163,12 @@ function M.on_attach(client, buffer)
 
       local tbl = {}
       if #args == 0 then
-        tbl = servers
+        for s, v in ipairs(servers) do
+          tbl[s] = v.ft
+        end
       else
         for _, s in ipairs(args) do
-          tbl[s] = NeoVim.lsp.servers[s].ft
+          tbl[s] = servers[s].ft
         end
       end
 
