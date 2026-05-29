@@ -315,6 +315,9 @@ return {
       --   end)
       -- end
 
+      -- register jsonc file as json
+      vim.treesitter.language.register('json', 'jsonc')
+
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('treesitter_attach', { clear = true }),
         -- pattern = langs,

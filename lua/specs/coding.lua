@@ -286,9 +286,10 @@ return {
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
-        if ft == ''
-            or not vim.tbl_contains(available, ft)
-        then
+        if ft == '' then return end
+
+        local lang = vim.treesitter.language.get_lang(ft)
+        if not vim.tbl_contains(available, lang) then
           return
         end
 
@@ -297,6 +298,9 @@ return {
           vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end
+
+      -- register jsonc file as json
+      vim.treesitter.language.register('json', 'jsonc')
 
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('treesitter_attach', { clear = true }),
