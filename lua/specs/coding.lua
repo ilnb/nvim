@@ -280,16 +280,17 @@ return {
       if not ok then return end
       ts.setup(opts)
 
-      local available = vim.tbl_filter(function(l)
-        return not vim.tbl_contains(opts.ignore or {}, l)
-      end, ts.get_available())
+      local ignored = {}
+      for _, lang in ipairs(opts.ignore or {}) do
+        ignored[lang] = true
+      end
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
         if ft == '' then return end
 
         local lang = vim.treesitter.language.get_lang(ft)
-        if not vim.tbl_contains(available, lang) then
+        if not lang or ignored[lang] then
           return
         end
 

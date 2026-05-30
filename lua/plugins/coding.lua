@@ -283,18 +283,17 @@ return {
       if not ok then return end
       ts.setup(opts)
 
-      -- local langs = opts.ensure
-      -- local have = ts.get_installed()
-      local available = vim.tbl_filter(function(l)
-        return not vim.tbl_contains(opts.ignore or {}, l)
-      end, ts.get_available())
+      local ignored = {}
+      for _, lang in ipairs(opts.ignore or {}) do
+        ignored[lang] = true
+      end
 
       local function attach(buf)
         local ft = vim.bo[buf].filetype
-        if ft == ''
-            or not vim.tbl_contains(available, ft)
-        -- or not vim.tbl_contains(langs, ft)
-        then
+        if ft == '' then return end
+
+        local lang = vim.treesitter.language.get_lang(ft)
+        if not lang or ignored[lang] then
           return
         end
 
@@ -304,31 +303,15 @@ return {
         end
       end
 
-      -- local to_install = vim.tbl_filter(function(l)
-      --   return not vim.tbl_contains(have, l) and vim.tbl_contains(available, l)
-      -- end, langs)
-      -- if #to_install > 0 then
-      --   ts.install(to_install):await(function()
-      --     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      --       attach(buf)
-      --     end
-      --   end)
-      -- end
-
       -- register jsonc file as json
       vim.treesitter.language.register('json', 'jsonc')
 
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('treesitter_attach', { clear = true }),
-        -- pattern = langs,
         callback = function(ev)
           attach(ev.buf)
         end,
       })
-
-      -- for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      --   attach(buf)
-      -- end
 
       local map = vim.keymap.set
 
