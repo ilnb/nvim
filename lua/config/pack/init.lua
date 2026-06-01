@@ -94,7 +94,7 @@ for _, file in ipairs(order) do
 end
 
 for _, spec in ipairs(specs) do
-  if spec.enable == false then
+  if spec.enabled == false then
     pcall(vim.pack.del, { spec.name })
     goto continue
   end
