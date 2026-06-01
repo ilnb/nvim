@@ -94,6 +94,11 @@ for _, file in ipairs(order) do
 end
 
 for _, spec in ipairs(specs) do
+  if spec.enable == false then
+    pcall(vim.pack.del, { spec.name })
+    goto continue
+  end
+
   spec.name = Pack.make_name(spec)
   if type(spec.event) == 'string' then
     spec.event = { spec.event }
@@ -104,9 +109,7 @@ for _, spec in ipairs(specs) do
   if type(spec.ft) == 'string' then
     spec.ft = { spec.ft }
   end
-  if spec.enabled == false then
-    pcall(vim.pack.del, { spec.name })
-  else
-    Pack.register(spec)
-  end
+  Pack.register(spec)
+
+  ::continue::
 end
