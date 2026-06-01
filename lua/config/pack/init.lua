@@ -72,7 +72,7 @@ local order = {
   'lspconfig',
   'coding',
   'files',
-  'misc'
+  'misc',
 }
 
 for _, file in ipairs(order) do
