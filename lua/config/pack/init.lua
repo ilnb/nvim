@@ -17,37 +17,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end
 })
 
-local builds = {
-  ---@param ev vim.api.keyset.create_autocmd.callback_args
-  ['nvim-treesitter'] = function(ev)
-    if not ev.data.active then
-      vim.cmd.packadd 'nvim-treesitter'
-    end
-    vim.cmd 'TSUpdate'
-  end,
-
-  ---@param ev vim.api.keyset.create_autocmd.callback_args
-  ['blink.cmp'] = function(ev)
-    if not ev.data.active then
-      vim.pack.add { 'saghen/blink.lib', 'saghen/blink.cmp' }
-    end
-
-    local build_fn = function()
-      vim.defer_fn(function()
-        require 'blink.cmp'.build()
-      end, 50)
-    end
-
-    if vim.v.vim_did_enter == 1 then
-      build_fn()
-    else
-      vim.api.nvim_create_autocmd('UIEnter', {
-        once = true,
-        callback = build_fn
-      })
-    end
-  end,
-}
+local to_build = {}
 
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
@@ -55,10 +25,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
       local name = ev.data.spec.name
       local kind = ev.data.kind
       if kind == 'install' or kind == 'update' then
-        local fn = builds[name]
-        if fn then
-          fn(ev)
-        end
+        to_build[#to_build + 1] = { name, ev }
       end
     end)
   end,
@@ -94,11 +61,6 @@ for _, file in ipairs(order) do
 end
 
 for _, spec in ipairs(specs) do
-  if spec.enabled == false then
-    pcall(vim.pack.del, { spec.name })
-    goto continue
-  end
-
   spec.name = Pack.make_name(spec)
   if type(spec.event) == 'string' then
     spec.event = { spec.event }
@@ -109,7 +71,25 @@ for _, spec in ipairs(specs) do
   if type(spec.ft) == 'string' then
     spec.ft = { spec.ft }
   end
-  Pack.register(spec)
-
-  ::continue::
+  if spec.enabled == false then
+    pcall(vim.pack.del, { spec.name })
+  else
+    Pack.register(spec)
+  end
 end
+
+vim.api.nvim_create_autocmd('UIEnter', {
+  once = true,
+  callback = function()
+    for _, v in ipairs(to_build) do
+      local name, ev = unpack(v)
+      local spec = Pack.specs[name] or Pack.mod_to_spec[name]
+      if spec and spec.build then
+        local ok, err = pcall(spec.build, ev)
+        if not ok then
+          vim.notify(('Build failed for %s:\n%s'):format(name, err), log.ERROR)
+        end
+      end
+    end
+  end
+})

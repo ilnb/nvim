@@ -5,6 +5,7 @@
 ---@field enabled boolean?
 ---@field lazy boolean?
 ---@field event string[]|nil
+---@field build function|nil
 ---@field ft string[]|nil
 ---@field keys KeyConfig[]|nil
 ---@field cmd string[]|nil

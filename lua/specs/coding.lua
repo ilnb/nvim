@@ -11,9 +11,8 @@ return {
       --   event = 'InsertEnter',
       -- },
     },
-
     event = { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' },
-
+    build = function() require 'blink.cmp'.build() end,
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
