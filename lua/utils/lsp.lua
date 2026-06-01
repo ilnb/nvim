@@ -159,30 +159,21 @@ function M.on_attach(client, buffer)
           table.insert(args, name)
         end
       end
+
       local ft = vim.bo.filetype
-
-      local tbl = {}
-      if #args == 0 then
-        for s, v in ipairs(servers) do
-          tbl[s] = v.ft
-        end
-      else
-        for _, s in ipairs(args) do
-          tbl[s] = servers[s].ft
-        end
-      end
-
-      for k, v in pairs(tbl) do
-        if vim.tbl_contains(v, ft) then
-          NeoVim.lsp.start(k)
+      local names = #args == 0 and vim.tbl_keys(servers) or args
+      for _, s in ipairs(names) do
+        local t = servers[s]
+        if vim.tbl_contains(t.ft, ft) then
+          NeoVim.lsp.start(s)
         end
       end
     end, {
       nargs = '*',
       complete = function()
         local ret = {}
-        for server, _ in pairs(servers) do
-          ret[#ret + 1] = server
+        for s, _ in pairs(servers) do
+          ret[#ret + 1] = s
         end
         return ret
       end

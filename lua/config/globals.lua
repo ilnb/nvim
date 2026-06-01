@@ -104,23 +104,14 @@ NeoVim.lsp = {
   end,
 
   ---@param server string
-  start = function(server)
+  config = function(server)
     local t = NeoVim.lsp.servers[server]
-    local ft = vim.bo[0].filetype
-    if not vim.tbl_contains(t.ft, ft) then
-      vim.notify('Cannot attach server ' .. server .. ' to ft ' .. ft, vim.log.levels.INFO)
-      return
-    end
     if not t.opts then
       local ok, cfg = pcall(require, 'lsp.' .. server)
       cfg = ok and cfg or {} --[[@as vim.lsp.Config]]
-      local f = cfg.on_attach --[[@as function]]
-      if f then
-        cfg.on_attach = function(client, buf)
-          f(client, buf); require 'utils.lsp'.on_attach(client, buf)
-        end
-      else
-        cfg.on_attach = require 'utils.lsp'.on_attach
+      local f = cfg.on_attach or function() end --[[@as function]]
+      cfg.on_attach = function(client, buf)
+        f(client, buf); require 'utils.lsp'.on_attach(client, buf)
       end
       cfg.capabilities = vim.tbl_deep_extend('force', require 'utils.lsp'.capabilities, cfg.capabilities or {})
       cfg.name = server
@@ -131,7 +122,19 @@ NeoVim.lsp = {
       end
       cfg.root_dir = cfg.root_dir or vim.fs.root(0, cfg.root_markers) or vim.uv.cwd()
       t.opts = cfg
+      t.opts.filetypes = t.ft
+      vim.lsp.config(server, t.opts)
     end
-    vim.lsp.start(t.opts)
+    if not t.enabled then
+      t.enabled = true
+      vim.lsp.enable(server)
+    end
+  end,
+
+  ---@param server string
+  start = function(server)
+    local lsp = NeoVim.lsp
+    lsp.config(server)
+    vim.lsp.start(lsp.servers[server].opts)
   end
 }
