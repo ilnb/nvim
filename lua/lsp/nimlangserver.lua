@@ -1,5 +1,5 @@
 ---@type vim.lsp.Config
 return {
-  cwd = { 'nimlangserver' },
+  cmd = { 'nimlangserver' },
   root_markers = { '.nimble' },
 }
