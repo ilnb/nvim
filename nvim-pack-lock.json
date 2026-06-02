@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "7c0fae7fb37c4ee43927df88f4f1b7eb8e33a520",
+      "rev": "43cb60895ee109161ae5cffa26444018cc07e570",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {

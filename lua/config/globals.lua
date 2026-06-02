@@ -95,9 +95,7 @@ NeoVim.lsp = {
   gen_ft = function()
     local ret = {}
     for _, v in pairs(NeoVim.lsp.servers) do
-      for _, x in ipairs(v.ft) do
-        table.insert(ret, x)
-      end
+      vim.list_extend(ret, v.ft)
     end
     NeoVim.lsp.ft = ret
     return ret
