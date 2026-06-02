@@ -1,16 +1,7 @@
 return {
   {
     'saghen/blink.cmp',
-    build = function()
-      require 'blink.cmp'.build():map(function() ---@diagnostic disable-line
-        vim.api.nvim_create_autocmd('UIEnter', {
-          once = true,
-          callback = function()
-            vim.notify('blink.cmp: Build successful', vim.log.levels.INFO)
-          end
-        })
-      end)
-    end,
+    build = function() require 'blink.cmp'.build { force = true } end,
     dependencies = {
       {
         'saghen/blink.lib'

@@ -12,7 +12,7 @@ return {
       -- },
     },
     event = { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' },
-    build = function() require 'blink.cmp'.build() end,
+    build = function() require 'blink.cmp'.build { force = true } end,
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
