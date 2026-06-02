@@ -18,16 +18,47 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 local to_build = {}
+local running, ready = false, false
+
+local function run_next()
+  -- prevent lockfile from infiltrating
+  if not ready then return end
+  if running then return end
+  local e = table.remove(to_build, 1)
+  -- nothing to build
+  if not e then
+    running = false
+    return
+  end
+  running = true
+
+  local name, ev = unpack(e)
+  local spec = Pack.specs[name] or Pack.mod_to_spec[name]
+
+  local function done()
+    running = false
+    vim.schedule(run_next)
+  end
+
+  if not (spec and spec.build) then
+    done()
+    return
+  end
+  local ok, err = pcall(spec.build, ev)
+  if not ok then
+    vim.notify(('Build failed for %s:\n%s'):format(name, err), log.ERROR)
+  end
+  done()
+end
 
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
-    vim.schedule(function()
-      local name = ev.data.spec.name
-      local kind = ev.data.kind
-      if kind == 'install' or kind == 'update' then
-        to_build[#to_build + 1] = { name, ev }
-      end
-    end)
+    local name = ev.data.spec.name
+    local kind = ev.data.kind
+    if kind == 'install' or kind == 'update' then
+      to_build[#to_build + 1] = { name, ev }
+      run_next()
+    end
   end,
 })
 
@@ -78,18 +109,15 @@ for _, spec in ipairs(specs) do
   end
 end
 
-vim.api.nvim_create_autocmd('UIEnter', {
-  once = true,
-  callback = function()
-    for _, v in ipairs(to_build) do
-      local name, ev = unpack(v)
-      local spec = Pack.specs[name] or Pack.mod_to_spec[name]
-      if spec and spec.build then
-        local ok, err = pcall(spec.build, ev)
-        if not ok then
-          vim.notify(('Build failed for %s:\n%s'):format(name, err), log.ERROR)
-        end
-      end
+-- finally start builds
+ready = true
+if vim.v.vim_did_enter == 1 then
+  run_next()
+else
+  vim.api.nvim_create_autocmd('UIEnter', {
+    once = true,
+    callback = function()
+      vim.defer_fn(run_next, 10)
     end
-  end
-})
+  })
+end
