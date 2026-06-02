@@ -68,6 +68,11 @@ map('i', ';', ';<c-g>u')
 vim.cmd.packadd 'nvim.undotree'
 map({ 'n', 'v' }, '<leader>U', '<esc>:Undotree<cr>', { desc = 'Undotree' })
 
+-- lazy
+if not NeoVim.pack_mode then
+  map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy' })
+end
+
 --keywordprg
 map('n', '<leader>K', ':norm! K<cr>', { desc = 'Keywordprg', silent = true })
 
