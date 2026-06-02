@@ -1,3 +1,8 @@
 for server, v in pairs(NeoVim.lsp.servers) do
-  NeoVim.lsp.config(server)
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = v.ft,
+    callback = function()
+      NeoVim.lsp.start(server)
+    end
+  })
 end
