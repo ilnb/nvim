@@ -64,6 +64,10 @@ map('i', ',', ',<c-g>u')
 map('i', '.', '.<c-g>u')
 map('i', ';', ';<c-g>u')
 
+-- qflist
+map('n', '<leader>qa', ':caddexpr expand("%") . ":" . line(".") . ":" . getline(".")<cr>', { desc = 'Add curr line to qflist', silent = true })
+map('n', '<leader>qo', ':copen<cr>', { desc = 'Open qflist', silent = true })
+
 -- undo tree
 vim.cmd.packadd 'nvim.undotree'
 map({ 'n', 'v' }, '<leader>U', '<esc>:Undotree<cr>', { desc = 'Undotree' })

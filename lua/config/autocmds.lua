@@ -240,3 +240,17 @@ vim.api.nvim_create_autocmd('FileType', {
     end, { buffer = buf, desc = 'Open the linked file' })
   end,
 })
+
+-- remove line in qflist
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function(ev)
+    vim.keymap.set('n', 'dd', function()
+      local idx = vim.fn.line '.'
+      local qf = vim.fn.getqflist()
+      table.remove(qf, idx)
+      vim.fn.setqflist(qf, 'r')
+      vim.cmd.copen()
+    end, { buf = ev.buf })
+  end
+})
