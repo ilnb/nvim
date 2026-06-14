@@ -2,7 +2,7 @@
 vim.loader.enable()
 
 require 'config.globals'
-NeoVim.pack_mode = true
+-- NeoVim.pack_mode = true
 
 require 'config.options'
 
