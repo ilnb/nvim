@@ -39,8 +39,6 @@ return {
             MiniFilesTitleFocused = { fg = '#F9E2AF' },
             StatusLine = { bg = 'NONE' },
             TabLineFill = { bg = 'NONE' },
-            UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
-            UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
             BlinkCmpSource = { link = 'Special' },
             String = { italic = true },
@@ -178,8 +176,6 @@ return {
             MiniFilesCursorLine = { link = 'PmenuSel' },
             StatusLine = { bg = 'NONE' },
             TabLineFill = { bg = 'NONE' },
-            UfoFoldedBg = { bg = 'NONE' },      -- doesn't work
-            UfoPreviewWin = { bg = '#5A6FAF' }, -- same here
             Whitespace = { fg = '#33334A' },
             BlinkCmpSource = { link = 'Special' },
             String = { italic = true },
