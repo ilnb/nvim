@@ -109,7 +109,7 @@ NeoVim.lsp = {
       cfg = ok and cfg or {} --[[@as vim.lsp.Config]]
       local f = cfg.on_attach or function() end --[[@as function]]
       cfg.on_attach = function(client, buf)
-        f(client, buf); require 'utils.lsp'.on_attach(client, buf)
+        require 'utils.lsp'.on_attach(client, buf); f(client, buf)
       end
       cfg.capabilities = vim.tbl_deep_extend('force', require 'utils.lsp'.capabilities, cfg.capabilities or {})
       cfg.name = server
