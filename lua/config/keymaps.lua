@@ -65,7 +65,30 @@ map('i', '.', '.<c-g>u')
 map('i', ';', ';<c-g>u')
 
 -- qflist
-map('n', '<leader>qa', ':caddexpr expand("%") . ":" . line(".") . ":" . getline(".")<cr>', { desc = 'Add curr line to qflist', silent = true })
+map({ 'n', 'v' }, '<leader>qa', function()
+  local mode = vim.api.nvim_get_mode().mode
+
+  if mode:match '[vV\22]' then
+    local start_line = vim.fn.line "'<"
+    local end_line = vim.fn.line "'>"
+    local file = vim.fn.expand '%'
+    for l = start_line, end_line do
+      vim.fn.setqflist({}, 'a', {
+        lines = {
+          ('%s:%d:%s'):format(file, l, vim.fn.getline(l))
+        }
+      })
+    end
+  else
+    vim.cmd.caddexpr(
+      vim.fn.expand '%'
+      .. ':'
+      .. vim.fn.line '.'
+      .. ':'
+      .. vim.fn.getline '.'
+    )
+  end
+end, { desc = 'Add curr line to qflist', silent = true })
 map('n', '<leader>qo', ':copen<cr>', { desc = 'Open qflist', silent = true })
 
 -- undo tree
@@ -73,9 +96,7 @@ vim.cmd.packadd 'nvim.undotree'
 map({ 'n', 'v' }, '<leader>U', '<esc>:Undotree<cr>', { desc = 'Undotree' })
 
 -- lazy
-if not NeoVim.pack_mode then
-  map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy' })
-end
+if not NeoVim.pack_mode then map('n', '<leader>L', ':Lazy<cr>', { desc = 'Lazy' }) end
 
 --keywordprg
 map('n', '<leader>K', ':norm! K<cr>', { desc = 'Keywordprg', silent = true })
