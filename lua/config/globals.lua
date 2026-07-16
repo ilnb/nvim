@@ -79,7 +79,7 @@ NeoVim.lsp = {
   servers = {
     asm_lsp       = { ft = { 'asm' } },
     basedpyright  = { ft = { 'python' } },
-    -- ccls         = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    -- ccls          = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
     clangd        = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
     gopls         = { ft = { 'go' } },
     -- pyright       = { ft = { 'python' } },
@@ -88,7 +88,7 @@ NeoVim.lsp = {
     ols           = { ft = { 'odin' } },
     serve_d       = { ft = { 'd' } },
     ts_ls         = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
-    qmlls6        = { ft = { 'qml', 'qmljs' } },
+    -- qmlls6        = { ft = { 'qml', 'qmljs' } },
     zls           = { ft = { 'zig' } },
   },
 
@@ -102,6 +102,7 @@ NeoVim.lsp = {
   end,
 
   ---@param server string
+  ---@return vim.lsp.Config
   config = function(server)
     local t = NeoVim.lsp.servers[server]
     if not t.opts then
@@ -127,12 +128,13 @@ NeoVim.lsp = {
       t.enabled = true
       vim.lsp.enable(server)
     end
+    return t.opts
   end,
 
   ---@param server string
   start = function(server)
     local lsp = NeoVim.lsp
-    lsp.config(server)
-    vim.lsp.start(lsp.servers[server].opts)
+    local opts = lsp.config(server)
+    vim.lsp.start(opts)
   end
 }
