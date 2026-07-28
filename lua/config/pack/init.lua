@@ -47,6 +47,10 @@ local function run_next()
   local ok, err = pcall(spec.build, ev)
   if not ok then
     vim.notify(('Build failed for %s:\n%s'):format(name, err), log.ERROR)
+  else
+    if spec.name:find 'blink' then
+      pcall(spec.build, ev)
+    end
   end
   done()
 end
