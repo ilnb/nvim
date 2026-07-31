@@ -86,6 +86,7 @@ NeoVim.lsp = {
     lua_ls       = { ft = { 'lua', 'nvim-pack' } },
     nimls        = { ft = { 'nim' } },
     ols          = { ft = { 'odin' } },
+    rust_ls      = { ft = { 'rust' } },
     serve_d      = { ft = { 'd' } },
     ts_ls        = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     -- qmlls6        = { ft = { 'qml', 'qmljs' } },
