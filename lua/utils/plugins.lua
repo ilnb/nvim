@@ -25,7 +25,7 @@ function M.lualine_theme()
       r = f(r * p + 0.5)
       g = f(g * p + 0.5)
       b = f(b * p + 0.5)
-      return string.format('#%02X%02X%02X', r, g, b)
+      return ('#%02X%02X%02X'):format(r, g, b)
     end
 
     local overrides = {

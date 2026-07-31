@@ -8,14 +8,14 @@ function M.get_clients(opts)
 end
 
 ---@param client vim.lsp.Client
----@param buffer integer
-function M.on_attach(client, buffer)
+---@param buf integer
+function M.on_attach(client, buf)
   local function map(...)
     local args = { ... }
     if #args == 3 then
-      vim.keymap.set('n', args[1], args[2], { buffer = buffer, desc = args[3] })
+      vim.keymap.set('n', args[1], args[2], { buffer = buf, desc = args[3] })
     elseif #args == 4 then
-      vim.keymap.set(args[1], args[2], args[3], { buffer = buffer, desc = args[4] })
+      vim.keymap.set(args[1], args[2], args[3], { buffer = buf, desc = args[4] })
     else
       vim.notify('Invalid arguments to map(). Expected (key, fn, desc) or (mode, key, fn, desc)', vim.log.levels.ERROR)
     end
@@ -83,12 +83,12 @@ function M.on_attach(client, buffer)
   }
 
   if client:supports_method 'textDocument/formatting' and not vim.tbl_contains(excludes.format, client.name) then
-    local grp = vim.api.nvim_create_augroup('LspFormat' .. buffer, { clear = true })
+    local grp = vim.api.nvim_create_augroup('LspFormat' .. buf, { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = grp,
-      buffer = buffer,
+      buffer = buf,
       callback = function()
-        vim.lsp.buf.format { bufnr = buffer }
+        vim.lsp.buf.format { bufnr = buf }
       end,
     })
   end
@@ -96,13 +96,13 @@ function M.on_attach(client, buffer)
   if client:supports_method 'textDocument/documentSymbol' then
     local ok, navic = pcall(require, 'nvim-navic')
     if ok then
-      navic.attach(client, buffer)
+      navic.attach(client, buf)
     end
   end
 
   if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(excludes.inlay, client.name) then
     vim.defer_fn(function()
-      vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+      vim.lsp.inlay_hint.enable(true, { bufnr = buf })
     end, 0)
   end
 
@@ -115,7 +115,7 @@ function M.on_attach(client, buffer)
       hint_enable = true,
       hint_prefix = '● ',
       hint_scheme = 'DiagnosticSignInfo',
-    }, buffer)
+    }, buf)
   end
 
   local servers = NeoVim.lsp.servers
@@ -126,7 +126,7 @@ function M.on_attach(client, buffer)
     create_cmd('LspStop', function(opts)
       local args = {}
       if opts.args ~= '' then
-        for name in string.gmatch(opts.args, '%S+') do
+        for name in opts.args:gmatch '%S+' do
           table.insert(args, name)
         end
       end
@@ -155,7 +155,7 @@ function M.on_attach(client, buffer)
     create_cmd('LspStart', function(opts)
       local args = {}
       if opts.args ~= '' then
-        for name in string.gmatch(opts.args, '%S+') do
+        for name in opts.args:gmatch '%S+' do
           table.insert(args, name)
         end
       end

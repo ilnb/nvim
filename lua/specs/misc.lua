@@ -30,7 +30,7 @@ return {
 
   {
     'nvim-mini/mini.pairs',
-    event = { 'InsertEnter', 'CmdLineEnter' },
+    event = { 'InsertEnter', 'CmdlineEnter' },
     modname = 'mini.pairs',
     opts = {
       modes = { insert = true, command = true, terminal = false },

@@ -12,7 +12,7 @@ return {
       -- }
     },
 
-    event = { 'BufNewFile', 'BufReadPost', 'CmdLineEnter' },
+    event = { 'BufNewFile', 'BufReadPost', 'CmdlineEnter' },
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
