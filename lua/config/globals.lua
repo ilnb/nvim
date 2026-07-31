@@ -77,19 +77,19 @@ NeoVim.snippets = {
 
 NeoVim.lsp = {
   servers = {
-    asm_lsp       = { ft = { 'asm' } },
-    basedpyright  = { ft = { 'python' } },
+    asm_lsp      = { ft = { 'asm' } },
+    basedpyright = { ft = { 'python' } },
     -- ccls          = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
-    clangd        = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
-    gopls         = { ft = { 'go' } },
+    clangd       = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    gopls        = { ft = { 'go' } },
     -- pyright       = { ft = { 'python' } },
-    lua_ls        = { ft = { 'lua', 'nvim-pack' } },
-    nimlangserver = { ft = { 'nim' } },
-    ols           = { ft = { 'odin' } },
-    serve_d       = { ft = { 'd' } },
-    ts_ls         = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
+    lua_ls       = { ft = { 'lua', 'nvim-pack' } },
+    nimls        = { ft = { 'nim' } },
+    ols          = { ft = { 'odin' } },
+    serve_d      = { ft = { 'd' } },
+    ts_ls        = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     -- qmlls6        = { ft = { 'qml', 'qmljs' } },
-    zls           = { ft = { 'zig' } },
+    zls          = { ft = { 'zig' } },
   },
 
   gen_ft = function()
