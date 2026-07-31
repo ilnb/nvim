@@ -1,11 +1,11 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "0f54bd78892f587db4dcf100a23eaddfc2a9df7d",
+      "rev": "005f8c859997f40f65bfbec5f4b400c45fecc06a",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
+      "rev": "8b04d0e0acc8565cfa4dd291a89a9212b7262633",
       "src": "https://github.com/saghen/blink.lib"
     },
     "catppuccin": {
@@ -45,7 +45,7 @@
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
-      "rev": "d08e8da87be8bf07d09245294821706afcca31cd",
+      "rev": "f6d1367483b6c0695b5084c04f7cd83bf2353a3e",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/SmiteshP/nvim-navic"
     },
     "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "rev": "0f32dff7f19476629c77467f887b95e5e2d33509",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
