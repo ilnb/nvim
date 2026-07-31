@@ -60,6 +60,13 @@ local function is_library(fname)
   end
 end
 
+local oset_extmark = vim.api.nvim_buf_set_extmark
+vim.api.nvim_buf_set_extmark = function(buf, ns_id, line, col, opts)
+  local ok, res = pcall(oset_extmark, buf, ns_id, line, col, opts)
+  if not ok then return 0 end
+  return res
+end
+
 ---@type vim.lsp.Config
 return {
   cmd = { 'rust-analyzer' },
