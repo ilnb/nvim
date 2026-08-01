@@ -67,6 +67,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 local specs = {}
+local del_list = {}
+local pack_opt = vim.fs.joinpath(vim.fn.stdpath 'data', 'site', 'pack', 'core', 'opt')
 
 local order = {
   'colors',
@@ -107,7 +109,9 @@ for _, spec in ipairs(specs) do
     spec.ft = { spec.ft }
   end
   if spec.enabled == false then
-    pcall(vim.pack.del, { spec.name })
+    if vim.uv.fs_stat(vim.fs.joinpath(pack_opt, spec.name)) then
+      table.insert(del_list, spec.name)
+    end
   else
     Pack.register(spec)
   end
@@ -121,7 +125,13 @@ else
   vim.api.nvim_create_autocmd('UIEnter', {
     once = true,
     callback = function()
-      vim.defer_fn(run_next, 10)
+      vim.defer_fn(
+        function()
+          run_next()
+          if #del_list > 0 then
+            vim.pack.del(del_list)
+          end
+        end, 10)
     end
   })
 end

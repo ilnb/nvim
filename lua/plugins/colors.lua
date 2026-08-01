@@ -2,6 +2,7 @@
 return {
   {
     'rebelot/kanagawa.nvim',
+    name = 'kanagawa',
     config = function()
       require 'kanagawa'.setup {
         compile = false,

@@ -182,6 +182,7 @@ return {
 
   {
     'kevinhwang91/nvim-ufo',
+    enabled = false,
     event = { 'BufReadPost', 'BufNewFile' },
     deps = {
       { 'kevinhwang91/promise-async', lazy = true }
