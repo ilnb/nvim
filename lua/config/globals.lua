@@ -77,25 +77,27 @@ NeoVim.snippets = {
 
 NeoVim.lsp = {
   servers = {
-    asm_lsp      = { ft = { 'asm' } },
-    basedpyright = { ft = { 'python' } },
-    -- ccls          = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    asm_lsp      = { ft = 'asm' },
+    basedpyright = { ft = 'python' },
+    -- ccls         = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
     clangd       = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
-    gopls        = { ft = { 'go' } },
-    -- pyright       = { ft = { 'python' } },
+    gopls        = { ft = 'go' },
+    -- pyright      = { ft = 'python' },
     lua_ls       = { ft = { 'lua', 'nvim-pack' } },
-    nimls        = { ft = { 'nim' } },
-    ols          = { ft = { 'odin' } },
-    rust_ls      = { ft = { 'rust' } },
-    serve_d      = { ft = { 'd' } },
+    nimls        = { ft = 'nim' },
+    ols          = { ft = 'odin' },
+    rust_ls      = { ft = 'rust' },
+    serve_d      = { ft = 'd' },
+    tinymist     = { ft = 'typst' },
     ts_ls        = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     -- qmlls6        = { ft = { 'qml', 'qmljs' } },
-    zls          = { ft = { 'zig' } },
+    zls          = { ft = 'zig' },
   },
 
   gen_ft = function()
     local ret = {}
     for _, v in pairs(NeoVim.lsp.servers) do
+      if type(v.ft) == 'string' then v.ft = { v.ft } end
       vim.list_extend(ret, v.ft)
     end
     NeoVim.lsp.ft = ret
@@ -106,6 +108,7 @@ NeoVim.lsp = {
   ---@return vim.lsp.Config
   config = function(server)
     local t = NeoVim.lsp.servers[server]
+    if type(t.ft) == 'string' then t.ft = { t.ft } end
     if not t.opts then
       local ok, cfg = pcall(require, 'lsp.' .. server)
       cfg = ok and cfg or {} --[[@as vim.lsp.Config]]
