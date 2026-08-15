@@ -2,8 +2,10 @@ local function augroup(name)
   return vim.api.nvim_create_augroup('root_' .. name, { clear = true })
 end
 
+local create = vim.api.nvim_create_autocmd
+
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+create({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = augroup 'checktime',
   callback = function()
     if vim.o.buftype ~= 'nofile' then
@@ -13,7 +15,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 })
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
+create('TextYankPost', {
   group = augroup 'highlight_yank',
   callback = function()
     (vim.hl or vim.highlight).on_yank()
@@ -21,7 +23,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- resize splits if window got resized
-vim.api.nvim_create_autocmd({ 'VimResized' }, {
+create({ 'VimResized' }, {
   group = augroup 'resize_splits',
   callback = function()
     local current_tab = vim.fn.tabpagenr()
@@ -31,7 +33,7 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd('BufReadPost', {
+create('BufReadPost', {
   group = augroup 'last_loc',
   callback = function(event)
     local exclude = { 'gitcommit' }
@@ -49,7 +51,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   group = augroup 'close_with_q',
   pattern = {
     'PlenaryTestPopup',
@@ -84,7 +86,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- make it easier to close man-files when opened inline
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   group = augroup 'man_unlisted',
   pattern = { 'man' },
   callback = function(event)
@@ -93,7 +95,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   group = augroup 'wrap_spell',
   pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
   callback = function()
@@ -103,7 +105,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ 'FileType' }, {
+create({ 'FileType' }, {
   group = augroup 'json_conceal',
   pattern = { 'json', 'jsonc', 'json5' },
   callback = function()
@@ -112,7 +114,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+create({ 'BufWritePre' }, {
   group = augroup 'auto_create_dir',
   callback = function(event)
     if event.match:match '^%w%w+:[\\/][\\/]' then
@@ -124,7 +126,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 })
 
 -- enable snacks indent guides for new files
-vim.api.nvim_create_autocmd('BufNewFile', {
+create('BufNewFile', {
   callback = function()
     local ok, idt = pcall(require, 'snacks.indent')
     if ok then
@@ -134,7 +136,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 })
 
 -- # comment symbol for asm
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   pattern = 'asm',
   callback = function()
     vim.bo.commentstring = '# %s'
@@ -142,7 +144,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- diagnostics config
-vim.api.nvim_create_autocmd('User', {
+create('User', {
   pattern = 'VeryLazy',
   callback = function()
     vim.diagnostic.config {
@@ -182,7 +184,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 -- open embedded markdown files in lsp hover
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   pattern = 'noice',
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
@@ -242,7 +244,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- remove line in qflist
-vim.api.nvim_create_autocmd('FileType', {
+create('FileType', {
   pattern = 'qf',
   callback = function(ev)
     vim.keymap.set('n', 'dd', function()
@@ -252,5 +254,13 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.fn.setqflist(qf, 'r')
       vim.cmd.copen()
     end, { buf = ev.buf })
+  end
+})
+
+-- load the markdown preview coee for markdown filetypes
+create('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    require 'utils.markdown'
   end
 })
