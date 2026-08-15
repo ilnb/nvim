@@ -36,7 +36,7 @@ return {
       },
     },
     ft = { 'markdown', 'norg', 'rmd', 'org', 'codecompanion' },
-    config = function(_, opts)
+    config = function(opts)
       require 'render-markdown'.setup(opts)
       Snacks.toggle {
         name = 'Render Markdown',
