@@ -1,13 +1,5 @@
-local state = {
-  is_active = false,
-  has_opened = false,
-  base_name = vim.fn.tempname(),
-  augroup = vim.api.nvim_create_augroup('MarkdownPreview', { clear = true }),
-}
-
-state.tmp_file = state.base_name .. '.html'
-state.version_file = state.base_name .. '_version.js'
-local version_filename = vim.fn.fnamemodify(state.version_file, ':t')
+local active_previews = {}
+local augroup = vim.api.nvim_create_augroup('MarkdownPreview', { clear = true })
 
 local compiler_cmd = 'pandoc'
 
@@ -33,7 +25,6 @@ local function wrap_html(version_file, body)
       tr:nth-child(2n) { background-color: #1c2128; }
     </style>
 
-    <!-- MathJax Configuration -->
     <script>
       MathJax = {
         tex: {
@@ -50,7 +41,6 @@ local function wrap_html(version_file, body)
 
   local foot = [[
     <script>
-      // Preserve scroll position
       document.addEventListener("DOMContentLoaded", function() {
         var scrollPos = sessionStorage.getItem('scrollPosition');
         if (scrollPos) window.scrollTo(0, parseInt(scrollPos));
@@ -59,7 +49,6 @@ local function wrap_html(version_file, body)
         sessionStorage.setItem('scrollPosition', window.scrollY);
       });
 
-      // Smart auto-reload: Silently poll the local version JS file
       var currentVersion = null;
       setInterval(function() {
         var script = document.createElement("script");
@@ -68,7 +57,7 @@ local function wrap_html(version_file, body)
           if (currentVersion === null) {
             currentVersion = window.MARKDOWN_VERSION;
           } else if (currentVersion !== window.MARKDOWN_VERSION) {
-            location.reload(); // Only reload if the version actually changed!
+            location.reload();
           }
           script.remove();
         };
@@ -80,7 +69,6 @@ local function wrap_html(version_file, body)
   </html>
   ]]
 
-  -- Use concatenation instead of string.format to avoid breaking if the markdown contains "%"
   return head .. body .. foot
 end
 
@@ -94,17 +82,19 @@ local function open_in_browser(filepath)
     cmd = { 'cmd.exe', '/c', 'start', filepath }
   end
 
-  vim.fn.jobstart(cmd, { detach = true })
+  vim.system(cmd, { detach = true })
 end
 
-local function compile_markdown()
-  if not state.is_active then return end
+local function compile_markdown(buffer)
+  local state = active_previews[buffer]
+  if not state or not state.is_active then return end
 
-  local buf_path = vim.api.nvim_buf_get_name(0)
+  local buf_path = vim.api.nvim_buf_get_name(buffer)
   if buf_path == '' or not buf_path:match '%.md$' then return end
 
   local cmd = { compiler_cmd, buf_path, '-t', 'html', '--mathjax' }
   local html_out = {}
+  local version_filename = vim.fn.fnamemodify(state.version_file, ':t')
 
   vim.fn.jobstart(cmd, {
     stdout_buffered = true,
@@ -120,21 +110,18 @@ local function compile_markdown()
         local body = table.concat(html_out, '\n')
         local html_content = wrap_html(version_filename, body)
 
-        -- Write the HTML
         local f = io.open(state.tmp_file, 'w')
         if f then
           f:write(html_content)
           f:close()
         end
 
-        -- Write the version file so the browser knows an update happened
         local vf = io.open(state.version_file, 'w')
         if vf then
-          vf:write('window.MARKDOWN_VERSION = ' .. vim.uv.now() .. ';')
+          vf:write("window.MARKDOWN_VERSION = " .. vim.uv.now() .. ";")
           vf:close()
         end
 
-        -- Open the browser only on the first compile
         if not state.has_opened then
           open_in_browser(state.tmp_file)
           state.has_opened = true
@@ -147,36 +134,46 @@ local function compile_markdown()
 end
 
 local function start_preview()
-  if state.is_active then return end
+  local buffer = vim.api.nvim_get_current_buf()
+  if active_previews[buffer] and active_previews[buffer].is_active then return end
+
   if vim.fn.executable(compiler_cmd) == 0 then
     vim.notify("Markdown Preview: '" .. compiler_cmd .. "' not found in PATH.", vim.log.levels.ERROR)
     return
   end
 
-  state.is_active = true
-  state.has_opened = false
-  compile_markdown()
+  local base_name = vim.fn.tempname()
+  active_previews[buffer] = {
+    is_active = true,
+    has_opened = false,
+    tmp_file = base_name .. '.html',
+    version_file = base_name .. '_version.js'
+  }
 
-  -- Compile when the user saves the buffer
+  compile_markdown(buffer)
+
   vim.api.nvim_create_autocmd('BufWritePost', {
-    group = state.augroup,
-    pattern = '*.md',
-    callback = compile_markdown,
+    group = augroup,
+    buffer = buffer,
+    callback = function() compile_markdown(buffer) end,
   })
 
-  vim.notify('Markdown Preview Started', vim.log.levels.INFO)
+  vim.notify('Markdown Preview Started (Buffer ' .. buffer .. ')', vim.log.levels.INFO)
 end
 
 local function stop_preview()
-  if not state.is_active then return end
-  state.is_active = false
-  state.has_opened = false
-  vim.api.nvim_clear_autocmds({ group = state.augroup })
-  vim.notify('Markdown Preview Stopped', vim.log.levels.INFO)
+  local buffer = vim.api.nvim_get_current_buf()
+  if not active_previews[buffer] or not active_previews[buffer].is_active then return end
+
+  active_previews[buffer] = nil
+  vim.api.nvim_clear_autocmds({ group = augroup, buffer = buffer })
+
+  vim.notify('Markdown Preview Stopped (Buffer ' .. buffer .. ')', vim.log.levels.INFO)
 end
 
 local function toggle_preview()
-  if state.is_active then
+  local buffer = vim.api.nvim_get_current_buf()
+  if active_previews[buffer] and active_previews[buffer].is_active then
     stop_preview()
   else
     start_preview()
