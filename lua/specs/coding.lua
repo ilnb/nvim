@@ -42,6 +42,7 @@ return {
           auto_brackets = {
             enabled = true,
           },
+          create_undo_point = false,
         },
         list = { selection = { preselect = true, auto_insert = false } },
         menu = {
