@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "e116ff9c5c1c2ed6bcdb2e0a6e547099876a8116",
+      "rev": "2befba190e0ffa3692ab364f75604c9c2d248adf",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/catppuccin/nvim"
     },
     "flash.nvim": {
-      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
+      "rev": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a",
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
@@ -69,19 +69,19 @@
       "src": "https://github.com/folke/noice.nvim"
     },
     "nui.nvim": {
-      "rev": "a25dd472316d806eb38a5dd667c2e40da5570c75",
+      "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-navic": {
-      "rev": "f5eba192f39b453675d115351808bd51276d9de5",
+      "rev": "455808fd0fae06e6d70fadfd61432275db8f34ce",
       "src": "https://github.com/SmiteshP/nvim-navic"
     },
     "nvim-treesitter": {
-      "rev": "074aa4422bf029908338e855d0c0f71470a971bb",
+      "rev": "427e9222363d07c32d6db6169e4049c28d58d141",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+      "rev": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "promise-async": {
@@ -97,7 +97,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "wezterm-types": {
-      "rev": "851470ad5d2dfb56bda936e6aeef2f3a45e7f199",
+      "rev": "e40662a318c89284402f7f18e6e447b1c7fc1476",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "which-key.nvim": {

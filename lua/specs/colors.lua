@@ -43,6 +43,7 @@ return {
           BlinkCmpSource = { link = 'Special' },
           String = { italic = true },
           ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
+          ['@lsp.type.concept.cpp'] = { link = '@type' },
         }
       end,
 
@@ -180,6 +181,7 @@ return {
           BlinkCmpSource = { link = 'Special' },
           String = { italic = true },
           ['@lsp.typemod.variable.fileScope.cpp'] = { link = '@lsp.typemod.variable.defaultLibrary.cpp' },
+          ['@lsp.type.concept.cpp'] = { link = '@type' },
         }
       end,
 
