@@ -65,6 +65,7 @@ return {
     var stdout_buf: [{}]u8 = undefined;
     var stdout_writer = std.Io.File.stdout().writer({}, &stdout_buf);
     const stdout = &stdout_writer.interface;
+    defer stdout.flush() catch {{}};
     ]],
       {
         i(1),

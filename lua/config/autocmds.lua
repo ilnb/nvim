@@ -264,3 +264,34 @@ create('FileType', {
     require 'utils.markdown'
   end
 })
+
+-- preserve try catch treesitter highlight in zig
+create('LspTokenUpdate', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client or client.name ~= 'zls' then return end
+    if vim.bo[ev.buf].filetype ~= 'zig' then return end
+
+    local token = ev.data.token
+    if token.type ~= 'keyword' then return end
+
+    local captures = vim.treesitter.get_captures_at_pos(
+      ev.buf,
+      token.line,
+      token.start_col
+    )
+
+    for _, capture in ipairs(captures) do
+      if capture.capture == 'keyword.exception' then
+        vim.lsp.semantic_tokens.highlight_token(
+          token,
+          ev.buf,
+          ev.data.client_id,
+          '@keyword.exception',
+          { priority = 128 }
+        )
+        return
+      end
+    end
+  end
+})
