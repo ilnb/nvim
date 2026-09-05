@@ -18,7 +18,7 @@ local default = 'kanagawa'
 -- local override = 'catppuccin'
 local cs = override or default
 if NeoVim.pack_mode then
-  Pack.load(cs)
+  Pack:load(cs)
 else
   require 'lazy'.load { plugins = { cs } }
 end

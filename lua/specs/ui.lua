@@ -7,7 +7,7 @@ local function set_entry(icon, desc, key, dir, select)
   local s = function(selected, opts)
     if selected and #selected > 0 then
       vim.cmd('tcd ' .. dir)
-      Pack.proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
+      Pack:proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
     end
   end
   return {
@@ -17,7 +17,7 @@ local function set_entry(icon, desc, key, dir, select)
     action = function()
       local opts = { cwd = dir }
       opts.actions = select and { default = s }
-      Pack.proxy 'fzf-lua'.files(opts)
+      Pack:proxy 'fzf-lua'.files(opts)
     end
   }
 end
@@ -64,15 +64,15 @@ return {
 
       vim.api.nvim_create_autocmd('ColorScheme', {
         callback = function()
-          Pack.proxy 'lualine'.setup {
-            options = { theme = Pack.proxy 'utils.plugins'.lualine_theme() },
+          Pack:proxy 'lualine'.setup {
+            options = { theme = Pack:proxy 'utils.plugins'.lualine_theme() },
           }
         end
       })
 
       local opts = {
         options = {
-          theme = Pack.proxy 'utils.plugins'.lualine_theme(),
+          theme = Pack:proxy 'utils.plugins'.lualine_theme(),
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
         },
@@ -101,7 +101,7 @@ return {
 
             {
               function()
-                return Pack.proxy 'nvim-navic'.get_location()
+                return Pack:proxy 'nvim-navic'.get_location()
               end,
               cond = function()
                 local ok, navic = pcall(require, 'nvim-navic')
@@ -113,14 +113,14 @@ return {
 
           lualine_x = {
             {
-              Pack.proxy 'noice'.api.status.command.get,
-              cond = function() return package.loaded.noice and Pack.proxy 'noice'.api.status.command.has() end,
+              Pack:proxy 'noice'.api.status.command.get,
+              cond = function() return package.loaded.noice and Pack:proxy 'noice'.api.status.command.has() end,
               color = function() return { fg = Snacks.util.color 'Statement' or '' } end,
             },
 
             {
-              Pack.proxy 'noice'.api.status.mode.get,
-              cond = function() return package.loaded.noice and Pack.proxy 'noice'.api.status.mode.has() end,
+              Pack:proxy 'noice'.api.status.mode.get,
+              cond = function() return package.loaded.noice and Pack:proxy 'noice'.api.status.mode.has() end,
               color = function() return { fg = Snacks.util.color 'Constant' or '' } end,
             },
 
@@ -155,7 +155,7 @@ return {
             },
 
             {
-              Pack.proxy 'utils.plugins'.os_icon
+              Pack:proxy 'utils.plugins'.os_icon
             }
           },
 
@@ -361,7 +361,7 @@ return {
               desc = 'Find file',
               key = 'f',
               action = function()
-                Pack.proxy 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
+                Pack:proxy 'fzf-lua'.files { fd_opts = '-I -t f -E .git -H' }
               end
             },
             {
@@ -369,7 +369,7 @@ return {
               desc = 'Grep',
               key = 'g',
               action = function()
-                Pack.proxy 'fzf-lua'.live_grep()
+                Pack:proxy 'fzf-lua'.live_grep()
               end
             },
             { icon = ' ', desc = 'Exit', key = 'q', action = ':q' },
@@ -509,7 +509,7 @@ return {
     },
     init = function()
       package.preload['nvim-web-devicons'] = function()
-        Pack.require 'mini.icons'.mock_nvim_web_devicons()
+        Pack:require 'mini.icons'.mock_nvim_web_devicons()
         return package.loaded['nvim-web-devicons']
       end
     end,

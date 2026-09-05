@@ -85,7 +85,7 @@ return {
     },
 
     opts = function()
-      local fzf = Pack.proxy 'fzf-lua'
+      local fzf = Pack:proxy 'fzf-lua'
       local config = fzf.config
       local actions = fzf.actions
       local keymap = config.defaults.keymap
@@ -147,7 +147,7 @@ return {
               -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
               height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
               width = 0.5,
-              preview = not vim.tbl_isempty(Pack.proxy 'utils.lsp'.get_clients { bufnr = 0, name = 'vtsls' }) and {
+              preview = not vim.tbl_isempty(Pack:proxy 'utils.lsp'.get_clients { bufnr = 0, name = 'vtsls' }) and {
                 layout = 'vertical',
                 vertical = 'down:15,border-top',
                 hidden = 'hidden',
@@ -221,7 +221,7 @@ return {
         opts = vim.tbl_deep_extend('force', fix(require 'fzf-lua.profiles.default-title'), opts)
         opts[1] = nil
       end
-      Pack.proxy 'fzf-lua'.setup(opts)
+      Pack:proxy 'fzf-lua'.setup(opts)
     end,
 
     init = function()
@@ -229,8 +229,8 @@ return {
         pattern = 'VeryLazy',
         callback = function()
           vim.ui.select = function(...)
-            local opts = Pack.get_opts 'fzf-lua'
-            Pack.proxy 'fzf-lua'.register_ui_select(opts.ui_select)
+            local opts = Pack:get_opts 'fzf-lua'
+            Pack:proxy 'fzf-lua'.register_ui_select(opts.ui_select)
             return vim.ui.select(...)
           end
         end
@@ -268,14 +268,14 @@ return {
           else
             t = vim.fn.fnamemodify(path, ':h')
           end
-          Pack.proxy 'mini.files'.open(t, true)
+          Pack:proxy 'mini.files'.open(t, true)
         end,
         desc = 'Open mini.files (%:h)',
       },
       {
         '<leader>fM',
         function()
-          Pack.proxy 'mini.files'.open(vim.uv.cwd(), true)
+          Pack:proxy 'mini.files'.open(vim.uv.cwd(), true)
         end,
         desc = 'Open mini.files (cwd)',
       },

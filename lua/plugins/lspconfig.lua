@@ -17,7 +17,7 @@ return {
     ft = 'lua',
     cmd = { 'LazyDev' },
     dependencies = {
-      { 'DrKJeff16/wezterm-types' },
+      { 'DrKJeff16/wezterm-types', enabled = false },
     },
     opts = {
       library = {

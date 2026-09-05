@@ -28,7 +28,7 @@ function M.on_attach(client, buf)
 
   if not package.loaded['fzf-lua'] then
     if NeoVim.pack_mode then
-      Pack.load 'fzf-lua'
+      Pack:load 'fzf-lua'
     else
       require 'lazy'.load { plugins = { 'fzf-lua' } }
     end

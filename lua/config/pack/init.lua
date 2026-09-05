@@ -1,4 +1,4 @@
-_G.Pack = require 'config.pack.setup'
+_G.Pack = require 'config.pack.setup':new()
 Pack.stats.init()
 require 'config.pack.options'
 
@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 local to_build = {}
-local running, ready = false, false
+local running, ready
 
 local function run_next()
   -- prevent lockfile from infiltrating
@@ -67,8 +67,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 local specs = {}
-local del_list = {}
-local pack_opt = vim.fs.joinpath(vim.fn.stdpath 'data', 'site', 'pack', 'core', 'opt')
 
 local order = {
   'colors',
@@ -98,40 +96,26 @@ for _, file in ipairs(order) do
 end
 
 for _, spec in ipairs(specs) do
-  spec.name = Pack.make_name(spec)
-  if type(spec.event) == 'string' then
-    spec.event = { spec.event }
-  end
-  if type(spec.cmd) == 'string' then
-    spec.cmd = { spec.cmd }
-  end
-  if type(spec.ft) == 'string' then
-    spec.ft = { spec.ft }
-  end
-  if spec.enabled == false then
-    if vim.uv.fs_stat(vim.fs.joinpath(pack_opt, spec.name)) then
-      table.insert(del_list, spec.name)
+  for _, v in ipairs { 'event', 'cmd', 'ft' } do
+    if type(spec[v]) == 'string' then
+      spec[v] = { spec[v] }
     end
-  else
-    Pack.register(spec)
   end
+  Pack:register(spec)
 end
 
 -- finally start builds
 ready = true
-if vim.v.vim_did_enter == 1 then
-  run_next()
-else
-  vim.api.nvim_create_autocmd('UIEnter', {
-    once = true,
-    callback = function()
-      vim.defer_fn(
-        function()
-          run_next()
-          if #del_list > 0 then
-            vim.pack.del(del_list)
-          end
-        end, 10)
-    end
-  })
-end
+vim.api.nvim_create_autocmd('UIEnter', {
+  once = true,
+  callback = function()
+    vim.defer_fn(
+      function()
+        run_next()
+        local del = vim.tbl_keys(Pack.del_list)
+        if #del > 0 then
+          vim.pack.del(del)
+        end
+      end, 10)
+  end
+})

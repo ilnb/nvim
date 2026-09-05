@@ -1,8 +1,16 @@
-local ffi = require 'ffi'
+---@class LoadStats
+---@field startuptime number
+---@field cputime number
+---@field _start_hr number
+---@field loaded number
+---@field count number
+---@field _C table
 local M = {}
 
 M.startuptime = 0
 M.cputime = 0
+
+local ffi = require 'ffi'
 
 if M._C == nil then
   pcall(function()
