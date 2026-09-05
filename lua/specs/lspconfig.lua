@@ -18,7 +18,7 @@ return {
     ft = 'lua',
     cmd = { 'LazyDev' },
     deps = {
-      { 'DrKJeff16/wezterm-types', lazy = true },
+      { 'DrKJeff16/wezterm-types', lazy = true, enabled = false },
     },
     modname = 'lazydev',
     opts = {

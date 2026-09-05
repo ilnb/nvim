@@ -1,12 +1,18 @@
 local M = {}
 
+---@class Map<T>
+---@field [string]T
+
 M.mod_to_spec = {} ---@type PackSpec[]
-M.specs = {} ---@type table<string, PackSpec>
-M.loaded = {}
-M.proxies = {}
+M.specs = {} ---@type Map<PackSpec>
+M.loaded = {} ---@type Map<boolean>
+M.proxies = {} ---@type table
+M.del_list = {} ---@type Map<boolean>
+M.disabled = {} ---@type Map<string>
 M.stats = require 'config.pack.stats'
 
 local log = vim.log.levels
+local pack_opt = vim.fs.joinpath(vim.fn.stdpath 'data', 'site', 'pack', 'core', 'opt')
 
 ---@param modname string
 function M.require(modname)
@@ -87,9 +93,7 @@ function M.get_opts(x)
     return {}
   end
 
-  if spec._opts then
-    return spec._opts ---@type table
-  end
+  if spec._opts then return spec._opts end
 
   local opts = spec.opts or {}
   if type(opts) == 'function' then
@@ -112,7 +116,7 @@ function M.run_setup(spec)
   local modname = spec.modname
   if config then
     if type(config) ~= 'function' then
-      vim.notify(string.format('`config` for %s is not a function', spec.name), log.ERROR)
+      vim.notify(('`config` for %s is not a function'):format(spec.name), log.ERROR)
       M.loaded[spec.name] = nil
       return
     end
@@ -120,14 +124,14 @@ function M.run_setup(spec)
   elseif modname then
     local ok, mod = pcall(require, modname)
     if not ok then
-      vim.notify(string.format('Invalid `modname` %s for plugin %s', modname, spec.name), log.ERROR)
+      vim.notify(('Invalid `modname` %s for plugin %s'):format(modname, spec.name), log.ERROR)
       M.loaded[spec.name] = nil
       return
     end
     mod.setup(opts)
   elseif not vim.tbl_isempty(opts) then
     vim.notify(
-      string.format('`opts` for %s is not empty, but neither `modname` nor `config` to setup', spec.name),
+      ('`opts` for %s is not empty, but neither `modname` nor `config` to setup'):format(spec.name),
       log.ERROR)
     return
   end
@@ -135,20 +139,27 @@ end
 
 ---@param plugin string
 function M.load(plugin)
-  M.load_plugin(M.mod_to_spec[plugin])
+  M.load_plugin(M.mod_to_spec[plugin] or M.specs[plugin])
 end
 
 ---@param spec PackSpec?
 function M.load_plugin(spec)
   if not spec or M.loaded[spec.name] then return end
+  if M.disabled[spec.name] then
+    vim.notify('load of ' .. spec.name .. ' skipped [disabled]', log.WARN)
+    return
+  end
 
   -- handle deps
   for _, d in ipairs(spec.deps or {}) do
     local s = M.specs[d.name]
-    M.load_plugin(s)
-    if not M.loaded[s.name] then
-      vim.notify('Dependency failed: ' .. s.name, log.ERROR)
-      return
+    if s then
+      M.load_plugin(s)
+      if not M.loaded[s.name] then
+        vim.notify('Dependency failed: ' .. s.name, log.ERROR)
+        return
+      end
+    else
     end
   end
 
@@ -160,29 +171,46 @@ end
 
 ---@param spec PackSpec
 ---@param is_dep boolean?
-function M.add(spec, is_dep)
-  local enabled = spec.enabled
+---@param parent string?
+---@return PackSpec?
+function M.add(spec, is_dep, parent)
+  spec.name = M.make_name(spec)
+  local who = parent or spec.name
 
-  if enabled == false then return end
-  if not spec or not spec[1] then
-    vim.notify('Found invalid spec', 3)
-    return
+  if spec.enabled == false then
+    if M.specs[spec.name] then
+      vim.notify(('disable of %s by %s ignored (already enabled)'):format(spec.name, who), log.WARN)
+      return M.specs[spec.name]
+    end
+    if not M.disabled[spec.name] then
+      M.disabled[spec.name] = who
+      if vim.uv.fs_stat(vim.fs.joinpath(pack_opt, spec.name)) then
+        M.del_list[spec.name] = true
+      end
+    end
+    return nil
   end
 
-  if M.specs[spec.name] then return end
+  if M.disabled[spec.name] then
+    local prev = M.disabled[spec.name]
+    M.disabled[spec.name] = nil
+    M.del_list[spec.name] = nil
+    vim.notify(('disable of %s by %s revoked (enabled by %s)'):format(spec.name, prev, who), log.WARN)
+  end
+
+  if M.specs[spec.name] then return M.specs[spec.name] end
   M.specs[spec.name] = spec
 
-  if spec.modname then
-    M.mod_to_spec[spec.modname] = spec
-  end
+  if spec.modname then M.mod_to_spec[spec.modname] = spec end
 
   local ndeps = {}
   for _, d in ipairs(spec.deps or {}) do
     local t = type(d) == 'string' and { d } or d
-    if not t or not t[1] then goto continue end
-    t.name = M.make_name(t)
-    table.insert(ndeps, t)
-    M.add(t, true)
+    if not t[1] then goto continue end
+    local c = M.add(t, true, spec.name)
+    if c then table.insert(ndeps, c) end
+    -- Intentional disable (sole owner) is silent: conflict notifies happen
+    -- at the revoke/ignore sites in M:add, where both sides are known.
 
     ::continue::
   end
@@ -200,9 +228,7 @@ function M.add(spec, is_dep)
     }
   }, { load = false })
 
-  if spec.init then
-    spec.init()
-  end
+  if spec.init then spec.init() end
 
   local is_lazy = spec.lazy
   if is_lazy == nil then
@@ -225,6 +251,7 @@ function M.add(spec, is_dep)
   if not is_lazy then
     M.load_plugin(spec)
   end
+  return spec
 end
 
 ---@param spec PackSpec
@@ -299,25 +326,17 @@ end
 
 ---@param spec PackSpec
 function M.register(spec)
-  M.add(spec)
+  local c = M.add(spec)
+  -- Only the canonical owner registers triggers: avoids duplicates when a
+  -- disabled alias returns the enabled canonical, or when a duplicate
+  -- top-level definition resolves to the first canonical.
+  if not c or c ~= spec then return end
+  if spec.enabled == false or M.disabled[spec.name] then return end
 
   if spec.keys then M.on_key(spec) end
   if spec.event then M.on_ev(spec) end
   if spec.ft then M.on_ft(spec) end
   if spec.cmd then M.on_cmd(spec) end
-end
-
----@param path string
-function M.get_readme(path)
-  if type(path) ~= 'string' or path == '' then return '' end
-
-  for _, f in ipairs { 'README.md', 'README', 'Readme.md' } do
-    local p = path .. '/' .. f
-    if vim.fn.filereadable(p) then
-      return p
-    end
-  end
-  return path
 end
 
 vim.api.nvim_create_user_command('PackUpdate', function()

@@ -1,7 +1,7 @@
 ---@class PackSpec
----@field [1] string              -- url
----@field name string             -- parsed from url
----@field modname string?         -- for plugin requires
+---@field [1] string                   -- url
+---@field name string                  -- parsed from url
+---@field modname string?              -- for plugin requires
 ---@field enabled boolean?
 ---@field lazy boolean?
 ---@field event string[]|nil
@@ -11,7 +11,7 @@
 ---@field cmd string[]|nil
 ---@field deps PackSpec[]?             -- dependencies
 ---@field opts table|function|nil
----@field _opts table?            -- resolved opts
+---@field _opts table?                 -- resolved opts
 ---@field init function?
 ---@field config function?
----@field pfile string            -- file containing the plugin
+---@field pfile string                 -- file containing the plugin
