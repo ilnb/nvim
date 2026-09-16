@@ -74,6 +74,7 @@ function M.on_attach(client, buf)
   local excludes = {
     format = {
       'qmlls6',
+      'nixd',
     },
     inlay = {
       'basedpyright',

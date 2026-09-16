@@ -85,8 +85,10 @@ NeoVim.lsp = {
     -- pyright      = { ft = 'python' },
     lua_ls       = { ft = { 'lua', 'nvim-pack' } },
     nimls        = { ft = 'nim' },
+    nixd         = { ft = 'nix' },
+    nil_ls       = { ft = 'nix' },
     ols          = { ft = 'odin' },
-    rust_ls      = { ft = 'rust' },
+    -- rust_ls      = { ft = 'rust' },
     serve_d      = { ft = 'd' },
     tinymist     = { ft = 'typst' },
     ts_ls        = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
@@ -94,11 +96,12 @@ NeoVim.lsp = {
     zls          = { ft = 'zig' },
   },
 
+  ---@return string[]
   gen_ft = function()
     local ret = {}
     for _, v in pairs(NeoVim.lsp.servers) do
       if type(v.ft) == 'string' then v.ft = { v.ft } end
-      vim.list_extend(ret, v.ft)
+      vim.list_extend(ret, v.ft --[[@as table]])
     end
     NeoVim.lsp.ft = ret
     return ret
@@ -111,6 +114,10 @@ NeoVim.lsp = {
     if type(t.ft) == 'string' then t.ft = { t.ft } end
     if not t.opts then
       local ok, cfg = pcall(require, 'lsp.' .. server)
+      if not ok then
+        vim.notify('Config not found for ' .. server, vim.log.levels.ERROR)
+        return {}
+      end
       cfg = ok and cfg or {} --[[@as vim.lsp.Config]]
       local f = cfg.on_attach or function() end --[[@as function]]
       cfg.on_attach = function(client, buf)
@@ -119,14 +126,15 @@ NeoVim.lsp = {
       cfg.capabilities = vim.tbl_deep_extend('force', require 'utils.lsp'.capabilities, cfg.capabilities or {})
       cfg.name = server
       if not cfg.root_dir then
-        if not vim.tbl_contains(cfg.root_markers or {}, '.git') then
-          cfg.root_markers = vim.list_extend(cfg.root_markers or {}, { '.git' })
+        cfg.root_markers = cfg.root_markers or {}
+        if not vim.tbl_contains(cfg.root_markers, '.git') then
+          vim.list_extend(cfg.root_markers, { '.git' })
         end
+        cfg.root_dir = vim.fs.root(0, cfg.root_markers) or vim.uv.cwd()
       end
-      cfg.root_dir = cfg.root_dir or vim.fs.root(0, cfg.root_markers) or vim.uv.cwd()
+      cfg.filetypes = t.ft --[[@as table]]
       t.opts = cfg
-      t.opts.filetypes = t.ft
-      vim.lsp.config(server, t.opts)
+      vim.lsp.config(server, cfg)
     end
     if not t.enabled then
       t.enabled = true
@@ -137,8 +145,8 @@ NeoVim.lsp = {
 
   ---@param server string
   start = function(server)
-    local lsp = NeoVim.lsp
-    local opts = lsp.config(server)
+    local opts = NeoVim.lsp.config(server)
+    if vim.tbl_isempty(opts) then return end
     vim.lsp.start(opts)
   end
 }
