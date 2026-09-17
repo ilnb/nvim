@@ -73,8 +73,8 @@ function M.on_attach(client, buf)
 
   local excludes = {
     format = {
-      'qmlls6',
-      'nixd',
+      'qml',
+      'nix',
     },
     inlay = {
       'basedpyright',
@@ -83,7 +83,7 @@ function M.on_attach(client, buf)
     }
   }
 
-  if client:supports_method 'textDocument/formatting' and not vim.tbl_contains(excludes.format, client.name) then
+  if client:supports_method 'textDocument/formatting' and not vim.tbl_contains(excludes.format, vim.bo[buf].filetype) then
     local grp = vim.api.nvim_create_augroup('LspFormat' .. buf, { clear = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = grp,
