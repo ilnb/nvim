@@ -96,15 +96,46 @@ function M.on_attach(client, buf)
 
   if client:supports_method 'textDocument/documentSymbol' then
     local ok, navic = pcall(require, 'nvim-navic')
-    if ok then
+    if ok and not vim.b[buf].navic_attached then
+      vim.b[buf].navic_attached = true
       navic.attach(client, buf)
     end
   end
 
   if client:supports_method 'textDocument/inlayHint' and not vim.tbl_contains(excludes.inlay, client.name) then
-    vim.defer_fn(function()
-      vim.lsp.inlay_hint.enable(true, { bufnr = buf })
-    end, 0)
+    if vim.bo[buf].buftype == '' then
+      vim.defer_fn(function()
+        vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+      end, 0)
+
+      -- Disable in insert mode to prevent 'out of range' crashes
+      local group = vim.api.nvim_create_augroup('LspInlayHintToggle' .. buf, { clear = true })
+      local was_enabled = false
+
+      vim.api.nvim_create_autocmd('InsertEnter', {
+        group = group,
+        buffer = buf,
+        callback = function()
+          local is_enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buf }
+          if is_enabled then
+            was_enabled = true
+            vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+          else
+            was_enabled = false
+          end
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('InsertLeave', {
+        group = group,
+        buffer = buf,
+        callback = function()
+          if was_enabled then
+            vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+          end
+        end,
+      })
+    end
   end
 
   local ok, lsp_sig = pcall(require, 'lsp_signature')
