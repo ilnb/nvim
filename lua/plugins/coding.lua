@@ -260,15 +260,6 @@ return {
     },
     opts = {
       ignore = { 'csv' },
-      ensure = {
-        'asm', 'bash', 'c', 'cpp', 'css', 'diff',
-        'html', 'hyprlang', 'javascript', 'jsdoc',
-        'json', 'lua', 'luadoc', 'luap', 'odin',
-        'markdown', 'markdown_inline', 'python',
-        'query', 'regex', 'toml', 'typescript',
-        'typst', 'vim', 'vimdoc', 'xml', 'yaml',
-        'zig', 'desktop', 'd',
-      },
     },
     config = function(_, opts)
       local ok, ts = pcall(require, 'nvim-treesitter')
