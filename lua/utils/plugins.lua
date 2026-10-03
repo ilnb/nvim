@@ -111,7 +111,7 @@ function M.os_icon()
   elseif distro:find 'Nix' then
     return ''
   elseif distro:find 'Gentoo' then
-    return ''
+    return '󰣨'
   else
     return ''
   end
