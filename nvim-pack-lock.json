@@ -17,11 +17,11 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "ec1b98d3f5f44a1cff1f2c3832af2f09c3d806ca",
+      "rev": "71b6d3667c4846ab2f0bab06e68d196d2eea016c",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "070a5d7b985546cc57e1fc61e5bc507fecac6045",
+      "rev": "fd780920613e541cbdfac41bf711583ed49f9249",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "kanagawa.nvim": {
@@ -41,27 +41,27 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "mini.ai": {
-      "rev": "6c39ae7b11abe479fbe1bc81bf00ac6bca7afa07",
+      "rev": "d0c4987a1ead2bcf4eb22cc9815c662d76677c08",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.files": {
-      "rev": "f1cfece89892274f4f4a59d71f24eb90dcfe1b5a",
+      "rev": "3fe8e33d37a8c455762800c39bab9af317dd53b4",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.icons": {
-      "rev": "f642e3ba8c12afbc8f32f6d77ef6597eac56786f",
+      "rev": "f916635dc5ae2f479fbb9ab8184bb9444b62e86c",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.indentscope": {
-      "rev": "92fbaf895f83c59575ec599df532b297ebf62b14",
+      "rev": "14eecb1cf33d1db35b8ac665b1aab4d3c9b47fe3",
       "src": "https://github.com/nvim-mini/mini.indentscope"
     },
     "mini.pairs": {
-      "rev": "b1c5a726921b7a8c9321e9a7a208aa0571de5810",
+      "rev": "03eb1f0062a2cee5314d1ac3939246e4bb21352e",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "mini.surround": {
-      "rev": "33a2ebe5df8eb4751828fcba133e18ed0fbbdfab",
+      "rev": "59ce0acf79e1d930756ef3a7cb4c2369560cf548",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "noice.nvim": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/SmiteshP/nvim-navic"
     },
     "nvim-treesitter": {
-      "rev": "728e031f6b11d03d1f0708b7dc4fb0f1d9c8a137",
+      "rev": "ca581c3436fc2b236847f5b739ebc263739e5ca6",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
