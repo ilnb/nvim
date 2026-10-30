@@ -221,6 +221,12 @@ return {
       notifier = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },
+      styles = {
+        terminal = {
+          position = 'float',
+          border = 'double',
+        },
+      },
       toggle = {
       },
       words = { enabled = true },
@@ -384,11 +390,13 @@ return {
             padding = 1,
 
             -- set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
-            set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
-            set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
+            set_entry('', 'Neural Network', 'n', '~/projects/neural-network/', true),
+            set_entry('', 'Code', 'c', '~/code', true),
+            -- set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
+            -- set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
             -- set_entry('', 'Lua Codes', 'l', '~/code/lua/', false),
             -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
-            set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
+            -- set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
           },
           startup_entry,
         },
