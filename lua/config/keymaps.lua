@@ -132,8 +132,6 @@ map('n', '<leader>uI', function()
 end, { desc = 'Inspect tree' })
 
 -- Terminal Mappings
-map('t', '<c-/>', ':close<cr>', { desc = 'Hide terminal', silent = true })
-map('t', '<c-_>', ':close<cr>', { desc = 'which_key_ignore', silent = true })
 map('n', '<leader>ft', function()
   require 'snacks'.terminal.toggle(nil, {
     cwd = vim.fn.getcwd(),

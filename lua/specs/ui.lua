@@ -2,21 +2,29 @@
 ---@param desc string
 ---@param key string
 ---@param dir string
----@param select boolean
+---@param select boolean|string
 local function set_entry(icon, desc, key, dir, select)
-  local s = function(selected, opts)
-    if selected and #selected > 0 then
-      vim.cmd('tcd ' .. dir)
-      Pack.proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opts)
-    end
-  end
   return {
     icon = icon,
     key = key,
     desc = desc,
     action = function()
+      ---@type fzf-lua.config.Files|{}?
       local opts = { cwd = dir }
-      opts.actions = select and { default = s }
+      if select then
+        opts.actions = {
+          default = function(selected, opt)
+            if selected and #selected > 0 then
+              if type(select) == 'string' then
+                vim.cmd.tcd(select)
+              elseif select == true then
+                vim.cmd.tcd(dir)
+              end
+              Pack.proxy 'fzf-lua'.actions.file_edit_or_qf(selected, opt)
+            end
+          end
+        }
+      end
       Pack.proxy 'fzf-lua'.files(opts)
     end
   }
@@ -392,11 +400,11 @@ return {
             -- set_entry('󰉋 ', 'Data Structure', 'd', '~/data_structure/', true),
             set_entry('', 'Neural Network', 'n', '~/projects/neural-network/', true),
             set_entry('', 'Code', 'c', '~/code', true),
-            -- set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp', true),
+            -- set_entry('󰙲 ', 'C++ Codes', 'p', '~/code/cpp/', true),
             -- set_entry('󰙱 ', 'C Codes', 'c', '~/code', false),
             -- set_entry('', 'Lua Codes', 'l', '~/code/lua/', false),
-            -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go', true),
-            -- set_entry('', 'Zig Codes', 'z', '~/code/zig', true),
+            -- set_entry('󰟓', 'Go Codes', 'g', '~/code/go/', true),
+            -- set_entry('', 'Zig Codes', 'z', '~/code/zig/', true),
           },
           startup_entry,
         },
