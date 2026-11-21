@@ -1,6 +1,66 @@
 ---@diagnostic disable:undefined-doc-name, undefined-field, inject-field, param-type-mismatch
 return {
   {
+    'f4z3r/gruvbox-material.nvim',
+    name = 'gruvbox-material',
+    config = function()
+      local contrast = 'medium'
+      local colors = require 'gruvbox-material.colors'.get(vim.o.background, contrast)
+
+      local opts = {
+        background = {
+          transparent = true,
+        },
+        contrast = contrast,
+        float = {
+          background_color = 'NONE',
+        },
+
+        customize = function(group, options)
+          if group == 'CursorLine' or group == 'TabLineFill' or group == 'StatusLine' then
+            options.bg = 'NONE'
+          end
+
+          if group == 'NavicText' then
+            options.fg = colors.grey0
+          end
+
+          if group == 'MiniFilesCursorLine' then
+            options.link = 'PmenuSel'
+          end
+
+          if group == 'MiniFilesTitleFocused' then
+            options.fg = '#F9E2AF'
+          end
+
+          if group == 'Whitespace' then
+            options.fg = '#33334A'
+          end
+
+          if group == 'BlinkCmpSource' then
+            options.link = 'Special'
+          end
+
+          if group == 'String' then
+            options.italic = true
+          end
+
+          -- if group == '@lsp.typemod.variable.fileScope.cpp' then
+          --   options.link = '@lsp.typemod.variable.defaultLibrary.cpp'
+          -- end
+          --
+          -- if group == '@lsp.type.concept.cpp' then
+          --   options.link = '@type'
+          -- end
+          return options
+        end,
+      }
+
+      require 'gruvbox-material'.setup(opts)
+    end,
+  },
+
+  {
     'rebelot/kanagawa.nvim',
     name = 'kanagawa',
     config = function()

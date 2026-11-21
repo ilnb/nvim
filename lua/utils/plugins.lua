@@ -3,6 +3,7 @@ local M = {}
 function M.lualine_theme()
   local theme = {}
   local color = vim.g.colors_name or ''
+
   if color:find 'kanagawa' then
     theme = require 'lualine.themes.kanagawa'
   elseif color:find 'catppuccin' then
@@ -11,6 +12,8 @@ function M.lualine_theme()
     theme = require 'lualine.themes.vague'
   elseif color:find 'tokyonight' then
     theme = require 'lualine.themes.tokyonight-night'
+  elseif color:find 'gruvbox%-material' then
+    theme = require 'gruvbox-material.lualine'.theme 'soft'
   elseif color:find 'kanso' then
     theme = require 'lualine.themes.kanso'
     local palette = require 'kanso.colors'.setup().palette
@@ -81,10 +84,12 @@ function M.lualine_theme()
       theme[mode] = vim.tbl_deep_extend('force', theme[mode] or {}, sections)
     end
   end
+
   for _, sections in pairs(theme) do
     sections.c = sections.c or {}
     sections.c.bg = 'NONE'
   end
+
   return theme
 end
 
