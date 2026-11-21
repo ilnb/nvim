@@ -26,13 +26,7 @@ function M.on_attach(client, buf)
     pcall(vim.keymap.del, mode, key)
   end
 
-  if not package.loaded['fzf-lua'] then
-    if NeoVim.pack_mode then
-      Pack.load 'fzf-lua'
-    else
-      require 'lazy'.load { plugins = { 'fzf-lua' } }
-    end
-  end
+  if not package.loaded['fzf-lua'] then NeoVim.load 'fzf-lua' end
 
   map('gd', FzfLua.lsp_definitions, 'Goto Definition')
   map('K', function() vim.lsp.buf.hover() end, 'Hover')

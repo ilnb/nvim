@@ -1,5 +1,19 @@
 _G.NeoVim = {}
 
+NeoVim.load = function(name)
+  if NeoVim.pack_mode then
+    if type(name) == 'string' then
+      Pack.load(name)
+    else
+      for _, v in ipairs(name) do
+        Pack.load(v)
+      end
+    end
+  else
+    require 'lazy'.load { plugins = name }
+  end
+end
+
 NeoVim.icons = {
   kind = {
     Array         = ' ',
@@ -80,20 +94,20 @@ NeoVim.lsp = {
     -- asm_lsp      = { ft = 'asm' },
     -- basedpyright = { ft = 'python' },
     -- ccls         = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
-    clangd       = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
-    gopls        = { ft = 'go' },
-    pyright      = { ft = 'python' },
-    lua_ls       = { ft = { 'lua', 'nvim-pack' } },
+    clangd   = { ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } },
+    gopls    = { ft = 'go' },
+    pyright  = { ft = 'python' },
+    lua_ls   = { ft = { 'lua', 'nvim-pack' } },
     -- nimls        = { ft = 'nim' },
     -- nixd         = { ft = 'nix' },
     -- nil_ls       = { ft = 'nix' },
-    ols          = { ft = 'odin' },
+    ols      = { ft = 'odin' },
     -- rust_ls      = { ft = 'rust' },
-    serve_d      = { ft = 'd' },
-    tinymist     = { ft = 'typst' },
+    serve_d  = { ft = 'd' },
+    tinymist = { ft = 'typst' },
     -- ts_ls        = { ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
     -- qmlls6        = { ft = { 'qml', 'qmljs' } },
-    zls          = { ft = 'zig' },
+    zls      = { ft = 'zig' },
   },
 
   ---@return string[]
