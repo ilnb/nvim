@@ -295,3 +295,41 @@ create('LspTokenUpdate', {
     end
   end
 })
+
+-- force kanagawa for snacks dashboard
+local grp = augroup 'dashboard_colors'
+
+local base = NeoVim.color_scheme
+local applying = false
+
+local function apply(target)
+  if vim.g.colors_name == target then return end
+  applying = true
+  NeoVim.load(target)
+  pcall(vim.cmd.colorscheme, target)
+  applying = false
+end
+
+-- Track manual colorscheme changes so the dashboard override never clobbers them.
+create('ColorScheme', {
+  group = grp,
+  callback = function(ev)
+    if applying then return end
+    base = ev.match
+    NeoVim.color_scheme = ev.match
+  end,
+})
+
+create('User', {
+  group = grp,
+  pattern = 'SnacksDashboardOpened',
+  nested = true,
+  callback = function() apply 'kanagawa' end,
+})
+
+create('User', {
+  group = grp,
+  pattern = 'SnacksDashboardClosed',
+  nested = true,
+  callback = function() apply(base) end,
+})

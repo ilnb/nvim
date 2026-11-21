@@ -12,17 +12,14 @@ else
   require 'config.lazy'
 end
 
-require 'config.autocmds'
-
 local default = 'kanagawa'
--- local override = 'catppuccin'
+local override = 'gruvbox-material'
 local cs = override or default
-if NeoVim.pack_mode then
-  Pack.load(cs)
-else
-  require 'lazy'.load { plugins = { cs } }
-end
+NeoVim.color_scheme = cs
+NeoVim.load(cs)
 vim.cmd.colo(cs)
+
+require 'config.autocmds'
 
 require 'config.keymaps'
 require 'lsp'
