@@ -1,5 +1,6 @@
 local active_previews = {}
 local augroup = vim.api.nvim_create_augroup('MarkdownPreview', { clear = true })
+local log = vim.log.levels
 
 local compiler_cmd = 'pandoc'
 
@@ -127,7 +128,7 @@ local function compile_markdown(buffer)
           state.has_opened = true
         end
       else
-        vim.notify('Markdown Preview: Compilation failed.', vim.log.levels.ERROR)
+        vim.notify('Markdown Preview: Compilation failed.', log.ERROR)
       end
     end
   })
@@ -138,7 +139,7 @@ local function start_preview()
   if active_previews[buffer] and active_previews[buffer].is_active then return end
 
   if vim.fn.executable(compiler_cmd) == 0 then
-    vim.notify("Markdown Preview: '" .. compiler_cmd .. "' not found in PATH.", vim.log.levels.ERROR)
+    vim.notify("Markdown Preview: '" .. compiler_cmd .. "' not found in PATH.", log.ERROR)
     return
   end
 
@@ -158,7 +159,7 @@ local function start_preview()
     callback = function() compile_markdown(buffer) end,
   })
 
-  vim.notify('Markdown Preview Started (Buffer ' .. buffer .. ')', vim.log.levels.INFO)
+  vim.notify('Markdown Preview Started (Buffer ' .. buffer .. ')', log.INFO)
 end
 
 local function stop_preview()
@@ -168,7 +169,7 @@ local function stop_preview()
   active_previews[buffer] = nil
   vim.api.nvim_clear_autocmds({ group = augroup, buffer = buffer })
 
-  vim.notify('Markdown Preview Stopped (Buffer ' .. buffer .. ')', vim.log.levels.INFO)
+  vim.notify('Markdown Preview Stopped (Buffer ' .. buffer .. ')', log.INFO)
 end
 
 local function toggle_preview()
