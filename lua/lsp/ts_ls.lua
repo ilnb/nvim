@@ -6,7 +6,7 @@ return {
     return vim.lsp.rpc.start({ 'typescript-language-server', '--stdio' }, dispatchers)
   end,
   root_dir = function(buf, on_dir)
-    local markers = { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock', '.git' }
+    local markers = { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' }
     local deno_root = vim.fs.root(buf, { 'deno.json', 'deno.jsonc' })
     local deno_lock = vim.fs.root(buf, { 'deno.lock' })
     local proj_root = vim.fs.root(buf, markers)
